@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Search } from "lucide-react";
+import Link from "next/link";
 import { useLanguage } from "../../../store/LanguageContext";
 import { categories, products } from "../../../lib/mockData";
 import { ProductCard } from "../../../components/products/ProductCard";
@@ -13,6 +14,9 @@ export default function ProductsPage() {
   const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+
   const categoryProductCount = useMemo(() => {
     return categories.reduce<Record<string, number>>((acc, category) => {
       acc[category.id] = products.filter(
@@ -22,13 +26,28 @@ export default function ProductsPage() {
     }, {});
   }, []);
 
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory = !activeCategory || product.categoryId === activeCategory;
-    const matchesSearch =
-      product.name.en.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.name.vi.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesCategory = !activeCategory || product.categoryId === activeCategory;
+      if (!normalizedQuery) return matchesCategory;
+
+      const matchesSearch =
+        product.name.en.toLowerCase().includes(normalizedQuery) ||
+        product.name.vi.toLowerCase().includes(normalizedQuery);
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, normalizedQuery]);
+
+  const suggestedProducts = useMemo(() => {
+    if (!normalizedQuery) return [];
+    return products
+      .filter((product) => {
+        const en = product.name.en.toLowerCase();
+        const vi = product.name.vi.toLowerCase();
+        return en.includes(normalizedQuery) || vi.includes(normalizedQuery);
+      })
+      .slice(0, 6);
+  }, [normalizedQuery]);
 
   useEffect(() => {
     const fromQuery = searchParams.get("category");
@@ -58,7 +77,41 @@ export default function ProductsPage() {
             placeholder={t("search_placeholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setTimeout(() => setIsSearchFocused(false), 120)}
           />
+          {isSearchFocused && suggestedProducts.length > 0 && (
+            <div className="absolute z-30 mt-2 w-full rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden">
+              <ul>
+                {suggestedProducts.map((product) => (
+                  <li key={product.id}>
+                    <Link
+                      href={`/${language}/products/${product.id}`}
+                      className="flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 transition-colors"
+                    >
+                      <div className="relative h-10 w-10 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
+                        <Image
+                          src={product.image}
+                          alt={product.name[language]}
+                          fill
+                          sizes="40px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {product.name[language]}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {product.description[language]}
+                        </p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
 
@@ -70,7 +123,9 @@ export default function ProductsPage() {
               {categories.map((category) => (
                 <li key={category.id}>
                   <button
-                    onClick={() => setActiveCategory(category.id)}
+                    onClick={() =>
+                      setActiveCategory((prev) => (prev === category.id ? "" : category.id))
+                    }
                     className={`w-full rounded-xl transition-all border ${
                       activeCategory === category.id
                         ? "bg-blue-50 border-blue-200"
@@ -115,7 +170,9 @@ export default function ProductsPage() {
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
+                  onClick={() =>
+                    setActiveCategory((prev) => (prev === category.id ? "" : category.id))
+                  }
                   className="group text-left rounded-2xl overflow-hidden border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="h-40 w-full overflow-hidden">

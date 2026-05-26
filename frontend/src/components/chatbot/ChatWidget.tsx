@@ -1,23 +1,37 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import { MessageCircle, X, Send, Sparkles, Phone } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '../../store/CartContext';
 import { useLanguage } from '../../store/LanguageContext';
 import { chatService } from '../../services/chat';
+import { products } from '../../lib/mockData';
+
+type QuickAction = { label: string; action: () => void };
 
 interface Message {
   id: string;
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
-  actions?: { label: string; action: () => void }[];
+  actions?: QuickAction[];
 }
 
 interface ChatWidgetProps {
   locale: 'vi' | 'en';
 }
+
+const normalizeLocalePath = (path: string | null): string =>
+  path?.replace(/^\/(vi|en)(?=\/|$)/, '') || '/';
+
+const createMessageId = (): string => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+};
 
 export function ChatWidget({ locale }: ChatWidgetProps) {
   const { language } = useLanguage();
@@ -27,11 +41,12 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
   const [showWelcomeAlert, setShowWelcomeAlert] = useState(false);
   const [hasUnread, setHasUnread] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
-  const [sessionId, setSessionId] = useState<string | undefined>(undefined);
+  const [sessionId, setSessionId] = useState<string>();
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const { items } = useCart();
+  const router = useRouter();
+  const { items, addToCart } = useCart();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -59,20 +74,27 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
   }, [isOpen]);
 
   const getContextualGreeting = useCallback((): string => {
-    const normalizedPath = pathname?.replace(/^\/(vi|en)(?=\/|$)/, '') || '/';
+    const normalizedPath = normalizeLocalePath(pathname);
+
     if (normalizedPath === '/') {
       return language === 'vi'
         ? 'Xin chào! Tôi là trợ lý ảo của 2AEVENTURES. Bạn đang tìm kiếm sản phẩm gì để nhập hàng?'
         : 'Hello! I am the 2AEVENTURES virtual assistant. What products are you looking for today?';
-    } else if (normalizedPath.startsWith('/products/')) {
+    }
+
+    if (normalizedPath.startsWith('/products/')) {
       return language === 'vi'
         ? 'Tôi thấy bạn đang xem sản phẩm. Bạn cần tư vấn thêm hoặc tìm sản phẩm tương tự không?'
         : 'I see you are viewing a product. Do you want more details or similar product suggestions?';
-    } else if (normalizedPath === '/products') {
+    }
+
+    if (normalizedPath === '/products') {
       return language === 'vi'
         ? 'Bạn đang tìm sản phẩm nào? Tôi có thể giúp bạn tìm kiếm hoặc gợi ý sản phẩm phù hợp!'
         : 'Which product are you looking for? I can help you search and suggest suitable options.';
-    } else if (normalizedPath === '/cart') {
+    }
+
+    if (normalizedPath === '/cart') {
       const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
       if (itemCount > 0) {
         return language === 'vi'
@@ -83,26 +105,82 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
         ? 'Giỏ hàng của bạn đang trống. Hãy để tôi giúp bạn tìm sản phẩm phù hợp!'
         : 'Your cart is currently empty. Let me help you find the right products.';
     }
+
     return language === 'vi'
       ? 'Xin chào! Tôi có thể giúp gì cho bạn hôm nay?'
       : 'Hello! How can I help you today?';
   }, [items, language, pathname]);
 
+  const getQuickActions = useCallback((): QuickAction[] => {
+    const normalizedPath = normalizeLocalePath(pathname);
+
+    if (normalizedPath === '/') {
+      return [
+        {
+          label: language === 'vi' ? 'Xem sản phẩm ngay' : 'Browse products',
+          action: () => router.push(`/${locale}/products`),
+        },
+      ];
+    }
+
+    if (normalizedPath.startsWith('/products/')) {
+      const id = normalizedPath.split('/')[2];
+      const product = products.find((item) => item.id === id);
+      const actions: QuickAction[] = [];
+
+      if (product) {
+        actions.push({
+          label: language === 'vi' ? 'Thêm sản phẩm này vào giỏ' : 'Add this product to cart',
+          action: () => addToCart(product, 1),
+        });
+      }
+
+      actions.push({
+        label: language === 'vi' ? 'Tới giỏ yêu cầu báo giá' : 'Go to quote cart',
+        action: () => router.push(`/${locale}/cart`),
+      });
+
+      return actions;
+    }
+
+    if (normalizedPath === '/products') {
+      return [
+        {
+          label: language === 'vi' ? 'Mở giỏ báo giá' : 'Open quote cart',
+          action: () => router.push(`/${locale}/cart`),
+        },
+      ];
+    }
+
+    if (normalizedPath === '/cart') {
+      return [
+        {
+          label: language === 'vi' ? 'Tiếp tục xem sản phẩm' : 'Continue browsing products',
+          action: () => router.push(`/${locale}/products`),
+        },
+      ];
+    }
+
+    return [];
+  }, [addToCart, language, locale, pathname, router]);
+
   useEffect(() => {
     if (hasUserInteracted) return;
-    const welcomeText = getContextualGreeting();
-    const welcomeMessage: Message = {
-      id: 'welcome-message',
-      text: welcomeText,
-      sender: 'bot',
-      timestamp: new Date(),
-    };
-    setMessages([welcomeMessage]);
-  }, [getContextualGreeting, hasUserInteracted]);
 
-  const addBotMessage = (text: string, actions?: { label: string; action: () => void }[]) => {
+    setMessages([
+      {
+        id: 'welcome-message',
+        text: getContextualGreeting(),
+        sender: 'bot',
+        timestamp: new Date(),
+        actions: getQuickActions(),
+      },
+    ]);
+  }, [getContextualGreeting, getQuickActions, hasUserInteracted]);
+
+  const addBotMessage = (text: string, actions?: QuickAction[]) => {
     const message: Message = {
-      id: Date.now().toString(),
+      id: createMessageId(),
       text,
       sender: 'bot',
       timestamp: new Date(),
@@ -113,7 +191,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
 
   const addUserMessage = (text: string) => {
     const message: Message = {
-      id: Date.now().toString(),
+      id: createMessageId(),
       text,
       sender: 'user',
       timestamp: new Date(),
@@ -124,6 +202,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
   const resolveBotText = (payload: unknown): string | null => {
     if (!payload) return null;
     if (typeof payload === 'string') return payload;
+
     if (typeof payload === 'object') {
       const data = payload as Record<string, unknown>;
       if (typeof data.message === 'string') return data.message;
@@ -131,11 +210,12 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
       if (typeof data.text === 'string') return data.text;
       if (typeof data.content === 'string') return data.content;
     }
+
     return null;
   };
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isBotTyping) return;
 
     const rawInput = input.trim();
     addUserMessage(rawInput);
@@ -222,21 +302,48 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
         </div>
       )}
 
-      <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center z-50 transition-transform hover:scale-110"
-      >
-        {!isOpen && hasUnread && (
-          <span className="absolute -top-1 -right-1 h-5 min-w-5 px-1 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center ring-2 ring-white">
-            1
-          </span>
-        )}
-        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 group flex items-center gap-2">
+        <div className="flex items-center gap-2 opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto transition-all duration-200">
+          <a
+            href="https://zalo.me/"
+            target="_blank"
+            rel="noreferrer"
+            className="w-11 h-11 rounded-full bg-[#0a66ff] text-white flex items-center justify-center shadow-[0_10px_24px_rgba(10,102,255,0.35)] hover:scale-105 transition-transform"
+            aria-label="Zalo OA"
+          >
+            <Image
+              src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"
+              alt="Zalo"
+              width={20}
+              height={20}
+              className="w-5 h-5"
+            />
+          </a>
+          <a
+            href="tel:+84000000000"
+            className="w-11 h-11 rounded-full bg-[#16a34a] text-white flex items-center justify-center shadow-[0_10px_24px_rgba(22,163,74,0.35)] hover:scale-105 transition-transform"
+            aria-label="Hotline"
+          >
+            <Phone className="w-5 h-5" />
+          </a>
+        </div>
+
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="relative w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-[0_20px_45px_rgba(37,99,235,0.45)] ring-4 ring-white/70 flex items-center justify-center transition-all hover:scale-110"
+        >
+          {!isOpen && hasUnread && (
+            <span className="absolute -top-1 -right-1 h-5 min-w-5 px-1 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center ring-2 ring-white">
+              1
+            </span>
+          )}
+          {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        </button>
+      </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-96 h-[500px] bg-white rounded-lg shadow-2xl z-50 flex flex-col text-[14px]">
-          <div className="bg-blue-600 text-white p-4 rounded-t-lg">
+        <div className="fixed bottom-24 right-6 w-96 h-[500px] bg-white rounded-3xl shadow-[0_30px_70px_rgba(15,23,42,0.36)] border border-blue-100 z-50 flex flex-col text-[14px] overflow-hidden">
+          <div className="bg-blue-600 text-white p-4">
             <h3 className="font-semibold text-sm">
               {language === 'vi' ? 'Trợ lý ảo 2AEVENTURES' : '2AEVENTURES AI Assistant'}
             </h3>
@@ -251,7 +358,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
               >
                 <div className="max-w-[80%]">
                   <div
-                    className={`rounded-lg p-3 ${
+                    className={`rounded-2xl p-3 ${
                       message.sender === 'user'
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-100 text-gray-900'
@@ -261,9 +368,9 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
                   </div>
                   {message.actions && (
                     <div className="mt-2 space-y-1">
-                      {message.actions.map((action, idx) => (
+                      {message.actions.map((action) => (
                         <button
-                          key={idx}
+                          key={action.label}
                           onClick={action.action}
                           className="block w-full text-left text-[12px] bg-white border border-blue-600 text-blue-600 rounded px-3 py-1.5 hover:bg-blue-50"
                         >
@@ -277,7 +384,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             ))}
             {isBotTyping && (
               <div className="flex justify-start">
-                <div className="rounded-lg p-3 bg-gray-100 text-gray-900">
+                <div className="rounded-2xl p-3 bg-gray-100 text-gray-900">
                   <p className="text-sm">{language === 'vi' ? 'AI đang trả lời...' : 'AI is typing...'}</p>
                 </div>
               </div>
@@ -285,7 +392,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-blue-100 bg-white">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -297,7 +404,8 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
               />
               <button
                 onClick={handleSend}
-                className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
+                disabled={isBotTyping}
+                className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-5 h-5" />
               </button>

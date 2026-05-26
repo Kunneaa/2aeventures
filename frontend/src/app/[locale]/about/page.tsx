@@ -1,144 +1,155 @@
 "use client";
 
-import { Shield, TruckIcon, Award, Users } from "lucide-react";
-import { motion } from "motion/react";
+import Link from "next/link";
 import Image from "next/image";
+import { motion } from "motion/react";
+import { ArrowRight, ShieldCheck, Truck, Handshake, Users } from "lucide-react";
 import { useLanguage } from "../../../store/LanguageContext";
 
-export default function AboutPage() {
+export default function AboutPage({ params }: { params: { locale: "vi" | "en" } }) {
   const { t } = useLanguage();
-  const storySections = [
+  const basePath = `/${params.locale}`;
+  const isVi = params.locale === "vi";
+
+  const aboutCopy = {
+    p1: isVi
+      ? "Từ năm 1978, doanh nghiệp phát triển từ một cửa hàng gia đình nhờ sự bền bỉ và quyết tâm."
+      : "Since 1978, we have grown from a small family shop through hard work and determination.",
+    p2: isVi
+      ? "Chúng tôi trở thành đối tác phân phối đáng tin cậy, luôn bám sát nhu cầu khách hàng."
+      : "We became a trusted distribution partner by staying close to customer needs.",
+    p3: isVi
+      ? "Mục tiêu: chất lượng cao, dịch vụ tốt và giá cạnh tranh."
+      : "Our goal: top quality, great service, and competitive pricing.",
+  };
+
+  const storyBlocks = [
     {
       title: t("about_story_title"),
-      text: t("about_story_p1"),
-      image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=1200",
+      text: aboutCopy.p1,
+      image: "/images/2.jpeg",
+      cta: { label: t("view_products"), href: `${basePath}/products` },
     },
     {
       title: t("about_stat_delivery_title"),
-      text: t("about_story_p2"),
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200",
+      text: aboutCopy.p2,
+      image: "/images/3.jpg",
+      cta: { label: t("contact_us"), href: `${basePath}/contact` },
     },
     {
       title: t("about_stat_support_title"),
-      text: t("about_story_p3"),
-      image: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200",
+      text: aboutCopy.p3,
+      image: "/images/4.jpg",
+      cta: { label: t("about"), href: `${basePath}/about` },
     },
   ];
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-[#1c3f63] tracking-tight">{t("about_title")}</h1>
-        <p className="text-xl md:text-2xl font-semibold text-gray-700 leading-relaxed">{t("about_subtitle")}</p>
-      </div>
+  const highlights = [
+    { icon: ShieldCheck, title: t("about_stat_quality_title"), desc: t("about_stat_quality_desc") },
+    { icon: Truck, title: t("about_stat_delivery_title"), desc: t("about_stat_delivery_desc") },
+    { icon: Handshake, title: t("about_stat_price_title"), desc: t("about_stat_price_desc") },
+    { icon: Users, title: t("about_stat_support_title"), desc: t("about_stat_support_desc") },
+  ];
 
-      <div className="space-y-12 mb-16">
-        {storySections.map((section, index) => {
-          const isReversed = index % 2 === 1;
+  return (
+    <div className="w-full bg-[#f4f6f8] text-[#1f2e3a]">
+      <section className="relative w-full min-h-[60vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/1.jpg"
+            alt="2AEVENTURES"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#102235]/80 via-[#102235]/50 to-[#102235]/20" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl mx-auto text-center"
+          />
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 space-y-10 md:space-y-14">
+        {storyBlocks.map((block, index) => {
+          const reverse = index % 2 === 1;
           return (
-            <div key={section.title} className="grid md:grid-cols-2 gap-10 items-center">
-              <motion.div
-                className={isReversed ? "md:order-2" : ""}
-                initial={{ opacity: 0, x: isReversed ? 40 : -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-sm">
-                  <div className="relative w-full h-[320px]">
-                    <Image src={section.image} alt={section.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
-                  </div>
-                </div>
-              </motion.div>
-              <motion.div
-                className={isReversed ? "md:order-1" : ""}
-                initial={{ opacity: 0, x: isReversed ? -40 : 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <div className="bg-[#336699] rounded-2xl p-6 md:p-8 shadow-lg">
-                  <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-white leading-tight">{section.title}</h2>
-                  <p className="text-white text-base md:text-lg font-medium leading-relaxed">{section.text}</p>
-                </div>
-              </motion.div>
-            </div>
+            <motion.div
+              key={block.title}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden shadow-[0_20px_55px_rgba(9,26,45,0.08)]"
+            >
+              <div className={`${reverse ? "lg:order-2" : ""} lg:col-span-7 relative min-h-[320px] md:min-h-[440px]`}>
+                <Image
+                  src={block.image}
+                  alt={block.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                />
+              </div>
+
+              <div className={`${reverse ? "lg:order-1" : ""} lg:col-span-5 bg-white p-8 md:p-12 flex flex-col justify-center text-center`}>
+                <h2 className="text-2xl md:text-4xl font-bold text-[#17324d] leading-tight mb-5">{block.title}</h2>
+                <p className="text-[#495a68] text-base md:text-lg leading-relaxed mb-8">{block.text}</p>
+                <Link
+                  href={block.cta.href}
+                  className="inline-flex items-center gap-2 text-[#2f5f90] font-semibold hover:text-[#20456b] transition-colors mx-auto"
+                >
+                  {block.cta.label}
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </motion.div>
           );
         })}
-      </div>
+      </section>
 
-      <div className="grid md:grid-cols-4 gap-8 mb-16">
-        <div className="text-center bg-[#336699] rounded-2xl p-6 shadow-lg">
-          <div className="w-16 h-16 bg-white/15 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_stat_quality_title")}</h3>
-          <p className="text-base font-medium text-white leading-relaxed">{t("about_stat_quality_desc")}</p>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 md:pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          {highlights.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className="rounded-2xl bg-[#183452] p-6 text-white shadow-[0_14px_36px_rgba(8,24,44,0.18)]"
+              >
+                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                <p className="text-sm text-white/85 leading-relaxed">{item.desc}</p>
+              </div>
+            );
+          })}
         </div>
-        <div className="text-center bg-[#336699] rounded-2xl p-6 shadow-lg">
-          <div className="w-16 h-16 bg-white/15 rounded-full flex items-center justify-center mx-auto mb-4">
-            <TruckIcon className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_stat_delivery_title")}</h3>
-          <p className="text-base font-medium text-white leading-relaxed">{t("about_stat_delivery_desc")}</p>
-        </div>
-        <div className="text-center bg-[#336699] rounded-2xl p-6 shadow-lg">
-          <div className="w-16 h-16 bg-white/15 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Award className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_stat_price_title")}</h3>
-          <p className="text-base font-medium text-white leading-relaxed">{t("about_stat_price_desc")}</p>
-        </div>
-        <div className="text-center bg-[#336699] rounded-2xl p-6 shadow-lg">
-          <div className="w-16 h-16 bg-white/15 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Users className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_stat_support_title")}</h3>
-          <p className="text-base font-medium text-white leading-relaxed">{t("about_stat_support_desc")}</p>
-        </div>
-      </div>
+      </section>
 
-      <div className="bg-[#336699] rounded-2xl p-8 shadow-lg">
-        <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-white">{t("about_policies_title")}</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_policy_pricing_title")}</h3>
-            <ul className="text-base font-medium text-white space-y-1.5 leading-relaxed">
-              <li>• {t("about_policy_pricing_item1")}</li>
-              <li>• {t("about_policy_pricing_item2")}</li>
-              <li>• {t("about_policy_pricing_item3")}</li>
-              <li>• {t("about_policy_pricing_item4")}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_policy_shipping_title")}</h3>
-            <ul className="text-base font-medium text-white space-y-1.5 leading-relaxed">
-              <li>• {t("about_policy_shipping_item1")}</li>
-              <li>• {t("about_policy_shipping_item2")}</li>
-              <li>• {t("about_policy_shipping_item3")}</li>
-              <li>• {t("about_policy_shipping_item4")}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_policy_returns_title")}</h3>
-            <ul className="text-base font-medium text-white space-y-1.5 leading-relaxed">
-              <li>• {t("about_policy_returns_item1")}</li>
-              <li>• {t("about_policy_returns_item2")}</li>
-              <li>• {t("about_policy_returns_item3")}</li>
-              <li>• {t("about_policy_returns_item4")}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg md:text-xl font-extrabold mb-2 text-white">{t("about_policy_payment_title")}</h3>
-            <ul className="text-base font-medium text-white space-y-1.5 leading-relaxed">
-              <li>• {t("about_policy_payment_item1")}</li>
-              <li>• {t("about_policy_payment_item2")}</li>
-              <li>• {t("about_policy_payment_item3")}</li>
-              <li>• {t("about_policy_payment_item4")}</li>
-            </ul>
-          </div>
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src="/images/5.jpg" alt="Request quote" fill className="object-cover" sizes="100vw" />
+          <div className="absolute inset-0 bg-[#0f2337]/70" />
         </div>
-      </div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+          <h2 className="text-white text-3xl md:text-5xl font-extrabold mb-4">{t("about_policies_title")}</h2>
+          <p className="text-white/90 text-base md:text-lg leading-relaxed mb-8">{t("about_policy_shipping_item1")}</p>
+          <Link
+            href={`${basePath}/contact`}
+            className="inline-flex items-center justify-center rounded-full bg-white text-[#1a3f63] font-bold px-7 py-3 hover:bg-[#f2f6fa] transition-colors"
+          >
+            {t("contact")}
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

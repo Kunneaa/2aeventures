@@ -13,6 +13,9 @@ interface HeaderProps {
   locale: 'vi' | 'en';
 }
 
+const normalizeLocalePath = (path: string | null): string =>
+  path?.replace(/^\/(vi|en)(?=\/|$)/, '') || '/';
+
 export const Header: React.FC<HeaderProps> = ({ locale }) => {
   const { t, language } = useLanguage();
   const { cartCount } = useCart();
@@ -29,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
     [t]
   );
 
-  const normalizedPath = pathname?.replace(/^\/(vi|en)(?=\/|$)/, '') || '/';
+  const normalizedPath = normalizeLocalePath(pathname);
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white border-b border-gray-100 shadow-sm">
@@ -42,8 +45,14 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
 
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
-              const href = `/${locale}${link.href === '/' ? '' : link.href}`;
-              const isActive = normalizedPath === link.href;
+              const href =
+                link.href === '/products'
+                  ? `/${locale}/products?view=all`
+                  : `/${locale}${link.href === '/' ? '' : link.href}`;
+              const isActive =
+                link.href === '/products'
+                  ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
+                  : normalizedPath === link.href;
               const isProducts = link.href === '/products';
 
               return (
@@ -56,13 +65,13 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
                   </Link>
                   {isProducts && (
                     <div className="absolute left-0 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <div className="w-60 rounded-xl shadow-xl p-3 bg-[#336699] border border-white/20">
-                        <div className="grid grid-cols-1 gap-2">
+                      <div className="w-[420px] rounded-2xl shadow-2xl p-4 bg-white border border-blue-100">
+                        <div className="grid grid-cols-3 gap-2">
                           {categories.map((category) => (
                             <Link
                               key={category.id}
                               href={`/${locale}/products?category=${category.id}`}
-                              className="rounded-lg bg-white/12 hover:bg-white/20 text-white px-3 py-2 text-sm font-medium transition-colors"
+                              className="rounded-xl border border-blue-100 bg-white text-gray-800 px-3 py-2.5 text-sm font-semibold text-center transition-all hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:shadow-md"
                             >
                               {category.name[language]}
                             </Link>
@@ -78,6 +87,13 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
+          <a
+            href="tel:+84000000000"
+            className="hidden lg:inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
+          >
+            Hotline: +84 000 000 000
+          </a>
+
           <div className="hidden sm:block">
             <LanguageSwitcher />
           </div>
@@ -110,8 +126,14 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
             <LanguageSwitcher />
           </div>
           {navLinks.map((link) => {
-            const href = `/${locale}${link.href === '/' ? '' : link.href}`;
-            const isActive = normalizedPath === link.href;
+            const href =
+              link.href === '/products'
+                ? `/${locale}/products?view=all`
+                : `/${locale}${link.href === '/' ? '' : link.href}`;
+            const isActive =
+              link.href === '/products'
+                ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
+                : normalizedPath === link.href;
 
             return (
               <Link

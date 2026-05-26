@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useLanguage } from "../../../store/LanguageContext";
 import { motion } from "motion/react";
+import { toast } from "sonner";
 
 export default function ContactPage() {
   const { t } = useLanguage();
@@ -14,19 +15,30 @@ export default function ContactPage() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const updateField = (field: "name" | "email" | "phone" | "message", value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     setSubmitted(true);
+    toast.success(t("contact_success_title"));
     setTimeout(() => {
+      setIsSubmitting(false);
       setSubmitted(false);
       setFormData({ name: "", email: "", phone: "", message: "" });
     }, 3000);
   };
 
   return (
-    <div className="relative">
-      <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-br from-[#eaf3fb] via-[#f5f9fd] to-white -z-10" />
+    <div className="relative overflow-x-hidden bg-gradient-to-br from-[#eff7ff] via-[#f7fbff] to-white">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute -top-16 -left-20 h-72 w-72 rounded-full bg-[#cfe6ff]/55 blur-3xl" />
+        <div className="absolute top-44 right-[-72px] h-80 w-80 rounded-full bg-[#dff0ff]/50 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#e8f4ff]/45 blur-3xl" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <motion.div
@@ -141,9 +153,7 @@ export default function ContactPage() {
                         type="text"
                         required
                         value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
+                        onChange={(e) => updateField("name", e.target.value)}
                         className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
                         placeholder={t("contact_form_name_placeholder")}
                       />
@@ -157,9 +167,7 @@ export default function ContactPage() {
                         type="tel"
                         required
                         value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
+                        onChange={(e) => updateField("phone", e.target.value)}
                         className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
                         placeholder={t("contact_form_phone_placeholder")}
                       />
@@ -174,9 +182,7 @@ export default function ContactPage() {
                       type="email"
                       required
                       value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
+                      onChange={(e) => updateField("email", e.target.value)}
                       className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
                       placeholder={t("contact_form_email_placeholder")}
                     />
@@ -190,9 +196,7 @@ export default function ContactPage() {
                       required
                       rows={5}
                       value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
+                      onChange={(e) => updateField("message", e.target.value)}
                       className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
                       placeholder={t("contact_form_message_placeholder")}
                     />
@@ -200,9 +204,12 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full bg-[#336699] text-white py-3 rounded-xl font-bold hover:bg-[#2c5c8a] transition-colors shadow-md shadow-blue-900/20"
                   >
-                    {t("contact_form_submit")}
+                    {isSubmitting
+                      ? (t("contact_form_submit").includes("Send") ? "Sending..." : "Đang gửi...")
+                      : t("contact_form_submit")}
                   </button>
                 </form>
               )}

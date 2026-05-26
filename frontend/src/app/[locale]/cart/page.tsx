@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Trash2, CheckCircle, FileText } from "lucide-react";
 import { useLanguage } from "../../../store/LanguageContext";
 import { useCart } from "../../../store/CartContext";
+import { toast } from "sonner";
 
 export default function QuoteCartPage({
   params,
@@ -15,12 +16,20 @@ export default function QuoteCartPage({
   const { t, language } = useLanguage();
   const { items, removeFromCart, updateQuantity, clearCart } = useCart();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleQuantityChange = (productId: string, value: string) => {
+    const parsed = Number.parseInt(value, 10);
+    updateQuantity(productId, Number.isNaN(parsed) ? 1 : Math.max(parsed, 1));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitted(true);
+      setIsSubmitting(false);
       clearCart();
+      toast.success(language === "vi" ? "Đã gửi yêu cầu báo giá" : "Quote request submitted");
     }, 1000);
   };
 
@@ -106,12 +115,7 @@ export default function QuoteCartPage({
                           type="number"
                           min={1}
                           value={item.quantity}
-                          onChange={(e) =>
-                            updateQuantity(
-                              item.product.id,
-                              parseInt(e.target.value, 10) || 1
-                            )
-                          }
+                          onChange={(e) => handleQuantityChange(item.product.id, e.target.value)}
                           className="w-full text-center py-2 text-sm font-medium focus:outline-none"
                         />
                         <span className="pr-3 text-gray-500 text-sm">
@@ -203,9 +207,14 @@ export default function QuoteCartPage({
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg mt-6 transition-colors shadow-sm"
                 >
-                  {t("submit_quote")}
+                  {isSubmitting
+                    ? language === "vi"
+                      ? "Đang gửi..."
+                      : "Submitting..."
+                    : t("submit_quote")}
                 </button>
               </form>
             </div>

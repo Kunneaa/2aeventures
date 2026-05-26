@@ -21,14 +21,19 @@ export const categories: Category[] = [
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80'
   },
   {
-    id: 'pork',
-    name: { en: 'Pork', vi: 'Thịt heo' },
-    image: 'https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?auto=format&fit=crop&w=300&q=80'
+    id: 'quail',
+    name: { en: 'Quail', vi: 'Cút' },
+    image: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=300&q=80'
   },
   {
-    id: 'poultry',
-    name: { en: 'Poultry', vi: 'Gia cầm' },
+    id: 'chicken',
+    name: { en: 'Chicken', vi: 'Gà' },
     image: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=300&q=80'
+  },
+  {
+    id: 'duck',
+    name: { en: 'Duck', vi: 'Vịt' },
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80'
   },
   {
     id: 'fish',
@@ -41,160 +46,129 @@ export const categories: Category[] = [
     image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=300&q=80'
   },
   {
+    id: 'pork',
+    name: { en: 'Pork', vi: 'Thịt heo' },
+    image: 'https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?auto=format&fit=crop&w=300&q=80'
+  },
+  {
     id: 'shrimp',
     name: { en: 'Shrimp', vi: 'Tôm' },
     image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=300&q=80'
   },
   {
-    id: 'fruits_veg',
-    name: { en: 'Fruits & Vegetables', vi: 'Rau củ & trái cây' },
+    id: 'misc',
+    name: { en: 'Misc', vi: 'Khác' },
     image: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=300&q=80'
   }
 ];
 
 export const products: Product[] = [
   {
-    id: 'p1',
-    name: { en: 'US Beef Ribeye Steak', vi: 'Thăn vai bò Mỹ' },
+    id: 'p-beef-1',
+    name: { en: 'US Beef Ribeye', vi: 'Thăn vai bò Mỹ' },
     categoryId: 'beef',
     image: 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=1080&q=80',
     minOrder: 50,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Marbled ribeye cut, ideal for steakhouse and premium retail.',
-      vi: 'Thịt bò vân mỡ đẹp, phù hợp nhà hàng steak và bán lẻ cao cấp.'
+      en: 'Premium marbled beef for wholesale distribution.',
+      vi: 'Bò vân mỡ cao cấp cho phân phối sỉ.'
     }
   },
   {
-    id: 'p2',
-    name: { en: 'Australian Beef Short Plate', vi: 'Ba chỉ bò Úc' },
-    categoryId: 'beef',
-    image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1080&q=80',
+    id: 'p-quail-1',
+    name: { en: 'Whole Quail', vi: 'Cút nguyên con' },
+    categoryId: 'quail',
+    image: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=1080&q=80',
+    minOrder: 60,
+    unit: { en: 'kg', vi: 'kg' },
+    description: {
+      en: 'Cleaned and frozen quail for restaurants and catering.',
+      vi: 'Cút làm sạch cấp đông cho nhà hàng và suất ăn.'
+    }
+  },
+  {
+    id: 'p-chicken-1',
+    name: { en: 'Chicken Breast Fillet', vi: 'Phi lê ức gà' },
+    categoryId: 'chicken',
+    image: 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=1080&q=80',
     minOrder: 80,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Rich flavor beef short plate for hotpot, BBQ, and slicing.',
-      vi: 'Ba chỉ bò đậm vị, thích hợp lẩu, nướng và thái lát.'
+      en: 'Boneless chicken breast for high-volume kitchens.',
+      vi: 'Ức gà không xương cho bếp công suất lớn.'
     }
   },
   {
-    id: 'p3',
-    name: { en: 'Premium Pork Belly', vi: 'Ba chỉ heo cao cấp' },
-    categoryId: 'pork',
-    image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 100,
-    unit: { en: 'kg', vi: 'kg' },
-    description: {
-      en: 'Balanced lean-fat ratio pork belly for grilling and hotpot chains.',
-      vi: 'Ba chỉ heo tỷ lệ nạc mỡ cân đối cho lẩu nướng và chuỗi F&B.'
-    }
-  },
-  {
-    id: 'p4',
-    name: { en: 'Pork Back Ribs', vi: 'Sườn lưng heo' },
-    categoryId: 'pork',
+    id: 'p-duck-1',
+    name: { en: 'Duck Leg Quarter', vi: 'Đùi vịt góc tư' },
+    categoryId: 'duck',
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 120,
+    minOrder: 90,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Meaty pork ribs, trimmed and frozen for stable kitchen operations.',
-      vi: 'Sườn heo dày thịt, cắt chỉnh sẵn và cấp đông ổn định.'
+      en: 'Imported duck cuts for roasting and premium menus.',
+      vi: 'Phần vịt nhập khẩu cho món quay và menu cao cấp.'
     }
   },
   {
-    id: 'p5',
-    name: { en: 'Chicken Breast Fillet', vi: 'Phi lê ức gà' },
-    categoryId: 'poultry',
-    image: 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 150,
-    unit: { en: 'kg', vi: 'kg' },
-    description: {
-      en: 'Boneless skinless poultry cut for healthy menu concepts.',
-      vi: 'Ức gà không xương không da, phù hợp thực đơn healthy.'
-    }
-  },
-  {
-    id: 'p6',
-    name: { en: 'Chicken Drumstick', vi: 'Đùi tỏi gà' },
-    categoryId: 'poultry',
-    image: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 100,
-    unit: { en: 'kg', vi: 'kg' },
-    description: {
-      en: 'Tender drumsticks, cleaned and frozen for high-volume kitchens.',
-      vi: 'Đùi gà mềm, sơ chế sạch và cấp đông cho bếp công suất lớn.'
-    }
-  },
-  {
-    id: 'p7',
+    id: 'p-fish-1',
     name: { en: 'Whole Seabass', vi: 'Cá chẽm nguyên con' },
     categoryId: 'fish',
     image: 'https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 200,
+    minOrder: 100,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Fresh whole seabass selected for steaming and grilling menus.',
-      vi: 'Cá chẽm tươi nguyên con, phù hợp món hấp và nướng.'
+      en: 'Selected fish for restaurants and wholesale counters.',
+      vi: 'Cá chọn lọc cho nhà hàng và kênh bán sỉ.'
     }
   },
   {
-    id: 'p8',
-    name: { en: 'Salmon Fillet', vi: 'Phi lê cá hồi' },
-    categoryId: 'fish',
-    image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 80,
+    id: 'p-pork-1',
+    name: { en: 'Pork Belly', vi: 'Ba chỉ heo' },
+    categoryId: 'pork',
+    image: 'https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?auto=format&fit=crop&w=1080&q=80',
+    minOrder: 100,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Premium trimmed salmon fillet with consistent color and texture.',
-      vi: 'Phi lê cá hồi cắt chuẩn, màu sắc và thớ thịt đồng đều.'
+      en: 'Balanced pork cuts for grill and hotpot businesses.',
+      vi: 'Thịt heo cân đối cho quán nướng và lẩu.'
     }
   },
   {
-    id: 'p9',
+    id: 'p-shrimp-1',
     name: { en: 'Black Tiger Shrimp', vi: 'Tôm sú' },
     categoryId: 'shrimp',
     image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1080&q=80',
     minOrder: 100,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Large-size black tiger shrimp for grill and banquet service.',
-      vi: 'Tôm sú size lớn cho món nướng và tiệc nhà hàng.'
+      en: 'Large shrimp for grill, hotpot, and banquet menus.',
+      vi: 'Tôm size lớn cho nướng, lẩu và tiệc.'
     }
   },
   {
-    id: 'p10',
+    id: 'p-seafood-1',
     name: { en: 'Half-Shell Scallops', vi: 'Sò điệp nửa mảnh' },
     categoryId: 'seafood',
     image: 'https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=1080&q=80',
     minOrder: 60,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Cleaned scallops in shell for premium baked seafood menus.',
-      vi: 'Sò điệp làm sạch còn vỏ, phù hợp menu nướng cao cấp.'
+      en: 'Frozen seafood products for premium kitchen operations.',
+      vi: 'Hải sản cấp đông cho bếp chuyên nghiệp.'
     }
   },
   {
-    id: 'p11',
-    name: { en: 'Broccoli Florets', vi: 'Bông cải xanh cắt bông' },
-    categoryId: 'fruits_veg',
-    image: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=1080&q=80',
-    minOrder: 70,
-    unit: { en: 'kg', vi: 'kg' },
-    description: {
-      en: 'IQF broccoli florets for salads, stir-fry, and healthy meals.',
-      vi: 'Bông cải IQF tiện lợi cho salad, xào và suất ăn dinh dưỡng.'
-    }
-  },
-  {
-    id: 'p12',
-    name: { en: 'Mixed Tropical Fruits', vi: 'Trái cây nhiệt đới hỗn hợp' },
-    categoryId: 'fruits_veg',
+    id: 'p-misc-1',
+    name: { en: 'Mixed Frozen Items', vi: 'Hàng đông lạnh tổng hợp' },
+    categoryId: 'misc',
     image: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=1080&q=80',
     minOrder: 60,
     unit: { en: 'kg', vi: 'kg' },
     description: {
-      en: 'Cut and frozen tropical fruit mix for juice bars and desserts.',
-      vi: 'Trái cây nhiệt đới cắt sẵn cấp đông cho đồ uống và tráng miệng.'
+      en: 'Flexible assorted products for seasonal demand.',
+      vi: 'Nhóm sản phẩm linh hoạt theo nhu cầu mùa vụ.'
     }
   }
 ];
