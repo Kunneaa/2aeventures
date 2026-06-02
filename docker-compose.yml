@@ -31,6 +31,7 @@ services:
       BACKEND_CORS_ORIGINS: ${BACKEND_CORS_ORIGINS:-http://localhost:3000,http://localhost:3001}
       BACKEND_ADMIN_TOKEN: ${BACKEND_ADMIN_TOKEN:-}
       BACKEND_DATA_DIR: /app/data
+      PORT: 8000
     volumes:
       - ./data:/app/data
     expose:
