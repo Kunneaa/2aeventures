@@ -1,0 +1,14 @@
+data
+.DS_Store
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.venv
+.venv*
+venv
+.env
+.env.*
+!.env.example
+tests
+alembic

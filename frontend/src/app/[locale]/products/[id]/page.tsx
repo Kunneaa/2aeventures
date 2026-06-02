@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, ShoppingCart, Package } from "lucide-react";
-import { products, categories } from "../../../../lib/mockData";
-import { useLanguage } from "../../../../store/LanguageContext";
+import Link from "next/link";
+import { useState } from "react";
+import { ArrowLeft, CheckCircle2, Package, ShoppingBag } from "lucide-react";
+import { QuickEmailButton } from "../../../../components/contact/QuickEmailButton";
+import { ProductCard } from "../../../../components/products/ProductCard";
 import { useCart } from "../../../../store/CartContext";
+import { useCatalog } from "../../../../store/CatalogContext";
+import { useLanguage } from "../../../../store/LanguageContext";
 
 export default function ProductDetailPage({
   params,
@@ -16,159 +17,137 @@ export default function ProductDetailPage({
 }) {
   const { t, language } = useLanguage();
   const { addToCart } = useCart();
-  const router = useRouter();
-  const [quantity, setQuantity] = useState(1);
+  const { products, getProduct, getCategory } = useCatalog();
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const product = products.find((item) => item.id === params.id);
+  const product = getProduct(params.id);
 
   if (!product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">{t("product_not_found")}</h1>
-        <Link href={`/${params.locale}/products`} className="text-blue-600 hover:underline">
+      <div className="section-shell py-16 text-center">
+        <h1 className="text-2xl font-extrabold text-[#17324d]">{t("product_not_found")}</h1>
+        <Link href={`/${params.locale}/products`} className="btn-secondary mt-6 px-5 py-2.5 text-sm">
           {t("back_to_products")}
         </Link>
       </div>
     );
   }
 
-  const categoryName = categories.find((cat) => cat.id === product.categoryId)?.name[language];
+  const categoryName = getCategory(product.categoryId)?.name[language] || product.categoryId;
   const relatedProducts = products
     .filter((item) => item.categoryId === product.categoryId && item.id !== product.id)
     .slice(0, 4);
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addToCart(product);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Link
-        href={`/${params.locale}/products`}
-        className="inline-flex items-center gap-2 text-blue-600 hover:underline mb-6"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        {t("back_to_products")}
-      </Link>
+    <div className="app-shell w-full">
+      <section className="section-shell py-8 md:py-12">
+        <Link
+          href={`/${params.locale}/products`}
+          className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-[#336699] hover:text-[#17324d]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {t("back_to_products")}
+        </Link>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-16">
-        <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
-          <Image
-            src={product.image}
-            alt={product.name[language]}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-          />
-        </div>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_520px]">
+          <div className="commerce-card overflow-hidden">
+            <div className="relative aspect-square bg-[#edf3f0]">
+              <Image
+                src={product.image}
+                alt={product.name[language]}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
 
-        <div>
-          <span className="text-sm text-blue-600 font-medium">{categoryName}</span>
-          <h1 className="text-3xl font-bold mt-2 mb-4">{product.name[language]}</h1>
-          <p className="text-gray-700 mb-6">{product.description[language]}</p>
-
-          <div className="bg-blue-50 rounded-lg p-4 mb-6">
-            <p className="text-sm text-blue-800 font-medium mb-2">
-              {t("wholesale_notice_title")}
+          <div className="commerce-card p-5 md:p-7">
+            <span className="inline-flex rounded-lg bg-[#f2f7fb] px-3 py-1 text-sm font-bold text-[#336699]">
+              {categoryName}
+            </span>
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight text-[#17242d] md:text-5xl">
+              {product.name[language]}
+            </h1>
+            <p className="body-copy mt-5 text-base md:text-lg">
+              {product.description[language]}
             </p>
-            <ul className="text-sm text-blue-700 space-y-1">
-              <li>• {t("wholesale_benefit_discount")}</li>
-              <li>• {t("wholesale_benefit_delivery")}</li>
-              <li>• {t("wholesale_benefit_support")}</li>
-            </ul>
-          </div>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">{t("quantity")}</label>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center border border-gray-300 rounded-lg">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="px-4 py-2 hover:bg-gray-100"
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  value={quantity}
-                  onChange={(e) =>
-                    setQuantity(Math.max(1, parseInt(e.target.value, 10) || 1))
-                  }
-                  className="w-20 text-center border-x border-gray-300 py-2 focus:outline-none"
-                />
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="px-4 py-2 hover:bg-gray-100"
-                >
-                  +
-                </button>
+            <div className="mt-6 grid gap-3 border-y border-[#d8e3df] py-5 sm:grid-cols-2">
+              <div>
+                <p className="text-xs font-bold uppercase text-[#7a858a]">
+                  {t("categories")}
+                </p>
+                <p className="mt-1 font-extrabold text-[#17242d]">{categoryName}</p>
               </div>
-              <span className="text-gray-600">({product.unit[language]})</span>
+              <div>
+                <p className="text-xs font-bold uppercase text-[#7a858a]">
+                  {t("unit")}
+                </p>
+                <p className="mt-1 font-extrabold text-[#17242d]">
+                  {product.unit[language]}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex gap-4">
-            <button
-              onClick={handleAddToCart}
-              className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              {t("add_to_cart")}
-            </button>
-            <button
-              onClick={() => {
-                handleAddToCart();
-                router.push(`/${params.locale}/cart`);
-              }}
-              className="flex-1 bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
-            >
-              {t("buy_now")}
-            </button>
-          </div>
-
-          {showSuccess && (
-            <div className="mt-4 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center gap-2">
-              <Package className="w-5 h-5" />
-              {t("add_to_cart")} {quantity} {product.unit[language]}!
+            <div className="mt-6 border-l-2 border-[#d9a85c] bg-[#f8faf8] py-1 pl-4">
+              <p className="text-sm font-extrabold text-[#17324d]">
+                {t("wholesale_notice_title")}
+              </p>
+              <ul className="mt-3 space-y-2 text-sm font-semibold text-[#42525b]">
+                {[t("wholesale_benefit_discount"), t("wholesale_benefit_delivery"), t("wholesale_benefit_support")].map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#2f6f63]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <button
+                onClick={handleAddToCart}
+                className="btn-primary px-6 py-3 text-sm"
+              >
+                <ShoppingBag className="h-5 w-5" />
+                {t("add_to_quote")}
+              </button>
+              <QuickEmailButton
+                products={[product]}
+                className="btn-secondary px-6 py-3 text-sm"
+              >
+                {t("quick_contact")}
+              </QuickEmailButton>
+            </div>
+
+            {showSuccess && (
+              <div className="mt-4 flex items-center gap-2 rounded-lg border border-[#b8d8c7] bg-[#edf7f2] px-4 py-3 text-sm font-bold text-[#2f6f63]">
+                <Package className="h-5 w-5" />
+                {t("added_to_quote")}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
 
       {relatedProducts.length > 0 && (
-        <div>
-          <h2 className="text-2xl font-bold mb-6">{t("related_products")}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {relatedProducts.map((relatedProduct) => (
-              <Link
-                key={relatedProduct.id}
-                href={`/${params.locale}/products/${relatedProduct.id}`}
-                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
-              >
-                <div className="aspect-square overflow-hidden bg-gray-100">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={relatedProduct.image}
-                      alt={relatedProduct.name[language]}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                </div>
-                <div className="p-4">
-                  <span className="text-xs text-blue-600 font-medium">{categoryName}</span>
-                  <h3 className="font-semibold mt-1 mb-2">
-                    {relatedProduct.name[language]}
-                  </h3>
-                </div>
-              </Link>
-            ))}
+        <section className="bg-white">
+          <div className="section-shell section-y">
+            <h2 className="heading-lg">{t("related_products")}</h2>
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {relatedProducts.map((relatedProduct) => (
+                <ProductCard key={relatedProduct.id} product={relatedProduct} />
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

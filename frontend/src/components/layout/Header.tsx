@@ -4,21 +4,22 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingBag, Menu } from 'lucide-react';
+import { siteConfig } from '../../config/site';
+import { normalizeLocalePath } from '../../lib/localePath';
 import { useLanguage } from '../../store/LanguageContext';
 import { useCart } from '../../store/CartContext';
-import { categories } from '../../lib/mockData';
+import { useCatalog } from '../../store/CatalogContext';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
+import { BrandLogo } from './BrandLogo';
 
 interface HeaderProps {
   locale: 'vi' | 'en';
 }
 
-const normalizeLocalePath = (path: string | null): string =>
-  path?.replace(/^\/(vi|en)(?=\/|$)/, '') || '/';
-
 export const Header: React.FC<HeaderProps> = ({ locale }) => {
   const { t, language } = useLanguage();
   const { cartCount } = useCart();
+  const { categories } = useCatalog();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -35,20 +36,19 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
   const normalizedPath = normalizeLocalePath(pathname);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full border-b border-[#d8e3df] bg-white/95 shadow-sm backdrop-blur">
+      <div className="section-shell flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href={`/${locale}`} className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-700 text-white font-bold flex items-center justify-center rounded-lg">2A</div>
-            <span className="font-bold text-xl tracking-tight text-gray-900 hidden sm:block">2AEVENTURES</span>
+          <Link href={`/${locale}`} className="flex items-center gap-2" aria-label="2AEVENTURES">
+            <BrandLogo
+              priority
+              labelClassName="hidden font-bold text-xl text-[#17324d] sm:block"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
-              const href =
-                link.href === '/products'
-                  ? `/${locale}/products?view=all`
-                  : `/${locale}${link.href === '/' ? '' : link.href}`;
+              const href = `/${locale}${link.href === '/' ? '' : link.href}`;
               const isActive =
                 link.href === '/products'
                   ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
@@ -59,19 +59,19 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
                 <div key={link.href} className={isProducts ? 'relative group' : ''}>
                   <Link
                     href={href}
-                    className={`text-sm font-medium transition-colors hover:text-blue-600 ${isActive ? 'text-blue-600' : 'text-gray-600'}`}
+                    className={`text-sm font-bold transition-colors hover:text-[#336699] ${isActive ? 'text-[#336699]' : 'text-[#42525b]'}`}
                   >
                     {link.label}
                   </Link>
                   {isProducts && (
                     <div className="absolute left-0 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <div className="w-[420px] rounded-2xl shadow-2xl p-4 bg-white border border-blue-100">
+                      <div className="w-[420px] rounded-lg border border-[#d8e3df] bg-white p-4 shadow-[0_18px_45px_rgba(23,36,45,0.14)]">
                         <div className="grid grid-cols-3 gap-2">
                           {categories.map((category) => (
                             <Link
                               key={category.id}
                               href={`/${locale}/products?category=${category.id}`}
-                              className="rounded-xl border border-blue-100 bg-white text-gray-800 px-3 py-2.5 text-sm font-semibold text-center transition-all hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:shadow-md"
+                              className="filter-pill w-full px-3 py-2.5 text-center text-[#17242d]"
                             >
                               {category.name[language]}
                             </Link>
@@ -88,10 +88,10 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
 
         <div className="flex items-center gap-3 sm:gap-4">
           <a
-            href="tel:+84000000000"
-            className="hidden lg:inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
+            href={siteConfig.hotline.href}
+            className="hidden items-center rounded-lg border border-[#d8e3df] bg-[#f2f7fb] px-3 py-1.5 text-sm font-bold text-[#17324d] transition-colors hover:border-[#b8cbc4] hover:bg-white lg:inline-flex"
           >
-            Hotline: +84 000 000 000
+            Hotline: {siteConfig.hotline.label}
           </a>
 
           <div className="hidden sm:block">
@@ -100,18 +100,18 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
 
           <Link 
             href={`/${locale}/cart`}
-            className="relative flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+            className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[#17324d] text-white transition-colors hover:bg-[#244f78]"
           >
             <ShoppingBag size={20} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white">
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#d4183d] text-[10px] font-bold text-white shadow-sm ring-2 ring-white">
                 {cartCount}
               </span>
             )}
           </Link>
 
           <button 
-            className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+            className="rounded-lg p-2 text-[#42525b] hover:bg-[#f2f7fb] hover:text-[#17324d] md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <Menu size={24} />
@@ -119,17 +119,13 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 py-2 px-4 space-y-1 shadow-lg absolute w-full left-0 top-16">
+        <div className="absolute left-0 top-16 w-full space-y-1 border-t border-[#d8e3df] bg-white px-4 py-2 shadow-lg md:hidden">
           <div className="px-3 py-2">
             <LanguageSwitcher />
           </div>
           {navLinks.map((link) => {
-            const href =
-              link.href === '/products'
-                ? `/${locale}/products?view=all`
-                : `/${locale}${link.href === '/' ? '' : link.href}`;
+            const href = `/${locale}${link.href === '/' ? '' : link.href}`;
             const isActive =
               link.href === '/products'
                 ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
@@ -140,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
                 key={link.href}
                 href={href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'}`}
+                className={`block rounded-lg px-3 py-2 text-base font-bold ${isActive ? 'bg-[#f2f7fb] text-[#17324d]' : 'text-[#42525b] hover:bg-[#f6f8f6] hover:text-[#17324d]'}`}
               >
                 {link.label}
               </Link>

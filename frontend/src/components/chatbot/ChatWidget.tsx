@@ -4,10 +4,12 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { MessageCircle, X, Send, Sparkles, Phone } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { siteConfig } from '../../config/site';
+import { normalizeLocalePath } from '../../lib/localePath';
 import { useCart } from '../../store/CartContext';
 import { useLanguage } from '../../store/LanguageContext';
 import { chatService } from '../../services/chat';
-import { products } from '../../lib/mockData';
+import { useCatalog } from '../../store/CatalogContext';
 
 type QuickAction = { label: string; action: () => void };
 
@@ -23,9 +25,6 @@ interface ChatWidgetProps {
   locale: 'vi' | 'en';
 }
 
-const normalizeLocalePath = (path: string | null): string =>
-  path?.replace(/^\/(vi|en)(?=\/|$)/, '') || '/';
-
 const createMessageId = (): string => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
@@ -34,7 +33,7 @@ const createMessageId = (): string => {
 };
 
 export function ChatWidget({ locale }: ChatWidgetProps) {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -47,6 +46,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { items, addToCart } = useCart();
+  const { getProduct } = useCatalog();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -95,7 +95,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     }
 
     if (normalizedPath === '/cart') {
-      const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+      const itemCount = items.length;
       if (itemCount > 0) {
         return language === 'vi'
           ? `Bạn đã có ${itemCount} sản phẩm trong giỏ. Bạn muốn gửi yêu cầu báo giá ngay không?`
@@ -106,10 +106,8 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
         : 'Your cart is currently empty. Let me help you find the right products.';
     }
 
-    return language === 'vi'
-      ? 'Xin chào! Tôi có thể giúp gì cho bạn hôm nay?'
-      : 'Hello! How can I help you today?';
-  }, [items, language, pathname]);
+    return t('ai_greeting');
+  }, [items, language, pathname, t]);
 
   const getQuickActions = useCallback((): QuickAction[] => {
     const normalizedPath = normalizeLocalePath(pathname);
@@ -125,13 +123,13 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
 
     if (normalizedPath.startsWith('/products/')) {
       const id = normalizedPath.split('/')[2];
-      const product = products.find((item) => item.id === id);
+      const product = getProduct(id);
       const actions: QuickAction[] = [];
 
       if (product) {
         actions.push({
           label: language === 'vi' ? 'Thêm sản phẩm này vào giỏ' : 'Add this product to cart',
-          action: () => addToCart(product, 1),
+          action: () => addToCart(product),
         });
       }
 
@@ -162,7 +160,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     }
 
     return [];
-  }, [addToCart, language, locale, pathname, router]);
+  }, [addToCart, getProduct, language, locale, pathname, router]);
 
   useEffect(() => {
     if (hasUserInteracted) return;
@@ -267,7 +265,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
   return (
     <>
       {showWelcomeAlert && (
-        <div className="fixed top-20 right-4 z-50 w-[330px] rounded-[22px] bg-[#336699] text-white shadow-[0_18px_45px_rgba(12,54,96,0.42)] border border-white/20 p-4 animate-in fade-in slide-in-from-right-5 duration-500">
+        <div className="fixed right-4 top-20 z-50 w-[330px] rounded-lg border border-white/20 bg-[#17324d] p-4 text-white shadow-[0_18px_45px_rgba(12,54,96,0.42)] animate-in fade-in slide-in-from-right-5 duration-500">
           <button
             onClick={() => setShowWelcomeAlert(false)}
             className="absolute top-2 right-2 text-white/80 hover:text-white"
@@ -283,7 +281,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
               <p className="text-sm font-semibold">
                 {language === 'vi' ? 'Trợ lý 2AEVENTURES luôn sẵn sàng' : '2AEVENTURES assistant is online'}
               </p>
-              <p className="text-xs text-white/85 mt-1">
+              <p className="mt-1 text-xs text-white/80">
                 {language === 'vi'
                   ? 'Chat ngay để được gợi ý sản phẩm phù hợp và báo giá nhanh.'
                   : 'Start chatting for quick product suggestions and fast quotation support.'}
@@ -293,7 +291,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
                   setIsOpen(true);
                   setShowWelcomeAlert(false);
                 }}
-                className="mt-3 text-xs font-medium bg-white text-[#336699] px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
+                className="mt-3 rounded-lg bg-white px-3 py-1.5 text-xs font-bold text-[#17324d] transition-colors hover:bg-[#f2f7fb]"
               >
                 {language === 'vi' ? 'Mở Chatbot' : 'Open Chatbot'}
               </button>
@@ -305,10 +303,10 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
       <div className="fixed bottom-6 right-6 z-50 group flex items-center gap-2">
         <div className="flex items-center gap-2 opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto transition-all duration-200">
           <a
-            href="https://zalo.me/"
+            href={siteConfig.zalo.href}
             target="_blank"
             rel="noreferrer"
-            className="w-11 h-11 rounded-full bg-[#0a66ff] text-white flex items-center justify-center shadow-[0_10px_24px_rgba(10,102,255,0.35)] hover:scale-105 transition-transform"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d8e3df] bg-white text-[#17324d] shadow-[0_10px_24px_rgba(23,36,45,0.12)] transition-transform hover:scale-105"
             aria-label="Zalo OA"
           >
             <Image
@@ -320,8 +318,8 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             />
           </a>
           <a
-            href="tel:+84000000000"
-            className="w-11 h-11 rounded-full bg-[#16a34a] text-white flex items-center justify-center shadow-[0_10px_24px_rgba(22,163,74,0.35)] hover:scale-105 transition-transform"
+            href={siteConfig.hotline.href}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#2f6f63] text-white shadow-[0_10px_24px_rgba(47,111,99,0.24)] transition-transform hover:scale-105"
             aria-label="Hotline"
           >
             <Phone className="w-5 h-5" />
@@ -330,7 +328,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
 
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="relative w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-[0_20px_45px_rgba(37,99,235,0.45)] ring-4 ring-white/70 flex items-center justify-center transition-all hover:scale-110"
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#17324d] text-white shadow-[0_20px_45px_rgba(23,50,77,0.4)] ring-4 ring-white/70 transition-all hover:scale-105 hover:bg-[#244f78]"
         >
           {!isOpen && hasUnread && (
             <span className="absolute -top-1 -right-1 h-5 min-w-5 px-1 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center ring-2 ring-white">
@@ -342,12 +340,12 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-96 h-[500px] bg-white rounded-3xl shadow-[0_30px_70px_rgba(15,23,42,0.36)] border border-blue-100 z-50 flex flex-col text-[14px] overflow-hidden">
-          <div className="bg-blue-600 text-white p-4">
+        <div className="fixed bottom-24 left-4 right-4 z-50 flex h-[500px] flex-col overflow-hidden rounded-lg border border-[#d8e3df] bg-white text-[14px] shadow-[0_30px_70px_rgba(15,23,42,0.28)] sm:left-auto sm:right-6 sm:w-96">
+          <div className="bg-[#17324d] p-4 text-white">
             <h3 className="font-semibold text-sm">
               {language === 'vi' ? 'Trợ lý ảo 2AEVENTURES' : '2AEVENTURES AI Assistant'}
             </h3>
-            <p className="text-[11px] text-blue-100">{language === 'vi' ? 'Hỗ trợ 24/7' : '24/7 support'}</p>
+            <p className="text-[11px] text-white/70">{language === 'vi' ? 'Tư vấn sản phẩm và báo giá' : 'Product and quote support'}</p>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -358,10 +356,10 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
               >
                 <div className="max-w-[80%]">
                   <div
-                    className={`rounded-2xl p-3 ${
+                    className={`rounded-lg p-3 ${
                       message.sender === 'user'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                        ? 'bg-[#17324d] text-white'
+                        : 'bg-[#f2f7fb] text-[#17242d]'
                     }`}
                   >
                     <p className="text-[13px] whitespace-pre-line leading-relaxed">{message.text}</p>
@@ -372,7 +370,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
                         <button
                           key={action.label}
                           onClick={action.action}
-                          className="block w-full text-left text-[12px] bg-white border border-blue-600 text-blue-600 rounded px-3 py-1.5 hover:bg-blue-50"
+                          className="block w-full rounded-lg border border-[#336699] bg-white px-3 py-1.5 text-left text-[12px] font-bold text-[#336699] hover:bg-[#f2f7fb]"
                         >
                           {action.label}
                         </button>
@@ -384,7 +382,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             ))}
             {isBotTyping && (
               <div className="flex justify-start">
-                <div className="rounded-2xl p-3 bg-gray-100 text-gray-900">
+                <div className="rounded-lg bg-[#f2f7fb] p-3 text-[#17242d]">
                   <p className="text-sm">{language === 'vi' ? 'AI đang trả lời...' : 'AI is typing...'}</p>
                 </div>
               </div>
@@ -392,20 +390,21 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-4 border-t border-blue-100 bg-white">
+          <div className="border-t border-[#d8e3df] bg-white p-4">
             <div className="flex gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={language === 'vi' ? 'Nhập tin nhắn...' : 'Type your message...'}
-                className="flex-1 border rounded-lg px-3 py-2 text-[13px] focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder={t('ai_placeholder')}
+                className="field-input flex-1 px-3 py-2 text-[13px]"
               />
               <button
                 onClick={handleSend}
                 disabled={isBotTyping}
-                className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label={t('send')}
+                className="rounded-lg bg-[#17324d] p-2 text-white hover:bg-[#244f78] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Send className="w-5 h-5" />
               </button>

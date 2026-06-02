@@ -1,41 +1,25 @@
-// Product Types
+export type LocaleCode = 'vi' | 'en';
+
+export interface LocalizedText {
+  en: string;
+  vi: string;
+}
+
 export interface Product {
   id: string;
-  name: string;
-  description: string;
-  price: number;
-  wholesalePrice: number;
-  category: string;
+  name: LocalizedText;
+  categoryId: string;
   image: string;
-  stock: number;
-  unit: string;
-  moq?: number; // Minimum Order Quantity
+  unit: LocalizedText;
+  description: LocalizedText;
 }
 
-// Cart Types
-export interface CartItem {
-  productId: string;
-  quantity: number;
-  product?: Product;
-}
-
-// Quote Types
-export interface Quote {
+export interface Category {
   id: string;
-  items: CartItem[];
-  totalAmount: number;
-  status: 'pending' | 'quoted' | 'accepted' | 'rejected';
-  createdAt: string;
-  updatedAt: string;
-  customerInfo?: {
-    name: string;
-    email: string;
-    phone: string;
-    company?: string;
-  };
+  name: LocalizedText;
+  image: string;
 }
 
-// Chat Message Types
 export interface ChatMessage {
   id: string;
   sender: 'user' | 'bot';
@@ -44,20 +28,57 @@ export interface ChatMessage {
   attachments?: string[];
 }
 
+export interface QuoteCustomerInfo {
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+}
+
+export interface QuoteItemPayload {
+  productId: string;
+}
+
+export interface QuoteRequestPayload {
+  items: QuoteItemPayload[];
+  customerInfo: QuoteCustomerInfo;
+  notes?: string;
+  locale?: LocaleCode;
+}
+
+export interface QuoteResponse {
+  id: string;
+  status: 'pending';
+  items: QuoteItemPayload[];
+  customerInfo: QuoteCustomerInfo;
+  notes?: string;
+  locale?: LocaleCode;
+  createdAt: string;
+}
+
+export interface ContactRequestPayload {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  locale?: LocaleCode;
+}
+
+export interface ContactResponse {
+  id: string;
+  status: 'received';
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  locale?: LocaleCode;
+  createdAt: string;
+}
+
 // API Response Types
 export interface ApiResponse<T> {
   success: boolean;
   data?: T;
   error?: string;
   message?: string;
-}
-
-// Filter Types
-export interface ProductFilter {
-  search?: string;
-  category?: string;
-  priceRange?: [number, number];
-  sortBy?: 'name' | 'price' | 'newest';
-  page?: number;
-  limit?: number;
 }

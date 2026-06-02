@@ -16,7 +16,7 @@ coverage/
 # Python
 __pycache__/
 *.pyc
-.venv/
+.venv*/
 venv/
 .pytest_cache/
 .mypy_cache/
@@ -27,6 +27,11 @@ logs/
 
 # Docker
 *.pid
+
+# Runtime data
+data/
+backend/data/
+backups/
 
 # Editor
 .vscode/

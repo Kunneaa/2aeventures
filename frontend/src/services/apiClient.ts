@@ -1,4 +1,4 @@
-import { ApiResponse } from '../types/index';
+import type { ApiResponse } from '../types';
 
 class ApiClient {
   private baseURL: string;
@@ -6,16 +6,15 @@ class ApiClient {
 
   constructor(baseURL?: string) {
     this.baseURL =
-      baseURL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+      (baseURL || process.env.NEXT_PUBLIC_API_URL || '/api/v1').replace(/\/$/, '');
     this.headers = {
       'Content-Type': 'application/json',
     };
   }
 
-  // GET request
   async get<T>(endpoint: string): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseURL}${endpoint}`, {
+      const response = await fetch(this.toURL(endpoint), {
         method: 'GET',
         headers: this.headers,
       });
@@ -25,10 +24,9 @@ class ApiClient {
     }
   }
 
-  // POST request
   async post<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseURL}${endpoint}`, {
+      const response = await fetch(this.toURL(endpoint), {
         method: 'POST',
         headers: this.headers,
         body: JSON.stringify(data),
@@ -39,24 +37,9 @@ class ApiClient {
     }
   }
 
-  // PUT request
-  async put<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
-    try {
-      const response = await fetch(`${this.baseURL}${endpoint}`, {
-        method: 'PUT',
-        headers: this.headers,
-        body: JSON.stringify(data),
-      });
-      return this.handleResponse<T>(response);
-    } catch (error) {
-      return this.handleError<T>(error);
-    }
-  }
-
-  // DELETE request
   async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseURL}${endpoint}`, {
+      const response = await fetch(this.toURL(endpoint), {
         method: 'DELETE',
         headers: this.headers,
       });
@@ -66,12 +49,17 @@ class ApiClient {
     }
   }
 
-  // Handle response
+  private toURL(endpoint: string): string {
+    return `${this.baseURL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+  }
+
   private async handleResponse<T>(response: Response): Promise<ApiResponse<T>> {
     const contentType = response.headers.get('content-type');
     let data: unknown;
 
-    if (contentType?.includes('application/json')) {
+    if (response.status === 204) {
+      data = undefined;
+    } else if (contentType?.includes('application/json')) {
       data = await response.json();
     } else {
       data = await response.text();
@@ -81,9 +69,7 @@ class ApiClient {
       return {
         success: false,
         error: `HTTP ${response.status}`,
-        message: typeof data === 'object' && data !== null && 'message' in data
-          ? (data as Record<string, unknown>).message as string
-          : 'An error occurred',
+        message: this.resolveErrorMessage(data),
       };
     }
 
@@ -93,7 +79,16 @@ class ApiClient {
     };
   }
 
-  // Handle error
+  private resolveErrorMessage(data: unknown): string {
+    if (typeof data === 'string' && data) return data;
+    if (typeof data !== 'object' || data === null) return 'An error occurred';
+
+    const record = data as Record<string, unknown>;
+    if (typeof record.message === 'string') return record.message;
+    if (typeof record.detail === 'string') return record.detail;
+    return 'An error occurred';
+  }
+
   private handleError<T>(error: unknown): ApiResponse<T> {
     const message = error instanceof Error ? error.message : 'An unknown error occurred';
     return {
@@ -101,16 +96,6 @@ class ApiClient {
       error: 'NETWORK_ERROR',
       message,
     };
-  }
-
-  // Set auth token
-  setAuthToken(token: string): void {
-    this.headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  // Remove auth token
-  removeAuthToken(): void {
-    delete this.headers['Authorization'];
   }
 }
 

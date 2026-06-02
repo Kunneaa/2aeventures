@@ -1,8 +1,10 @@
 "use client";
 
 import Link from 'next/link';
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { siteConfig } from '../../config/site';
 import { useLanguage } from '../../store/LanguageContext';
+import { BrandLogo } from './BrandLogo';
 
 interface FooterProps {
   locale: 'vi' | 'en';
@@ -12,46 +14,42 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
   const { t, language } = useLanguage();
 
   const companyLinks = [
-    { href: `/${locale}/about`, label: language === 'vi' ? 'Về chúng tôi' : 'About Us' },
-    { href: `/${locale}/products`, label: language === 'vi' ? 'Danh mục sản phẩm' : 'Product Catalog' },
-    { href: `/${locale}/contact`, label: language === 'vi' ? 'Liên hệ' : 'Contact' },
+    { href: `/${locale}/about`, label: t('about_us') },
+    { href: `/${locale}/products`, label: t('our_catalog') },
+    { href: `/${locale}/contact`, label: t('contact') },
   ];
 
   const supportLinks = [
-    { href: `/${locale}/contact`, label: language === 'vi' ? 'Hỗ trợ khách hàng' : 'Customer Support' },
-    { href: `/${locale}/cart`, label: language === 'vi' ? 'Yêu cầu báo giá' : 'Request a Quote' },
-    { href: `/${locale}/about`, label: language === 'vi' ? 'Câu hỏi thường gặp' : 'FAQ' },
-  ];
-
-  const legalLinks = [
-    { href: `/${locale}/about`, label: language === 'vi' ? 'Chính sách bảo mật' : 'Privacy Policy' },
-    { href: `/${locale}/about`, label: language === 'vi' ? 'Điều khoản dịch vụ' : 'Terms of Service' },
-    { href: `/${locale}/about`, label: language === 'vi' ? 'Chính sách vận chuyển' : 'Shipping Policy' },
+    { href: `/${locale}/cart`, label: t('quote_request') },
+    { href: `/${locale}/products`, label: t('products') },
+    { href: `/${locale}/contact`, label: language === 'vi' ? 'Tư vấn nguồn hàng' : 'Sourcing support' },
   ];
 
   return (
-    <footer className="bg-[#0f1f2f] text-gray-300 border-t border-white/10 mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <footer className="mt-16 border-t border-white/10 bg-[#0b151c] text-white/75">
+      <div className="section-shell py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-[#336699] text-white font-bold flex items-center justify-center rounded-lg">2A</div>
-              <span className="font-bold text-xl tracking-tight text-white">2AEVENTURES</span>
+              <BrandLogo
+                size="md"
+                labelClassName="font-bold text-xl text-white"
+              />
             </div>
-            <p className="text-sm text-gray-300 leading-relaxed max-w-md">
+            <p className="max-w-md text-sm leading-relaxed text-white/75">
               {language === 'vi'
-                ? '2AE Ventures là thành viên của D&T Foods Inc. (Mỹ) với hơn 35 năm kinh nghiệm phân phối thực phẩm đông lạnh. Chúng tôi đang xây dựng Trung tâm Chăm Sóc Khách Hàng tại TP.HCM để hỗ trợ hoạt động kinh doanh tại Mỹ thông qua hệ thống Call & Chat Center.'
-                : '2AE Ventures is a member of D&T Foods Inc. (USA), with over 35 years of frozen food distribution experience. We are building a Customer Care Center in Ho Chi Minh City to support U.S. operations through our Call & Chat Center system.'}
+                ? '2AE Ventures hoạt động trong lĩnh vực phân phối, bán lẻ, nhập khẩu và xuất khẩu thực phẩm, hướng đến các sản phẩm an toàn, chất lượng và có nguồn gốc rõ ràng.'
+                : '2AE Ventures operates in food distribution, retail, import, and export, focusing on safe, quality products with clear origin.'}
             </p>
             <div className="mt-6 space-y-2 text-sm">
               <p className="flex items-center gap-2">
-                <Phone size={16} className="text-[#7fb3e0]" /> 0901 234 567
+                <Phone size={16} className="text-[#d9a85c]" /> {siteConfig.hotline.label}
               </p>
               <p className="flex items-center gap-2">
-                <Mail size={16} className="text-[#7fb3e0]" /> contact@2aeventures.com
+                <Mail size={16} className="text-[#d9a85c]" /> {siteConfig.email.label}
               </p>
               <p className="flex items-center gap-2">
-                <MapPin size={16} className="text-[#7fb3e0]" /> 123 ABC Street, District 1, Ho Chi Minh City
+                <MapPin size={16} className="text-[#d9a85c]" /> {siteConfig.address}
               </p>
             </div>
           </div>
@@ -88,48 +86,45 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
 
           <div>
             <h4 className="text-white font-semibold mb-4">
-              {language === 'vi' ? 'Đăng ký nhận tin' : 'Newsletter'}
+              {language === 'vi' ? 'Nhận tư vấn' : 'Get Support'}
             </h4>
-            <p className="text-sm text-gray-300 mb-3">
+            <p className="text-sm text-gray-300 mb-4">
               {language === 'vi'
-                ? 'Nhận cập nhật giá sỉ và sản phẩm mới hàng tuần.'
-                : 'Get weekly wholesale updates and new arrivals.'}
+                ? 'Gửi yêu cầu báo giá hoặc để lại thông tin để đội 2AEVENTURES phản hồi.'
+                : 'Submit a quote request or leave your details so 2AEVENTURES can follow up.'}
             </p>
-            <div className="flex gap-2 mb-5">
-              <input
-                type="email"
-                placeholder={language === 'vi' ? 'Email của bạn' : 'Your email'}
-                className="w-full rounded-lg bg-white/10 border border-white/20 px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7fb3e0]"
-              />
-              <button className="rounded-lg bg-[#336699] hover:bg-[#2b5986] text-white px-4 py-2 text-sm font-medium transition-colors">
-                {language === 'vi' ? 'Gửi' : 'Join'}
-              </button>
-            </div>
+            <Link
+              href={`/${locale}/contact`}
+              className="btn-primary mb-5 px-4 py-2 text-sm"
+            >
+              {language === 'vi' ? 'Liên hệ ngay' : 'Contact us'}
+              <ArrowRight size={16} />
+            </Link>
             <div className="flex items-center gap-3">
               <a
-                href="https://facebook.com"
+                href={siteConfig.socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+                className="rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20"
               >
                 <Facebook size={16} />
               </a>
               <a
-                href="https://instagram.com"
+                href={siteConfig.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+                className="rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20"
               >
                 <Instagram size={16} />
               </a>
               <a
-                href="https://linkedin.com"
+                href={siteConfig.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+                className="rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20"
               >
                 <Linkedin size={16} />
               </a>
@@ -137,15 +132,8 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-gray-400 text-center md:text-left">{t('footer_text')}</p>
-          <div className="flex items-center gap-4 text-xs text-gray-400">
-            {legalLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="hover:text-white transition-colors">
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        <div className="mt-10 border-t border-white/10 pt-6">
+          <p className="text-center text-sm text-white/60 md:text-left">{t('footer_text')}</p>
         </div>
       </div>
     </footer>

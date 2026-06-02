@@ -4,8 +4,11 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { getLocaleFromPath } from '../../lib/localePath';
+import { QuickEmailButton } from '../contact/QuickEmailButton';
 import { useLanguage } from '../../store/LanguageContext';
-import { Product } from '../../lib/mockData';
+import { useCatalog } from '../../store/CatalogContext';
+import type { Product } from '../../types';
 
 interface ProductCardProps {
   product: Product;
@@ -13,15 +16,14 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { t, language } = useLanguage();
+  const { getCategory } = useCatalog();
   const pathname = usePathname();
-  const locale = useMemo(() => {
-    const match = pathname?.match(/^\/(vi|en)(?=\/|$)/);
-    return match?.[1] ?? 'vi';
-  }, [pathname]);
+  const locale = useMemo(() => getLocaleFromPath(pathname), [pathname]);
+  const categoryName = getCategory(product.categoryId)?.name[language] || product.categoryId;
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow group">
-      <div className="relative h-48 w-full overflow-hidden bg-gray-50">
+    <article className="commerce-card commerce-card-hover group flex h-full flex-col overflow-hidden">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#edf3f0]">
         <Image
           src={product.image} 
           alt={product.name[language]} 
@@ -30,16 +32,36 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
-      <div className="p-4">
-        <h3 className="font-semibold text-lg text-gray-900 mb-1 line-clamp-1">{product.name[language]}</h3>
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2 h-10">{product.description[language]}</p>
-        <Link
-          href={`/${locale}/products/${product.id}`}
-          className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-        >
-          {t('view_details')}
-        </Link>
+      <div className="flex flex-1 flex-col p-4">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <span className="rounded-lg bg-[#f2f7fb] px-2.5 py-1 text-xs font-bold text-[#336699]">
+            {categoryName}
+          </span>
+          <span className="text-xs font-bold text-[#7a858a]">
+            {product.unit[language]}
+          </span>
+        </div>
+        <h3 className="mb-2 line-clamp-1 text-lg font-extrabold text-[#17242d]">
+          {product.name[language]}
+        </h3>
+        <p className="mb-5 line-clamp-2 min-h-10 text-sm leading-relaxed text-[#5c6a72]">
+          {product.description[language]}
+        </p>
+        <div className="mt-auto grid gap-2">
+          <Link
+            href={`/${locale}/products/${product.id}`}
+            className="btn-primary w-full px-4 py-2.5 text-sm"
+          >
+            {t('view_details')}
+          </Link>
+          <QuickEmailButton
+            products={[product]}
+            className="btn-secondary w-full px-4 py-2.5 text-sm"
+          >
+            {t('quick_contact')}
+          </QuickEmailButton>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };

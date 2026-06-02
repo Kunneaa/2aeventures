@@ -1,4 +1,4 @@
-.PHONY: up down build logs restart ps validate
+.PHONY: up down build logs restart ps validate deploy backup prod-config
 
 up:
 	docker compose up -d --build
@@ -20,3 +20,12 @@ ps:
 
 validate:
 	docker compose config
+
+prod-config:
+	docker compose --env-file .env -f docker-compose.yml -f docker-compose.prod.yml config
+
+deploy:
+	./scripts/deploy.sh
+
+backup:
+	./scripts/backup.sh

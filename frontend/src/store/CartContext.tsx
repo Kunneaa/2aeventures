@@ -1,18 +1,26 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Product } from '../lib/mockData';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
+import type { Product } from '../types';
+
+const CART_STORAGE_KEY = '2aeventures_cart';
 
 export interface CartItem {
   product: Product;
-  quantity: number;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (product: Product, quantity: number) => void;
+  addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   cartCount: number;
 }
@@ -21,52 +29,60 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [hasLoadedCart, setHasLoadedCart] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('2aeventures_cart');
-    if (!saved) return;
+    const saved = localStorage.getItem(CART_STORAGE_KEY);
+    if (!saved) {
+      setHasLoadedCart(true);
+      return;
+    }
 
     try {
-      setItems(JSON.parse(saved));
-    } catch (e) {
+      const parsed = JSON.parse(saved) as CartItem[];
+      const savedItems = Array.isArray(parsed)
+        ? parsed
+            .filter((item) => item?.product?.id)
+            .map((item) => ({ product: item.product }))
+        : [];
+      setItems(savedItems);
+    } catch {
       setItems([]);
+    } finally {
+      setHasLoadedCart(true);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('2aeventures_cart', JSON.stringify(items));
-  }, [items]);
+    if (hasLoadedCart) {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    }
+  }, [hasLoadedCart, items]);
 
-  const addToCart = (product: Product, quantity: number) => {
+  const addToCart = useCallback((product: Product) => {
     setItems(prev => {
       const existing = prev.find(item => item.product.id === product.id);
       if (existing) {
-        return prev.map(item => 
-          item.product.id === product.id 
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
+        return prev;
       }
-      return [...prev, { product, quantity }];
+      return [...prev, { product }];
     });
-  };
+  }, []);
 
-  const removeFromCart = (productId: string) => {
+  const removeFromCart = useCallback((productId: string) => {
     setItems(prev => prev.filter(item => item.product.id !== productId));
-  };
+  }, []);
 
-  const updateQuantity = (productId: string, quantity: number) => {
-    setItems(prev => prev.map(item => 
-      item.product.id === productId ? { ...item, quantity: Math.max(1, quantity) } : item
-    ));
-  };
+  const clearCart = useCallback(() => setItems([]), []);
 
-  const clearCart = () => setItems([]);
-
-  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = items.length;
+  const value = useMemo(
+    () => ({ items, addToCart, removeFromCart, clearCart, cartCount }),
+    [addToCart, cartCount, clearCart, items, removeFromCart],
+  );
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, clearCart, cartCount }}>
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );

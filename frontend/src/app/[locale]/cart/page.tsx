@@ -1,12 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { Trash2, CheckCircle, FileText } from "lucide-react";
-import { useLanguage } from "../../../store/LanguageContext";
-import { useCart } from "../../../store/CartContext";
+import Link from "next/link";
+import { useState } from "react";
+import { CheckCircle, FileText, ShoppingBag, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { QuickEmailButton } from "../../../components/contact/QuickEmailButton";
+import { quoteService } from "../../../services/quotes";
+import { useCart } from "../../../store/CartContext";
+import { useLanguage } from "../../../store/LanguageContext";
+
+const cartCopy = {
+  vi: {
+    eyebrow: "Yêu cầu báo giá",
+    intro: "Kiểm tra danh sách sản phẩm và để lại thông tin để 2AE phản hồi đúng nhu cầu.",
+    summary: "Thông tin yêu cầu",
+    selected: "Sản phẩm đã chọn",
+    continueShopping: "Tiếp tục xem sản phẩm",
+    submitting: "Đang gửi...",
+  },
+  en: {
+    eyebrow: "Quote request",
+    intro: "Review selected products and leave your details so 2AE can follow up properly.",
+    summary: "Request details",
+    selected: "Selected products",
+    continueShopping: "Continue browsing",
+    submitting: "Submitting...",
+  },
+};
 
 export default function QuoteCartPage({
   params,
@@ -14,83 +35,118 @@ export default function QuoteCartPage({
   params: { locale: "vi" | "en" };
 }) {
   const { t, language } = useLanguage();
-  const { items, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { items, removeFromCart, clearCart } = useCart();
+  const copy = cartCopy[language];
+  const selectedProducts = items.map((item) => item.product);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleQuantityChange = (productId: string, value: string) => {
-    const parsed = Number.parseInt(value, 10);
-    updateQuantity(productId, Number.isNaN(parsed) ? 1 : Math.max(parsed, 1));
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    notes: "",
+  });
+
+  const updateField = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (items.length === 0 || isSubmitting) return;
+
     setIsSubmitting(true);
-    setTimeout(() => {
+    const response = await quoteService.createQuote({
+      items: selectedProducts.map((product) => ({
+        productId: product.id,
+      })),
+      customerInfo: {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone,
+      },
+      notes: formData.notes || undefined,
+      locale: language,
+    });
+
+    setIsSubmitting(false);
+
+    if (response.success) {
       setIsSubmitted(true);
-      setIsSubmitting(false);
       clearCart();
+      setFormData({ name: "", email: "", company: "", phone: "", notes: "" });
       toast.success(language === "vi" ? "Đã gửi yêu cầu báo giá" : "Quote request submitted");
-    }, 1000);
+      return;
+    }
+
+    toast.error(
+      language === "vi"
+        ? "Chưa gửi được yêu cầu báo giá. Vui lòng thử lại."
+        : "Could not submit the quote request. Please try again.",
+    );
   };
 
   if (isSubmitted) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-20 text-center flex flex-col items-center justify-center">
-        <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
+      <div className="section-shell flex flex-col items-center justify-center px-4 py-20 text-center">
+        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#edf7f2] text-[#2f6f63]">
           <CheckCircle size={40} />
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">{t("form_success")}</h2>
-        <Link
-          href={`/${params.locale}/products`}
-          className="mt-8 text-blue-600 font-medium hover:underline"
-        >
-          &larr; {t("view_products")}
+        <h2 className="max-w-2xl text-3xl font-extrabold text-[#17324d]">
+          {t("form_success")}
+        </h2>
+        <Link href={`/${params.locale}/products`} className="btn-secondary mt-8 px-5 py-2.5 text-sm">
+          {copy.continueShopping}
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-        <FileText className="text-blue-600" />
-        {t("quote_request")}
-      </h1>
-
-      {items.length === 0 ? (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
-          <div className="w-16 h-16 bg-gray-50 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FileText size={24} />
-          </div>
-          <h3 className="text-xl font-medium text-gray-900 mb-2">{t("cart_empty")}</h3>
-          <p className="text-gray-500 mb-8 max-w-md mx-auto">
-            {t("cart_empty_description")}
-          </p>
-          <Link
-            href={`/${params.locale}/products`}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors inline-block"
-          >
-            {t("view_products")}
-          </Link>
+    <div className="app-shell w-full">
+      <section className="border-b border-[#d8e3df] bg-white">
+        <div className="section-shell py-10 md:py-12">
+          <p className="eyebrow">{copy.eyebrow}</p>
+          <h1 className="heading-lg mt-2 flex items-center gap-3">
+            <FileText className="h-8 w-8 text-[#336699]" />
+            {t("quote_request")}
+          </h1>
+          <p className="body-copy mt-3 max-w-2xl">{copy.intro}</p>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-4">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="hidden sm:grid grid-cols-12 gap-4 p-4 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-600">
-                <div className="col-span-6">{t("product_name")}</div>
-                <div className="col-span-4 text-center">{t("quantity")}</div>
-                <div className="col-span-2 text-right"></div>
+      </section>
+
+      <section className="section-shell py-8 md:py-12">
+        {items.length === 0 ? (
+          <div className="commerce-card px-6 py-14 text-center">
+            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#f2f7fb] text-[#336699]">
+              <ShoppingBag size={26} />
+            </div>
+            <h2 className="text-2xl font-extrabold text-[#17324d]">{t("cart_empty")}</h2>
+            <p className="body-copy mx-auto mt-3 max-w-md">{t("cart_empty_description")}</p>
+            <Link href={`/${params.locale}/products`} className="btn-primary mt-8 px-6 py-3 text-sm">
+              {t("view_products")}
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_420px]">
+            <div className="commerce-card overflow-hidden">
+              <div className="flex items-center justify-between gap-4 border-b border-[#d8e3df] bg-[#f8faf8] p-4">
+                <h2 className="font-extrabold text-[#17324d]">{copy.selected}</h2>
+                <span className="rounded-lg bg-white px-3 py-1 text-sm font-bold text-[#5c6a72]">
+                  {items.length}
+                </span>
               </div>
 
-              <ul className="divide-y divide-gray-100">
+              <ul className="divide-y divide-[#edf3f0]">
                 {items.map((item) => (
                   <li
                     key={item.product.id}
-                    className="p-4 flex flex-col sm:grid sm:grid-cols-12 gap-4 items-center"
+                    className="grid gap-4 p-4 sm:grid-cols-[1fr_auto] sm:items-center"
                   >
-                    <div className="col-span-6 flex items-center gap-4 w-full">
-                      <div className="relative w-16 h-16 rounded-md overflow-hidden border border-gray-200">
+                    <div className="flex min-w-0 items-center gap-4">
+                      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-[#d8e3df] bg-[#edf3f0]">
                         <Image
                           src={item.product.image}
                           alt={item.product.name[language]}
@@ -99,128 +155,120 @@ export default function QuoteCartPage({
                           className="object-cover"
                         />
                       </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 line-clamp-2 text-sm sm:text-base">
+                      <div className="min-w-0">
+                        <h3 className="line-clamp-2 text-sm font-extrabold text-[#17242d] sm:text-base">
                           {item.product.name[language]}
-                        </h4>
-                        <p className="text-xs text-gray-500 mt-1">
+                        </h3>
+                        <p className="mt-1 text-xs font-bold text-[#7a858a]">
                           {t("unit")}: {item.product.unit[language]}
                         </p>
                       </div>
                     </div>
 
-                    <div className="col-span-4 flex justify-center w-full mt-4 sm:mt-0">
-                      <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden w-32">
-                        <input
-                          type="number"
-                          min={1}
-                          value={item.quantity}
-                          onChange={(e) => handleQuantityChange(item.product.id, e.target.value)}
-                          className="w-full text-center py-2 text-sm font-medium focus:outline-none"
-                        />
-                        <span className="pr-3 text-gray-500 text-sm">
-                          {item.product.unit[language]}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="col-span-2 flex justify-end w-full mt-2 sm:mt-0">
-                      <button
-                        onClick={() => removeFromCart(item.product.id)}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                        title={t("remove")}
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => removeFromCart(item.product.id)}
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-[#d4183d] transition-colors hover:bg-[#fff1f3]"
+                      title={t("remove")}
+                    >
+                      <Trash2 size={18} />
+                    </button>
                   </li>
                 ))}
               </ul>
 
-              <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-end">
+              <div className="flex justify-between gap-3 border-t border-[#d8e3df] bg-[#f8faf8] p-4">
+                <Link href={`/${params.locale}/products`} className="text-sm font-bold text-[#336699] hover:text-[#17324d]">
+                  {copy.continueShopping}
+                </Link>
                 <button
                   onClick={clearCart}
-                  className="text-sm text-gray-500 hover:text-gray-900 font-medium"
+                  className="text-sm font-bold text-[#7a858a] hover:text-[#17242d]"
                 >
                   {t("clear_cart")}
                 </button>
               </div>
             </div>
+
+            <aside>
+              <div className="commerce-card sticky top-24 p-5">
+                <h2 className="border-b border-[#d8e3df] pb-4 text-lg font-extrabold text-[#17324d]">
+                  {copy.summary}
+                </h2>
+
+                <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+                  <div>
+                    <label className="field-label">{t("name")} *</label>
+                    <input
+                      required
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => updateField("name", e.target.value)}
+                      className="field-input mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="field-label">{t("email")} *</label>
+                    <input
+                      required
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => updateField("email", e.target.value)}
+                      className="field-input mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="field-label">{t("company")} *</label>
+                    <input
+                      required
+                      type="text"
+                      value={formData.company}
+                      onChange={(e) => updateField("company", e.target.value)}
+                      className="field-input mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="field-label">{t("phone")} *</label>
+                    <input
+                      required
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => updateField("phone", e.target.value)}
+                      className="field-input mt-1.5"
+                    />
+                  </div>
+                  <div>
+                    <label className="field-label">{t("notes")}</label>
+                    <textarea
+                      rows={3}
+                      value={formData.notes}
+                      onChange={(e) => updateField("notes", e.target.value)}
+                      className="field-input mt-1.5 resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary w-full px-4 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {isSubmitting ? copy.submitting : t("submit_quote")}
+                  </button>
+
+                  <QuickEmailButton
+                    products={selectedProducts}
+                    className="btn-secondary w-full px-4 py-3 text-sm"
+                  >
+                    {t("quick_email")}
+                  </QuickEmailButton>
+                  <p className="text-xs leading-relaxed text-[#5c6a72]">
+                    {t("quick_email_hint")}
+                  </p>
+                </form>
+              </div>
+            </aside>
           </div>
-
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">
-                {t("submit_quote")}
-              </h3>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t("name")} *
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t("email")} *
-                  </label>
-                  <input
-                    required
-                    type="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t("company")} *
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t("phone")} *
-                  </label>
-                  <input
-                    required
-                    type="tel"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t("notes")}
-                  </label>
-                  <textarea
-                    rows={3}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg mt-6 transition-colors shadow-sm"
-                >
-                  {isSubmitting
-                    ? language === "vi"
-                      ? "Đang gửi..."
-                      : "Submitting..."
-                    : t("submit_quote")}
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </section>
     </div>
   );
 }

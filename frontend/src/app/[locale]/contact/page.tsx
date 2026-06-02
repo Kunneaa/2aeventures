@@ -1,13 +1,111 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
-import { useLanguage } from "../../../store/LanguageContext";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Globe2,
+  Mail,
+  MapPin,
+  MessageCircle,
+  PackageSearch,
+  Phone,
+  Send,
+  Truck,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
+import { siteConfig } from "../../../config/site";
+import { contactService } from "../../../services/contact";
+import { useLanguage } from "../../../store/LanguageContext";
+
+type ContactField = "name" | "email" | "phone" | "message";
+
+const contactVisual =
+  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80";
+
+const pageCopy = {
+  vi: {
+    kicker: "Liên hệ 2AE Ventures",
+    title: "Bạn cần nguồn hàng hoặc đối tác phân phối thực phẩm?",
+    intro:
+      "Chia sẻ nhu cầu của bạn, 2AE sẽ xem xét hướng sản phẩm, kênh phân phối và cách hợp tác phù hợp.",
+    quickTitle: "Kênh liên hệ nhanh",
+    formEyebrow: "Gửi yêu cầu",
+    formIntro: "Càng rõ nhu cầu, đội 2AE càng dễ phản hồi đúng trọng tâm.",
+    sendLoading: "Đang gửi yêu cầu...",
+    successBody: "Thông tin của bạn đã được ghi nhận. 2AE sẽ phản hồi sớm nhất.",
+    helpTitle: "2AE có thể hỗ trợ bạn ở đâu?",
+    helpIntro: "Hỗ trợ nguồn hàng, phân phối và hợp tác thực phẩm tại Việt Nam.",
+    mapTitle: "Vị trí 2AE Ventures",
+    mapIntro: "Xem vị trí 2AE trên bản đồ.",
+    mapAction: "Mở Google Maps",
+    channels: {
+      call: "Gọi trực tiếp",
+      zalo: "Nhắn Zalo",
+      email: "Gửi email",
+    },
+    helpCards: [
+      {
+        title: "Tìm nguồn hàng",
+        text: "Trao đổi về nhóm sản phẩm, tiêu chuẩn chất lượng và nguồn gốc phù hợp.",
+      },
+      {
+        title: "Hợp tác phân phối",
+        text: "Kết nối nhu cầu thị trường với hệ thống phân phối và bán lẻ có chọn lọc.",
+      },
+      {
+        title: "Nhập khẩu / xuất khẩu",
+        text: "Tiếp nhận yêu cầu liên quan đến nguồn hàng quốc tế và hợp tác thương mại.",
+      },
+    ],
+  },
+  en: {
+    kicker: "Contact 2AE Ventures",
+    title: "Looking for food sourcing or a distribution partner?",
+    intro:
+      "Share your needs and 2AE will review the right product direction, distribution channel, and cooperation path.",
+    quickTitle: "Fast contact channels",
+    formEyebrow: "Send a request",
+    formIntro: "The clearer your request, the easier it is for 2AE to respond with the right direction.",
+    sendLoading: "Sending request...",
+    successBody: "Your information has been received. 2AE will respond as soon as possible.",
+    helpTitle: "Where can 2AE support you?",
+    helpIntro: "Support for sourcing, distribution, and food partnerships in Vietnam.",
+    mapTitle: "2AE Ventures location",
+    mapIntro: "View 2AE on the map.",
+    mapAction: "Open Google Maps",
+    channels: {
+      call: "Call now",
+      zalo: "Message Zalo",
+      email: "Send email",
+    },
+    helpCards: [
+      {
+        title: "Product sourcing",
+        text: "Discuss product categories, quality standards, and suitable origin requirements.",
+      },
+      {
+        title: "Distribution partnership",
+        text: "Connect market demand with selective distribution and retail channels.",
+      },
+      {
+        title: "Import / export",
+        text: "Receive requests related to international sourcing and trade cooperation.",
+      },
+    ],
+  },
+};
+
+const helpIcons = [PackageSearch, Truck, Globe2];
 
 export default function ContactPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const copy = pageCopy[language];
+  const mapQuery = encodeURIComponent(siteConfig.address);
+  const mapEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,137 +114,166 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const updateField = (field: "name" | "email" | "phone" | "message", value: string) => {
+
+  const updateField = (field: ContactField, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
-    setSubmitted(true);
-    toast.success(t("contact_success_title"));
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(false);
+    const response = await contactService.sendMessage({
+      ...formData,
+      locale: language,
+    });
+
+    setIsSubmitting(false);
+
+    if (response.success) {
+      setSubmitted(true);
+      toast.success(t("contact_success_title"));
       setFormData({ name: "", email: "", phone: "", message: "" });
-    }, 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
+      return;
+    }
+
+    toast.error(
+      language === "vi"
+        ? "Chưa gửi được tin nhắn. Vui lòng thử lại."
+        : "Could not send your message. Please try again.",
+    );
   };
 
+  const contactChannels = [
+    {
+      label: copy.channels.call,
+      title: t("contact_hotline_title"),
+      value: siteConfig.hotline.label,
+      note: t("contact_hotline_note"),
+      href: siteConfig.hotline.href,
+      icon: Phone,
+    },
+    {
+      label: copy.channels.zalo,
+      title: t("contact_zalo_title"),
+      value: siteConfig.zalo.label,
+      note: t("contact_zalo_note"),
+      href: siteConfig.zalo.href,
+      icon: MessageCircle,
+    },
+    {
+      label: copy.channels.email,
+      title: t("contact_email_title"),
+      value: siteConfig.email.label,
+      note: t("contact_email_note"),
+      href: siteConfig.email.href,
+      icon: Mail,
+    },
+  ];
+
   return (
-    <div className="relative overflow-x-hidden bg-gradient-to-br from-[#eff7ff] via-[#f7fbff] to-white">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-16 -left-20 h-72 w-72 rounded-full bg-[#cfe6ff]/55 blur-3xl" />
-        <div className="absolute top-44 right-[-72px] h-80 w-80 rounded-full bg-[#dff0ff]/50 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#e8f4ff]/45 blur-3xl" />
-      </div>
+    <div className="app-shell w-full">
+      <section className="relative overflow-hidden bg-[#0b151c]">
+        <Image
+          src={contactVisual}
+          alt="2AE food distribution contact"
+          fill
+          priority
+          className="object-cover opacity-40"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,15,22,0.94),rgba(7,15,22,0.82)_46%,rgba(7,15,22,0.36)_100%)]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 md:mb-12"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-1.5 text-sm font-semibold text-blue-700 shadow-sm">
-            <MessageCircle className="w-4 h-4" />
-            2AEVENTURES SUPPORT
-          </div>
-          <h1 className="mt-4 text-4xl md:text-5xl font-extrabold text-[#1f3f5f] tracking-tight">
-            {t("contact_title")}
-          </h1>
-          <p className="mt-4 text-lg md:text-xl text-gray-700 max-w-3xl leading-relaxed">
-            {t("contact_intro")}
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+        <div className="section-shell relative grid min-h-[calc(100vh-4rem)] grid-cols-1 gap-10 py-14 md:py-20 lg:grid-cols-[1fr_500px]">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-5"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="flex flex-col justify-center"
           >
-            <h2 className="text-2xl font-extrabold text-gray-900">{t("contact_info_title")}</h2>
+            <p className="eyebrow-on-dark">
+              {copy.kicker}
+            </p>
+            <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-tight text-white md:text-6xl">
+              {copy.title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
+              {copy.intro}
+            </p>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="group rounded-2xl bg-white border border-blue-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-[#eaf2fa] rounded-xl flex items-center justify-center mb-4">
-                  <Phone className="w-6 h-6 text-[#336699]" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">{t("contact_hotline_title")}</h3>
-                <p className="text-gray-700 font-semibold">{t("contact_hotline_value")}</p>
-                <p className="text-sm text-gray-600 mt-1">{t("contact_hotline_note")}</p>
-              </div>
+            <div className="mt-10">
+              <h2 className="text-sm font-bold uppercase text-white/60">
+                {copy.quickTitle}
+              </h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {contactChannels.map((channel) => {
+                  const Icon = channel.icon;
 
-              <div className="group rounded-2xl bg-white border border-blue-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-[#eaf2fa] rounded-xl flex items-center justify-center mb-4">
-                  <MessageCircle className="w-6 h-6 text-[#336699]" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">{t("contact_zalo_title")}</h3>
-                <p className="text-gray-700 font-semibold">{t("contact_zalo_value")}</p>
-                <p className="text-sm text-gray-600 mt-1">{t("contact_zalo_note")}</p>
-              </div>
-
-              <div className="group rounded-2xl bg-white border border-blue-100 p-5 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
-                <div className="w-12 h-12 bg-[#eaf2fa] rounded-xl flex items-center justify-center mb-4">
-                  <Mail className="w-6 h-6 text-[#336699]" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">{t("contact_email_title")}</h3>
-                <p className="text-gray-700 font-semibold">{t("contact_email_value")}</p>
-                <p className="text-sm text-gray-600 mt-1">{t("contact_email_note")}</p>
-              </div>
-
-              <div className="group rounded-2xl bg-white border border-blue-100 p-5 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
-                <div className="w-12 h-12 bg-[#eaf2fa] rounded-xl flex items-center justify-center mb-4">
-                  <MapPin className="w-6 h-6 text-[#336699]" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">{t("contact_address_title")}</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  {t("contact_address_line1")}
-                  <br />
-                  {t("contact_address_line2")}
-                </p>
-              </div>
-
-              <div className="group rounded-2xl bg-white border border-blue-100 p-5 shadow-sm hover:shadow-md transition-shadow sm:col-span-2">
-                <div className="w-12 h-12 bg-[#eaf2fa] rounded-xl flex items-center justify-center mb-4">
-                  <Clock className="w-6 h-6 text-[#336699]" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">{t("contact_hours_title")}</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  {t("contact_hours_line1")}
-                  <br />
-                  {t("contact_hours_line2")}
-                </p>
+                  return (
+                    <a
+                      key={channel.title}
+                      href={channel.href}
+                      target={channel.href.startsWith("http") ? "_blank" : undefined}
+                      rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="group rounded-lg border border-white/20 bg-white/10 p-4 text-white backdrop-blur transition-colors hover:bg-white hover:text-[#17324d]"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <Icon className="h-5 w-5 text-[#d9a85c]" />
+                        <ArrowRight className="h-4 w-4 opacity-60 transition-transform group-hover:translate-x-1" />
+                      </div>
+                      <p className="mt-5 text-base font-extrabold">{channel.label}</p>
+                      <p className="mt-1 text-sm text-white/70 group-hover:text-[#53636c]">
+                        {channel.value}
+                      </p>
+                      <p className="mt-3 text-xs leading-relaxed text-white/60 group-hover:text-[#667780]">
+                        {channel.note}
+                      </p>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
+            id="contact-form"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="flex items-center"
           >
-            <div className="rounded-3xl bg-white p-6 md:p-8 border border-blue-100 shadow-[0_20px_50px_rgba(17,50,84,0.12)]">
-              <h2 className="text-2xl font-extrabold text-gray-900 mb-1">{t("contact_form_title")}</h2>
-              <p className="text-gray-600 mb-6">{t("contact_success_desc")}</p>
+            <div className="commerce-card w-full p-5 md:p-7">
+              <p className="eyebrow">
+                {copy.formEyebrow}
+              </p>
+              <h2 className="mt-2 text-2xl font-extrabold text-[#17324d]">
+                {t("contact_form_title")}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-[#5c6a72]">
+                {copy.formIntro}
+              </p>
 
               {submitted ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Mail className="w-8 h-8 text-green-600" />
+                <div className="py-12 text-center">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#e8f4ee]">
+                    <CheckCircle2 className="h-8 w-8 text-[#2f6f63]" />
                   </div>
-                  <h3 className="font-semibold mb-2">{t("contact_success_title")}</h3>
-                  <p className="text-gray-600">{t("contact_success_desc")}</p>
+                  <h3 className="mt-5 text-xl font-extrabold text-[#17324d]">
+                    {t("contact_success_title")}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5c6a72]">
+                    {copy.successBody}
+                  </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="block text-sm font-semibold mb-1.5 text-gray-800">
+                      <label className="field-label">
                         {t("contact_form_name_label")} <span className="text-red-600">*</span>
                       </label>
                       <input
@@ -154,13 +281,13 @@ export default function ContactPage() {
                         required
                         value={formData.name}
                         onChange={(e) => updateField("name", e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
+                        className="field-input mt-1.5"
                         placeholder={t("contact_form_name_placeholder")}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-1.5 text-gray-800">
+                      <label className="field-label">
                         {t("contact_form_phone_label")} <span className="text-red-600">*</span>
                       </label>
                       <input
@@ -168,14 +295,14 @@ export default function ContactPage() {
                         required
                         value={formData.phone}
                         onChange={(e) => updateField("phone", e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
+                        className="field-input mt-1.5"
                         placeholder={t("contact_form_phone_placeholder")}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-1.5 text-gray-800">
+                    <label className="field-label">
                       {t("contact_form_email_label")} <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -183,21 +310,21 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={(e) => updateField("email", e.target.value)}
-                      className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
+                      className="field-input mt-1.5"
                       placeholder={t("contact_form_email_placeholder")}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-1.5 text-gray-800">
+                    <label className="field-label">
                       {t("contact_form_message_label")} <span className="text-red-600">*</span>
                     </label>
                     <textarea
                       required
-                      rows={5}
+                      rows={4}
                       value={formData.message}
                       onChange={(e) => updateField("message", e.target.value)}
-                      className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 bg-white"
+                      className="field-input mt-1.5 resize-none"
                       placeholder={t("contact_form_message_placeholder")}
                     />
                   </div>
@@ -205,43 +332,98 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#336699] text-white py-3 rounded-xl font-bold hover:bg-[#2c5c8a] transition-colors shadow-md shadow-blue-900/20"
+                    className="btn-primary w-full px-5 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    {isSubmitting
-                      ? (t("contact_form_submit").includes("Send") ? "Sending..." : "Đang gửi...")
-                      : t("contact_form_submit")}
+                    <Send className="h-4 w-4" />
+                    {isSubmitting ? copy.sendLoading : t("contact_form_submit")}
                   </button>
                 </form>
               )}
             </div>
           </motion.div>
         </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="mt-12"
-        >
-          <div className="rounded-3xl overflow-hidden border border-blue-100 shadow-[0_18px_45px_rgba(15,47,80,0.12)] bg-white">
-            <div className="px-6 py-4 bg-gradient-to-r from-[#336699] to-[#3e78b0]">
-              <p className="text-white font-semibold">{t("contact_address_title")}</p>
-              <p className="text-blue-100 text-sm">{t("contact_address_line1")} - {t("contact_address_line2")}</p>
+      <section className="bg-white">
+        <div className="section-shell py-14 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-[380px_1fr]">
+            <div>
+              <p className="eyebrow">
+                2AE Ventures
+              </p>
+              <h2 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-4xl">
+                {copy.helpTitle}
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-[#5c6a72]">
+                {copy.helpIntro}
+              </p>
             </div>
-            <div className="h-80">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3205189944084!2d106.69276431533431!3d10.788324192315086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f38f9ed887b%3A0x14aded5d4f83e5a9!2zVMOibiBExKluaCwgUXXhuq1uIDEsIEjhu5MgQ2jDrSBNaW5oLCBWaWV0bmFt!5e0!3m2!1sen!2s!4v1234567890"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-              />
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {copy.helpCards.map((card, index) => {
+                const Icon = helpIcons[index];
+
+                return (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{ duration: 0.5, delay: index * 0.06 }}
+                    className="commerce-card commerce-card-hover p-5"
+                  >
+                    <Icon className="h-7 w-7 text-[#b87333]" />
+                    <h3 className="mt-5 text-lg font-extrabold text-[#17242d]">
+                      {card.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[#5c6a72]">
+                      {card.text}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </section>
+
+      <section className="border-y border-[#d8e3df] bg-[#f6f8f6]">
+        <div className="section-shell grid gap-8 py-14 md:py-16 lg:grid-cols-[380px_1fr]">
+          <div>
+            <p className="eyebrow">2AE Ventures</p>
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-4xl">
+              {copy.mapTitle}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-[#5c6a72]">
+              {copy.mapIntro}
+            </p>
+            <p className="mt-5 flex gap-3 text-sm font-bold leading-relaxed text-[#17242d]">
+              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#336699]" />
+              <span>{siteConfig.address}</span>
+            </p>
+            <a
+              href={mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-7 px-5 py-3 text-sm"
+            >
+              {copy.mapAction}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+
+          <div className="commerce-card overflow-hidden">
+            <iframe
+              title="2AE Ventures map"
+              src={mapEmbedUrl}
+              className="h-[360px] w-full border-0 md:h-[460px]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

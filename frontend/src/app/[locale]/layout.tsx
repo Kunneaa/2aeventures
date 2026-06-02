@@ -1,6 +1,5 @@
 "use client";
 
-import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import { Header } from "../../components/layout/Header";
 import { Footer } from "../../components/layout/Footer";
@@ -8,6 +7,8 @@ import { ChatWidget } from "../../components/chatbot/ChatWidget";
 import { Toaster } from "../../components/ui/sonner";
 import { LanguageProvider } from "../../store/LanguageContext";
 import { CartProvider } from "../../store/CartContext";
+import { CatalogProvider } from "../../store/CatalogContext";
+import { PageMemory } from "../../components/session/PageMemory";
 
 export default function LocaleLayout({
   children,
@@ -19,10 +20,11 @@ export default function LocaleLayout({
   const locale = params.locale === "en" ? "en" : "vi";
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-      <LanguageProvider initialLanguage={locale}>
+    <LanguageProvider initialLanguage={locale}>
+      <CatalogProvider>
         <CartProvider>
           <div className="min-h-screen flex flex-col">
+            <PageMemory locale={locale} />
             <Header locale={locale} />
             <main className="flex-1">{children}</main>
             <Footer locale={locale} />
@@ -30,7 +32,7 @@ export default function LocaleLayout({
             <Toaster />
           </div>
         </CartProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+      </CatalogProvider>
+    </LanguageProvider>
   );
 }
