@@ -5,20 +5,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Grid2X2, ListFilter, PackageSearch, Search } from "lucide-react";
 import { ProductCard } from "../../../components/products/ProductCard";
+import { countProductsByCategory, getProductSearchableText } from "../../../lib/catalog";
 import { matchesSearchQuery, normalizeSearchText } from "../../../lib/search";
 import { useCatalog } from "../../../store/CatalogContext";
 import { useLanguage } from "../../../store/LanguageContext";
-import type { Product } from "../../../types";
-
-const getProductSearchableText = (product: Product): string =>
-  [
-    product.id,
-    product.categoryId,
-    product.name.en,
-    product.name.vi,
-    product.description.en,
-    product.description.vi,
-  ].join(" ");
 
 const pageCopy = {
   vi: {
@@ -68,14 +58,10 @@ export default function ProductsPage() {
   const selectedCategory = categories.find((category) => category.id === activeCategory);
   const showCategoryOverview = !activeCategory && !showAllProducts && !isSearching;
 
-  const categoryProductCount = useMemo(() => {
-    return categories.reduce<Record<string, number>>((acc, category) => {
-      acc[category.id] = products.filter(
-        (product) => product.categoryId === category.id,
-      ).length;
-      return acc;
-    }, {});
-  }, [categories, products]);
+  const categoryProductCount = useMemo(
+    () => countProductsByCategory(categories, products),
+    [categories, products],
+  );
 
   const visibleProducts = useMemo(() => {
     if (isSearching) {

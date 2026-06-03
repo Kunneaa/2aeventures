@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CheckCircle, FileText, ShoppingBag, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { QuickEmailButton } from "../../../components/contact/QuickEmailButton";
+import { FormField } from "../../../components/forms/FormField";
 import { quoteService } from "../../../services/quotes";
 import { useCart } from "../../../store/CartContext";
 import { useLanguage } from "../../../store/LanguageContext";
@@ -196,55 +197,42 @@ export default function QuoteCartPage({
                 </h2>
 
                 <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-                  <div>
-                    <label className="field-label">{t("name")} *</label>
-                    <input
-                      required
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => updateField("name", e.target.value)}
-                      className="field-input mt-1.5"
-                    />
-                  </div>
-                  <div>
-                    <label className="field-label">{t("email")} *</label>
-                    <input
-                      required
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => updateField("email", e.target.value)}
-                      className="field-input mt-1.5"
-                    />
-                  </div>
-                  <div>
-                    <label className="field-label">{t("company")} *</label>
-                    <input
-                      required
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => updateField("company", e.target.value)}
-                      className="field-input mt-1.5"
-                    />
-                  </div>
-                  <div>
-                    <label className="field-label">{t("phone")} *</label>
-                    <input
-                      required
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => updateField("phone", e.target.value)}
-                      className="field-input mt-1.5"
-                    />
-                  </div>
-                  <div>
-                    <label className="field-label">{t("notes")}</label>
-                    <textarea
-                      rows={3}
-                      value={formData.notes}
-                      onChange={(e) => updateField("notes", e.target.value)}
-                      className="field-input mt-1.5 resize-none"
-                    />
-                  </div>
+                  <FormField
+                    required
+                    label={t("name")}
+                    value={formData.name}
+                    onChange={(value) => updateField("name", value)}
+                    autoComplete="name"
+                  />
+                  <FormField
+                    required
+                    type="email"
+                    label={t("email")}
+                    value={formData.email}
+                    onChange={(value) => updateField("email", value)}
+                    autoComplete="email"
+                  />
+                  <FormField
+                    required
+                    label={t("company")}
+                    value={formData.company}
+                    onChange={(value) => updateField("company", value)}
+                    autoComplete="organization"
+                  />
+                  <FormField
+                    required
+                    type="tel"
+                    label={t("phone")}
+                    value={formData.phone}
+                    onChange={(value) => updateField("phone", value)}
+                    autoComplete="tel"
+                  />
+                  <FormField
+                    multiline
+                    label={t("notes")}
+                    value={formData.notes}
+                    onChange={(value) => updateField("notes", value)}
+                  />
 
                   <button
                     type="submit"

@@ -43,14 +43,23 @@ export const CatalogProvider: React.FC<{ children: ReactNode }> = ({ children })
     };
   }, [applyCatalog]);
 
-  const getProduct = useCallback(
-    (productId: string) => products.find((product) => product.id === productId),
+  const productsById = useMemo(
+    () => new Map(products.map((product): [string, Product] => [product.id, product])),
     [products],
+  );
+  const categoriesById = useMemo(
+    () => new Map(categories.map((category): [string, Category] => [category.id, category])),
+    [categories],
+  );
+
+  const getProduct = useCallback(
+    (productId: string) => productsById.get(productId),
+    [productsById],
   );
 
   const getCategory = useCallback(
-    (categoryId: string) => categories.find((category) => category.id === categoryId),
-    [categories],
+    (categoryId: string) => categoriesById.get(categoryId),
+    [categoriesById],
   );
 
   const value = useMemo(

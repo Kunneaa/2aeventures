@@ -48,6 +48,8 @@ class ProductService:
 
         if search:
             query = self._normalize(search)
+            if not query:
+                return []
             products = [item for item in products if self._matches_product(item, query)]
 
         if sort_by == "name":
@@ -61,25 +63,13 @@ class ProductService:
         return product_repository.get_product(product_id)
 
     def get_products_by_category(self, category_id: str) -> list[Product]:
-        return [
-            product
-            for product in product_repository.list_products()
-            if product.category_id == category_id
-        ]
+        return self.list_products(category=category_id)
 
     def get_featured_products(self, limit: int = 4) -> list[Product]:
-        return product_repository.list_products()[:limit]
+        return self.list_products(limit=limit)
 
     def search_products(self, query: str, limit: int = 20) -> list[Product]:
-        normalized = self._normalize(query)
-        if not normalized:
-            return []
-        matches = [
-            product
-            for product in product_repository.list_products()
-            if self._matches_product(product, normalized)
-        ]
-        return matches[:limit]
+        return self.list_products(search=query, limit=limit)
 
     def category_exists(self, category_id: str) -> bool:
         return product_repository.category_exists(category_id)

@@ -6,6 +6,7 @@ import { ArrowRight, ChefHat, ShieldCheck, Truck } from "lucide-react";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import { ProductCard } from "../../components/products/ProductCard";
+import { countProductsByCategory } from "../../lib/catalog";
 import { useCatalog } from "../../store/CatalogContext";
 import { useLanguage } from "../../store/LanguageContext";
 
@@ -44,14 +45,10 @@ export default function HomePage({
   const featuredProducts = products.slice(0, 4);
   const basePath = `/${params.locale}`;
 
-  const categoryProductCount = useMemo(() => {
-    return categories.reduce<Record<string, number>>((acc, category) => {
-      acc[category.id] = products.filter(
-        (product) => product.categoryId === category.id,
-      ).length;
-      return acc;
-    }, {});
-  }, [categories, products]);
+  const categoryProductCount = useMemo(
+    () => countProductsByCategory(categories, products),
+    [categories, products],
+  );
 
   return (
     <div className="app-shell flex w-full flex-col">

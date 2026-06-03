@@ -20,8 +20,10 @@ Website giới thiệu và nhận yêu cầu báo giá cho 2AEVENTURES. Project 
 ├── .env.example
 ├── .gitignore
 ├── README.md
+├── RENDER_DEPLOY.md
 ├── docker-compose.yml
 ├── docker-compose.prod.yml
+├── render.yaml
 ├── caddy/
 │   └── Caddyfile
 ├── backend/
@@ -153,6 +155,15 @@ Mở thử:
 ```text
 http://127.0.0.1/vi
 ```
+
+## Demo Trên Render
+
+Repo có sẵn `render.yaml` để tạo hai Docker web services trên Render:
+
+- `twoae-demo-api`: backend FastAPI.
+- `twoae-demo-web`: frontend Next.js.
+
+Hướng dẫn chi tiết nằm trong `RENDER_DEPLOY.md`. Lưu ý Render Free có filesystem tạm, nên dữ liệu quote/contact trong `/app/data` có thể mất khi service restart/redeploy nếu chưa gắn persistent disk.
 
 ## Chạy 24/7 Trên Máy Windows
 

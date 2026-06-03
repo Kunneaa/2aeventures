@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
+import { FormField } from "../../../components/forms/FormField";
 import { siteConfig } from "../../../config/site";
 import { contactService } from "../../../services/contact";
 import { useLanguage } from "../../../store/LanguageContext";
@@ -272,62 +273,45 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className="field-label">
-                        {t("contact_form_name_label")} <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => updateField("name", e.target.value)}
-                        className="field-input mt-1.5"
-                        placeholder={t("contact_form_name_placeholder")}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="field-label">
-                        {t("contact_form_phone_label")} <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => updateField("phone", e.target.value)}
-                        className="field-input mt-1.5"
-                        placeholder={t("contact_form_phone_placeholder")}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="field-label">
-                      {t("contact_form_email_label")} <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="email"
+                    <FormField
                       required
-                      value={formData.email}
-                      onChange={(e) => updateField("email", e.target.value)}
-                      className="field-input mt-1.5"
-                      placeholder={t("contact_form_email_placeholder")}
+                      label={t("contact_form_name_label")}
+                      value={formData.name}
+                      onChange={(value) => updateField("name", value)}
+                      placeholder={t("contact_form_name_placeholder")}
+                      autoComplete="name"
+                    />
+
+                    <FormField
+                      required
+                      type="tel"
+                      label={t("contact_form_phone_label")}
+                      value={formData.phone}
+                      onChange={(value) => updateField("phone", value)}
+                      placeholder={t("contact_form_phone_placeholder")}
+                      autoComplete="tel"
                     />
                   </div>
 
-                  <div>
-                    <label className="field-label">
-                      {t("contact_form_message_label")} <span className="text-red-600">*</span>
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => updateField("message", e.target.value)}
-                      className="field-input mt-1.5 resize-none"
-                      placeholder={t("contact_form_message_placeholder")}
-                    />
-                  </div>
+                  <FormField
+                    required
+                    type="email"
+                    label={t("contact_form_email_label")}
+                    value={formData.email}
+                    onChange={(value) => updateField("email", value)}
+                    placeholder={t("contact_form_email_placeholder")}
+                    autoComplete="email"
+                  />
+
+                  <FormField
+                    required
+                    multiline
+                    rows={4}
+                    label={t("contact_form_message_label")}
+                    value={formData.message}
+                    onChange={(value) => updateField("message", value)}
+                    placeholder={t("contact_form_message_placeholder")}
+                  />
 
                   <button
                     type="submit"
