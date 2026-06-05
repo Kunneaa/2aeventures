@@ -48,9 +48,15 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
               <p className="flex items-center gap-2">
                 <Mail size={16} className="text-[#d9a85c]" /> {siteConfig.email.label}
               </p>
-              <p className="flex items-center gap-2">
-                <MapPin size={16} className="text-[#d9a85c]" /> {siteConfig.address}
-              </p>
+              <a
+                href={siteConfig.googleMaps.searchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 transition-colors hover:text-white"
+              >
+                <MapPin size={16} className="mt-0.5 shrink-0 text-[#d9a85c]" />
+                <span>{siteConfig.address}</span>
+              </a>
             </div>
           </div>
 

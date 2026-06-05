@@ -104,9 +104,6 @@ const helpIcons = [PackageSearch, Truck, Globe2];
 export default function ContactPage() {
   const { t, language } = useLanguage();
   const copy = pageCopy[language];
-  const mapQuery = encodeURIComponent(siteConfig.address);
-  const mapEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -386,7 +383,7 @@ export default function ContactPage() {
               <span>{siteConfig.address}</span>
             </p>
             <a
-              href={mapLink}
+              href={siteConfig.googleMaps.searchUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary mt-7 px-5 py-3 text-sm"
@@ -399,7 +396,7 @@ export default function ContactPage() {
           <div className="commerce-card overflow-hidden">
             <iframe
               title="2AE Ventures map"
-              src={mapEmbedUrl}
+              src={siteConfig.googleMaps.embedUrl}
               className="h-[360px] w-full border-0 md:h-[460px]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
