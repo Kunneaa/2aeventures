@@ -22,7 +22,7 @@ const aboutContent = {
     heroText:
       "2AE xây dựng một hệ thống phân phối thực phẩm chuyên nghiệp, đáng tin cậy và hiệu quả tại Việt Nam, tập trung vào sản phẩm an toàn, chất lượng và có nguồn gốc rõ ràng.",
     heroNote:
-      "Thế mạnh của 2AE đến từ khả năng tiếp cận nguồn hàng chất lượng từ Mỹ, Taiwan và các đối tác nước ngoài uy tín khác.",
+      "Thế mạnh của 2AE đến từ khả năng tiếp cận nguồn hàng chất lượng từ Mỹ, Úc và các đối tác nước ngoài uy tín khác.",
     heroMarks: ["Phân phối", "Bán lẻ", "Nhập khẩu", "Xuất khẩu"],
     whoTitle: "Who We Are",
     whoIntro:
@@ -34,7 +34,7 @@ const aboutContent = {
       },
       {
         title: "Nguồn hàng quốc tế",
-        text: "2AE kết nối với các nguồn hàng chất lượng từ nước ngoài, đặc biệt là những thị trường có tiêu chuẩn cao như Mỹ, Taiwan, để lựa chọn sản phẩm phù hợp với nhu cầu Việt Nam.",
+        text: "2AE kết nối với các nguồn hàng chất lượng từ nước ngoài, đặc biệt là những thị trường có tiêu chuẩn cao như Mỹ, Úc, để lựa chọn sản phẩm phù hợp với nhu cầu Việt Nam.",
       },
       {
         title: "Hệ thống phân phối có chọn lọc",
@@ -53,7 +53,7 @@ const aboutContent = {
     storySteps: [
       {
         title: "Khởi đầu từ nguồn hàng chất lượng",
-        text: "2AE bắt đầu từ khả năng tiếp cận các nguồn hàng từ những quốc gia có tiêu chuẩn cao như Mỹ, Taiwan và các đối tác nước ngoài uy tín.",
+        text: "2AE bắt đầu từ khả năng tiếp cận các nguồn hàng từ những quốc gia có tiêu chuẩn cao như Mỹ, Úc và các đối tác nước ngoài uy tín.",
       },
       {
         title: "Nhận diện nhu cầu tại Việt Nam",
@@ -75,7 +75,7 @@ const aboutContent = {
     heroText:
       "2AE is building a professional, reliable, and efficient food distribution system in Vietnam, focusing on safe, high-quality products with clear origin.",
     heroNote:
-      "2AE's strength comes from access to quality sources from the United States, Taiwan, and other trusted overseas partners.",
+      "2AE's strength comes from access to quality sources from the United States, Australia, and other trusted overseas partners.",
     heroMarks: ["Distribution", "Retail", "Import", "Export"],
     whoTitle: "Who We Are",
     whoIntro:
@@ -87,7 +87,7 @@ const aboutContent = {
       },
       {
         title: "International sourcing",
-        text: "2AE connects with quality overseas sources, especially high-standard markets such as the United States and Taiwan, to select products suited to Vietnam.",
+        text: "2AE connects with quality overseas sources, especially high-standard markets such as the United States and Australia, to select products suited to Vietnam.",
       },
       {
         title: "Selective distribution system",
@@ -106,7 +106,7 @@ const aboutContent = {
     storySteps: [
       {
         title: "Starting from quality sources",
-        text: "2AE began with access to sources from high-standard countries such as the United States, Taiwan, and trusted overseas partners.",
+        text: "2AE began with access to sources from high-standard countries such as the United States, Australia, and trusted overseas partners.",
       },
       {
         title: "Reading Vietnam's demand",
