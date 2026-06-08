@@ -2,11 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChefHat, ShieldCheck, Truck } from "lucide-react";
+import { ArrowRight, DollarSign, ShieldCheck, Ship, Truck } from "lucide-react";
 import { motion } from "motion/react";
-import { useMemo } from "react";
-import { ProductCard } from "../../components/products/ProductCard";
-import { countProductsByCategory } from "../../lib/catalog";
 import { useCatalog } from "../../store/CatalogContext";
 import { useLanguage } from "../../store/LanguageContext";
 
@@ -15,47 +12,108 @@ const heroImage =
 
 const homeCopy = {
   vi: {
-    kicker: "Nguồn hàng thực phẩm B2B",
+    kicker: "Nhập khẩu, xuất khẩu và phân phối thực phẩm đông lạnh",
+    heroTitle: "2AE Ventures",
+    heroSubtitle:
+      "Nhập khẩu, xuất khẩu và phân phối thực phẩm đông lạnh chuyên về bò, gà với định hướng xây dựng hệ thống phân phối chuyên nghiệp, đáng tin cậy tại Việt Nam.",
+    primaryCta: "Xem mặt hàng",
     secondaryCta: "Liên hệ tư vấn",
-    categoryTitle: "Mua theo danh mục",
-    categoryIntro: "Chọn nhanh nhóm hàng để xem các sản phẩm phù hợp với nhu cầu phân phối, bán lẻ hoặc nhập khẩu.",
-    featuredEyebrow: "Sản phẩm nổi bật",
-    promiseTitle: "Chuẩn hóa từ nguồn hàng đến phản hồi báo giá",
-    promiseItems: ["Nguồn gốc rõ ràng", "Phù hợp nhu cầu B2B", "Trao đổi nhanh qua email/Zalo"],
+    priority: ["Nhập khẩu", "Xuất khẩu", "Phân phối"],
+    valuesEyebrow: "Giá trị cốt lõi",
+    valuesTitle: "Tập trung vào nguồn hàng rõ ràng và giá trị thương mại thực tế.",
+    values: [
+      {
+        icon: ShieldCheck,
+        title: "Chất lượng từ Mỹ",
+        text: "Nguồn thịt bò và thịt gà được nhập khẩu từ các đối tác uy tín tại Mỹ, đáp ứng các tiêu chuẩn về chất lượng và an toàn thực phẩm.",
+        color: "text-[#2f6f63]",
+        bg: "bg-[#edf7f2]",
+      },
+      {
+        icon: DollarSign,
+        title: "Giá cả cạnh tranh",
+        text: "Tối ưu chuỗi cung ứng và kết nối trực tiếp với đối tác để mang đến mức giá phù hợp cho hệ thống phân phối và khách hàng doanh nghiệp.",
+        color: "text-[#b87333]",
+        bg: "bg-[#fff5e6]",
+      },
+    ],
+    highlightEyebrow: "Mặt hàng nổi bật",
+    highlightTitle: "Nhóm hàng chính theo định hướng nhập khẩu và xuất khẩu.",
+    importTitle: "Những mặt hàng nổi bật nhập khẩu",
+    exportTitle: "Những mặt hàng nổi bật xuất khẩu",
+    importNote: "Tập trung vào nguồn hàng đông lạnh từ Mỹ.",
+    exportNote: "Hướng tới các nhóm hàng phù hợp cho hợp tác thương mại quốc tế.",
+    viewGroup: "Xem nhóm hàng",
   },
   en: {
-    kicker: "B2B food sourcing",
+    kicker: "Frozen food import, export, and distribution",
+    heroTitle: "2AE Ventures",
+    heroSubtitle:
+      "Import, export, and distribution of frozen food with a focus on beef and chicken, building a professional and reliable distribution system in Vietnam.",
+    primaryCta: "View products",
     secondaryCta: "Contact sales",
-    categoryTitle: "Shop by category",
-    categoryIntro: "Choose a product group to view items suited for distribution, retail, or import needs.",
-    featuredEyebrow: "Featured products",
-    promiseTitle: "A clear path from sourcing to quotation",
-    promiseItems: ["Clear product origin", "Built for B2B needs", "Fast email/Zalo follow-up"],
+    priority: ["Import", "Export", "Distribution"],
+    valuesEyebrow: "Core values",
+    valuesTitle: "Focused on clear sourcing and practical commercial value.",
+    values: [
+      {
+        icon: ShieldCheck,
+        title: "Quality from the United States",
+        text: "Beef and chicken sources are imported from trusted partners in the United States, meeting quality and food safety standards.",
+        color: "text-[#2f6f63]",
+        bg: "bg-[#edf7f2]",
+      },
+      {
+        icon: DollarSign,
+        title: "Competitive pricing",
+        text: "Optimized supply chains and direct partner connections help deliver suitable pricing for distribution systems and enterprise customers.",
+        color: "text-[#b87333]",
+        bg: "bg-[#fff5e6]",
+      },
+    ],
+    highlightEyebrow: "Featured goods",
+    highlightTitle: "Core product groups by import and export direction.",
+    importTitle: "Featured imported goods",
+    exportTitle: "Featured exported goods",
+    importNote: "Focused on frozen sourcing from the United States.",
+    exportNote: "Built for product groups suitable for international trade partnerships.",
+    viewGroup: "View group",
   },
 };
+
+const highlightGroups = [
+  {
+    type: "import",
+    icon: Ship,
+    categoryIds: ["beef", "chicken"],
+    tone: "bg-[#f2f7fb]",
+    iconTone: "text-[#336699]",
+  },
+  {
+    type: "export",
+    icon: Truck,
+    categoryIds: ["fish", "seafood"],
+    tone: "bg-[#f7f3ea]",
+    iconTone: "text-[#b87333]",
+  },
+] as const;
 
 export default function HomePage({
   params,
 }: {
   params: { locale: "vi" | "en" };
 }) {
-  const { t, language } = useLanguage();
-  const { categories, products } = useCatalog();
+  const { language } = useLanguage();
+  const { categories } = useCatalog();
   const copy = homeCopy[language];
-  const featuredProducts = products.slice(0, 4);
   const basePath = `/${params.locale}`;
-
-  const categoryProductCount = useMemo(
-    () => countProductsByCategory(categories, products),
-    [categories, products],
-  );
 
   return (
     <div className="app-shell flex w-full flex-col">
       <section className="relative overflow-hidden bg-[#0b151c]">
         <Image
           src={heroImage}
-          alt="2AE food distribution warehouse"
+          alt="2AE frozen food sourcing and distribution"
           fill
           priority
           sizes="100vw"
@@ -63,7 +121,7 @@ export default function HomePage({
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,15,22,0.94),rgba(7,15,22,0.78)_48%,rgba(7,15,22,0.3)_100%)]" />
 
-        <div className="section-shell relative grid min-h-[620px] gap-10 py-16 md:py-20 lg:grid-cols-[1fr_420px] lg:items-center">
+        <div className="section-shell relative grid min-h-[620px] gap-10 py-16 md:py-20 lg:grid-cols-[1fr_360px] lg:items-center">
           <motion.div
             className="flex max-w-3xl flex-col justify-center"
             initial={{ opacity: 0, y: 24 }}
@@ -72,144 +130,151 @@ export default function HomePage({
           >
             <p className="eyebrow-on-dark">{copy.kicker}</p>
             <h1 className="mt-5 text-4xl font-extrabold leading-tight text-white md:text-6xl">
-              {t("hero_title")}
+              {copy.heroTitle}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
-              {t("hero_subtitle")}
+              {copy.heroSubtitle}
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href={`${basePath}/products`} className="btn-primary px-6 py-3 text-sm">
-                {t("shop_now")}
+                {copy.primaryCta}
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href={`${basePath}/contact`} className="btn-secondary px-6 py-3 text-sm">
                 {copy.secondaryCta}
               </Link>
             </div>
+
+            <div className="mt-12 grid max-w-2xl border-t border-white/20 pt-5 sm:grid-cols-3">
+              {copy.priority.map((item, index) => (
+                <div
+                  key={item}
+                  className="border-b border-white/10 py-3 text-sm font-bold uppercase tracking-[0.08em] text-white/80 last:border-b-0 sm:border-b-0 sm:border-r sm:border-white/10 sm:px-4 sm:first:pl-0 sm:last:border-r-0"
+                >
+                  <span className="mr-2 text-[#d9a85c]">0{index + 1}</span>
+                  {item}
+                </div>
+              ))}
+            </div>
           </motion.div>
 
-          <motion.aside
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="flex items-end lg:items-center"
+            className="hidden min-h-[460px] items-end lg:flex"
           >
-            <div className="w-full rounded-lg border border-white/20 bg-white/95 p-6 shadow-[0_24px_70px_rgba(0,0,0,0.28)] backdrop-blur">
-              <p className="eyebrow">
-                {copy.promiseTitle}
+            <div className="w-full border-l border-white/20 pl-8">
+              <p className="max-w-xs text-sm font-bold uppercase tracking-[0.16em] text-white/55">
+                Import first, export ready, distribution built for Vietnam.
               </p>
-              <div className="mt-5 space-y-3">
-                {copy.promiseItems.map((item) => (
-                  <div key={item} className="flex items-center gap-3 border-t border-[#d8e3df] pt-3 first:border-t-0 first:pt-0">
-                    <ShieldCheck className="h-5 w-5 shrink-0 text-[#2f6f63]" />
-                    <span className="text-sm font-bold text-[#17242d]">{item}</span>
-                  </div>
-                ))}
-              </div>
+              <div className="mt-6 h-px w-24 bg-[#d9a85c]" />
             </div>
-          </motion.aside>
+          </motion.div>
         </div>
       </section>
 
       <section className="border-b border-[#d8e3df] bg-white">
-        <div className="section-shell grid gap-5 py-8 md:grid-cols-3">
-          {[
-            { icon: ShieldCheck, title: t("premium_quality"), text: t("premium_quality_desc"), color: "text-[#2f6f63]", bg: "bg-[#edf7f2]" },
-            { icon: Truck, title: t("cold_chain_logistics"), text: t("cold_chain_desc"), color: "text-[#336699]", bg: "bg-[#f2f7fb]" },
-            { icon: ChefHat, title: t("wholesale_pricing"), text: t("wholesale_pricing_desc"), color: "text-[#b87333]", bg: "bg-[#fff5e6]" },
-          ].map((item, index) => {
-            const Icon = item.icon;
+        <div className="section-shell grid gap-8 py-12 lg:grid-cols-[360px_1fr] lg:items-start">
+          <div>
+            <p className="eyebrow">{copy.valuesEyebrow}</p>
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-4xl">
+              {copy.valuesTitle}
+            </h2>
+          </div>
 
-            return (
-              <motion.div
-                key={item.title}
-                className="flex items-start gap-4"
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-              >
-                <div className={`rounded-lg p-3 ${item.bg} ${item.color}`}>
-                  <Icon size={26} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-extrabold text-[#17242d]">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-[#5c6a72]">{item.text}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+          <div className="grid gap-5 md:grid-cols-2">
+            {copy.values.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <motion.div
+                  key={item.title}
+                  className="commerce-card p-5"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5, delay: index * 0.06 }}
+                >
+                  <div className={`inline-flex rounded-lg p-3 ${item.bg} ${item.color}`}>
+                    <Icon size={26} />
+                  </div>
+                  <h3 className="mt-5 text-lg font-extrabold text-[#17242d]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#5c6a72]">{item.text}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       <section className="section-shell section-y">
-        <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="eyebrow">{copy.categoryTitle}</p>
-            <h2 className="heading-lg mt-2">{t("categories")}</h2>
-            <p className="body-copy mt-3 max-w-2xl">{copy.categoryIntro}</p>
-          </div>
-          <Link href={`${basePath}/products`} className="btn-secondary px-5 py-2.5 text-sm">
-            {t("all_categories")}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+        <div className="mb-9 max-w-3xl">
+          <p className="eyebrow">{copy.highlightEyebrow}</p>
+          <h2 className="heading-lg mt-2">{copy.highlightTitle}</h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {categories.slice(0, 6).map((category) => (
-            <Link
-              key={category.id}
-              href={`${basePath}/products?category=${category.id}`}
-              className="commerce-card commerce-card-hover group overflow-hidden"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#edf3f0]">
-                <Image
-                  src={category.image}
-                  alt={category.name[language]}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 16vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-3">
-                <p className="line-clamp-1 text-sm font-extrabold text-[#17242d]">
-                  {category.name[language]}
-                </p>
-                <p className="mt-1 text-xs font-bold text-[#7a858a]">
-                  {categoryProductCount[category.id] ?? 0} {t("products").toLowerCase()}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {highlightGroups.map((group, groupIndex) => {
+            const Icon = group.icon;
+            const groupTitle = group.type === "import" ? copy.importTitle : copy.exportTitle;
+            const groupNote = group.type === "import" ? copy.importNote : copy.exportNote;
+            const groupCategories = group.categoryIds.flatMap((categoryId) => {
+              const category = categories.find((item) => item.id === categoryId);
+              return category ? [category] : [];
+            });
 
-      <section className="bg-white">
-        <div className="section-shell section-y">
-          <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow">{copy.featuredEyebrow}</p>
-              <h2 className="heading-lg mt-2">{t("our_catalog")}</h2>
-              <p className="body-copy mt-3">{t("featured_subtitle")}</p>
-            </div>
-            <Link href={`${basePath}/products?view=all`} className="btn-secondary px-5 py-2.5 text-sm">
-              {t("view_products")}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+            return (
+              <motion.div
+                key={group.type}
+                className="commerce-card overflow-hidden"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: groupIndex * 0.08 }}
+              >
+                <div className={`flex items-start gap-4 border-b border-[#d8e3df] p-5 ${group.tone}`}>
+                  <div className={`rounded-lg bg-white p-3 ${group.iconTone}`}>
+                    <Icon size={26} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-extrabold text-[#17324d]">{groupTitle}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-[#5c6a72]">{groupNote}</p>
+                  </div>
+                </div>
 
-          <motion.div
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </motion.div>
+                <div className="grid gap-4 p-5 sm:grid-cols-2">
+                  {groupCategories.map((category) => (
+                    <Link
+                      key={category.id}
+                      href={`${basePath}/products?category=${category.id}`}
+                      className="group overflow-hidden rounded-lg border border-[#d8e3df] bg-white transition-colors hover:border-[#b8cbc4]"
+                    >
+                      <div className="relative aspect-[4/3] overflow-hidden bg-[#edf3f0]">
+                        <Image
+                          src={category.image}
+                          alt={category.name[language]}
+                          fill
+                          sizes="(max-width: 768px) 50vw, 25vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <p className="text-lg font-extrabold text-[#17242d]">
+                          {category.name[language]}
+                        </p>
+                        <p className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#336699]">
+                          {copy.viewGroup}
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
     </div>
