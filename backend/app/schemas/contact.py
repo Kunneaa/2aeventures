@@ -2,13 +2,7 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-EmailString = Annotated[
-    str,
-    Field(min_length=3, max_length=254, pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$"),
-]
-PhoneString = Annotated[str, Field(min_length=6, max_length=40)]
-ShortString = Annotated[str, Field(min_length=1, max_length=160)]
-MessageString = Annotated[str, Field(min_length=1, max_length=2000)]
+from app.schemas.common import EmailString, LongTextString, PhoneString, ShortString
 
 
 class ContactCreate(BaseModel):
@@ -17,7 +11,7 @@ class ContactCreate(BaseModel):
     name: ShortString
     email: EmailString
     phone: PhoneString
-    message: MessageString
+    message: LongTextString
     locale: Literal["vi", "en"] | None = None
 
 

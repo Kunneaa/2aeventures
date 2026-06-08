@@ -1,5 +1,7 @@
 import type { ApiResponse } from '../types';
 
+type HttpMethod = 'GET' | 'POST' | 'DELETE';
+
 class ApiClient {
   private baseURL: string;
   private headers: Record<string, string>;
@@ -13,35 +15,27 @@ class ApiClient {
   }
 
   async get<T>(endpoint: string): Promise<ApiResponse<T>> {
-    try {
-      const response = await fetch(this.toURL(endpoint), {
-        method: 'GET',
-        headers: this.headers,
-      });
-      return this.handleResponse<T>(response);
-    } catch (error) {
-      return this.handleError<T>(error);
-    }
+    return this.request<T>(endpoint, 'GET');
   }
 
   async post<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
-    try {
-      const response = await fetch(this.toURL(endpoint), {
-        method: 'POST',
-        headers: this.headers,
-        body: JSON.stringify(data),
-      });
-      return this.handleResponse<T>(response);
-    } catch (error) {
-      return this.handleError<T>(error);
-    }
+    return this.request<T>(endpoint, 'POST', data);
   }
 
   async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, 'DELETE');
+  }
+
+  private async request<T>(
+    endpoint: string,
+    method: HttpMethod,
+    data?: unknown,
+  ): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(this.toURL(endpoint), {
-        method: 'DELETE',
+        method,
         headers: this.headers,
+        ...(data === undefined ? {} : { body: JSON.stringify(data) }),
       });
       return this.handleResponse<T>(response);
     } catch (error) {

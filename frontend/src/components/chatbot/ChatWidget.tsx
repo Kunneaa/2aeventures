@@ -32,6 +32,21 @@ const createMessageId = (): string => {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 };
 
+const resolveBotText = (payload: unknown): string | null => {
+  if (!payload) return null;
+  if (typeof payload === 'string') return payload;
+
+  if (typeof payload === 'object') {
+    const data = payload as Record<string, unknown>;
+    if (typeof data.message === 'string') return data.message;
+    if (typeof data.reply === 'string') return data.reply;
+    if (typeof data.text === 'string') return data.text;
+    if (typeof data.content === 'string') return data.content;
+  }
+
+  return null;
+};
+
 export function ChatWidget({ locale }: ChatWidgetProps) {
   const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
@@ -176,47 +191,28 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     ]);
   }, [getContextualGreeting, getQuickActions, hasUserInteracted]);
 
-  const addBotMessage = (text: string, actions?: QuickAction[]) => {
-    const message: Message = {
-      id: createMessageId(),
-      text,
-      sender: 'bot',
-      timestamp: new Date(),
-      actions,
-    };
-    setMessages((prev) => [...prev, message]);
-  };
-
-  const addUserMessage = (text: string) => {
-    const message: Message = {
-      id: createMessageId(),
-      text,
-      sender: 'user',
-      timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, message]);
-  };
-
-  const resolveBotText = (payload: unknown): string | null => {
-    if (!payload) return null;
-    if (typeof payload === 'string') return payload;
-
-    if (typeof payload === 'object') {
-      const data = payload as Record<string, unknown>;
-      if (typeof data.message === 'string') return data.message;
-      if (typeof data.reply === 'string') return data.reply;
-      if (typeof data.text === 'string') return data.text;
-      if (typeof data.content === 'string') return data.content;
-    }
-
-    return null;
+  const addMessage = (
+    sender: Message['sender'],
+    text: string,
+    actions?: QuickAction[],
+  ) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: createMessageId(),
+        text,
+        sender,
+        timestamp: new Date(),
+        actions,
+      },
+    ]);
   };
 
   const handleSend = async () => {
     if (!input.trim() || isBotTyping) return;
 
     const rawInput = input.trim();
-    addUserMessage(rawInput);
+    addMessage('user', rawInput);
     setInput('');
     setHasUserInteracted(true);
     setIsBotTyping(true);
@@ -243,16 +239,18 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
           (language === 'vi'
             ? 'Tôi đã nhận yêu cầu của bạn và đang xử lý.'
             : 'I received your request and I am processing it.');
-        addBotMessage(botText);
+        addMessage('bot', botText);
       } else {
-        addBotMessage(
+        addMessage(
+          'bot',
           language === 'vi'
             ? 'Hiện tại hệ thống AI đang bận. Bạn vui lòng thử lại sau ít phút.'
             : 'The AI service is currently busy. Please try again in a few minutes.'
         );
       }
     } catch {
-      addBotMessage(
+      addMessage(
+        'bot',
         language === 'vi'
           ? 'Kết nối AI tạm thời gián đoạn. Vui lòng thử lại.'
           : 'The AI connection is temporarily unavailable. Please try again.'

@@ -163,6 +163,9 @@ PRODUCTS: tuple[Product, ...] = (
     ),
 )
 
+PRODUCTS_BY_ID = {product.id: product for product in PRODUCTS}
+CATEGORY_IDS = {category.id for category in CATEGORIES}
+
 
 class ProductRepository:
     def list_categories(self) -> list[Category]:
@@ -172,10 +175,10 @@ class ProductRepository:
         return list(PRODUCTS)
 
     def get_product(self, product_id: str) -> Product | None:
-        return next((product for product in PRODUCTS if product.id == product_id), None)
+        return PRODUCTS_BY_ID.get(product_id)
 
     def category_exists(self, category_id: str) -> bool:
-        return any(category.id == category_id for category in CATEGORIES)
+        return category_id in CATEGORY_IDS
 
 
 product_repository = ProductRepository()

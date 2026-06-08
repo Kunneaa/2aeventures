@@ -2,13 +2,7 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-EmailString = Annotated[
-    str,
-    Field(min_length=3, max_length=254, pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$"),
-]
-PhoneString = Annotated[str, Field(min_length=6, max_length=40)]
-ShortString = Annotated[str, Field(min_length=1, max_length=160)]
-LongString = Annotated[str, Field(min_length=1, max_length=2000)]
+from app.schemas.common import EmailString, LongTextString, PhoneString, ShortString
 
 
 class QuoteCustomerInfo(BaseModel):
@@ -31,7 +25,7 @@ class QuoteCreate(BaseModel):
 
     items: list[QuoteItemCreate] = Field(min_length=1)
     customer_info: Annotated[QuoteCustomerInfo, Field(alias="customerInfo")]
-    notes: LongString | None = None
+    notes: LongTextString | None = None
     locale: Literal["vi", "en"] | None = None
 
 
