@@ -121,7 +121,7 @@ export default function HomePage({
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,15,22,0.94),rgba(7,15,22,0.78)_48%,rgba(7,15,22,0.3)_100%)]" />
 
-        <div className="section-shell relative grid min-h-[620px] gap-10 py-16 md:py-20 lg:grid-cols-[1fr_360px] lg:items-center">
+        <div className="section-shell relative flex min-h-[620px] items-center py-16 md:py-20">
           <motion.div
             className="flex max-w-3xl flex-col justify-center"
             initial={{ opacity: 0, y: 24 }}
@@ -156,20 +156,6 @@ export default function HomePage({
                   {item}
                 </div>
               ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="hidden min-h-[460px] items-end lg:flex"
-          >
-            <div className="w-full border-l border-white/20 pl-8">
-              <p className="max-w-xs text-sm font-bold uppercase tracking-[0.16em] text-white/55">
-                Import first, export ready, distribution built for Vietnam.
-              </p>
-              <div className="mt-6 h-px w-24 bg-[#d9a85c]" />
             </div>
           </motion.div>
         </div>
