@@ -1,66 +1,45 @@
 # 2AEVENTURES Website
 
-Website giới thiệu và nhận yêu cầu báo giá cho 2AEVENTURES. Project gồm frontend Next.js, backend FastAPI, Caddy reverse proxy và Docker Compose để chạy toàn bộ hệ thống trên một máy riêng.
+Website giới thiệu 2AE Ventures, hiển thị catalog thực phẩm đông lạnh và nhận yêu cầu liên hệ/báo giá. Project hiện được tổ chức để deploy bằng Render Blueprint.
 
-## Trạng Thái
+## Tech Stack
 
-- Frontend hỗ trợ tiếng Việt và tiếng Anh qua route `/:locale`.
-- Trang sản phẩm hiển thị danh mục, tìm kiếm, lọc category và chi tiết sản phẩm.
-- Giỏ hàng chỉ lưu danh sách sản phẩm quan tâm, không lưu số lượng.
-- Form báo giá và form liên hệ gửi dữ liệu về backend.
-- Dữ liệu quote/contact đang lưu file JSONL trong `data/`, chưa dùng database.
-- Cookie chỉ nhớ trang/locale cuối cùng, không lưu tài khoản hoặc thông tin cá nhân.
-- Chatbot hiện dùng backend nội bộ để trả lời theo catalog, chưa nối LLM thật.
-- Caddy đứng trước frontend/backend, route `/api/*` về backend và các trang còn lại về frontend.
+- Frontend: Next.js 14, TypeScript, Tailwind CSS.
+- Backend: FastAPI, JSONL file storage.
+- Deploy: Render Blueprint qua `render.yaml`.
+- Runtime data: quote/contact lưu ở backend trong `BACKEND_DATA_DIR`.
 
-## Cấu Trúc Chính
+## Cấu Trúc
 
 ```text
 2aeventures/
-├── .env.example
-├── .gitignore
-├── README.md
-├── RENDER_DEPLOY.md
-├── docker-compose.yml
-├── docker-compose.prod.yml
 ├── render.yaml
-├── caddy/
-│   └── Caddyfile
+├── RENDER_DEPLOY.md
 ├── backend/
 │   ├── Dockerfile
-│   ├── requirements.txt
 │   ├── app/
-│   └── tests/
-├── frontend/
-│   ├── Dockerfile
-│   ├── package.json
-│   ├── messages/
-│   ├── public/
-│   └── src/
-├── scripts/
-│   ├── backup.sh
-│   ├── deploy.sh
-│   ├── dev.sh
-│   └── windows/
-└── data/                # runtime data, không push Git
+│   ├── tests/
+│   └── requirements*.txt
+└── frontend/
+    ├── Dockerfile
+    ├── messages/
+    ├── public/
+    └── src/
 ```
 
-Các thư mục/file local như `.env`, `data/`, `backups/`, `node_modules/`, `.next/`, `.venv/`, cache và log đã được ignore.
+Các thư mục local như `node_modules/`, `.next/`, `.venv/`, `data/`, `backups/` và cache đã được ignore.
 
 ## Frontend
 
-Frontend nằm trong `frontend/src`.
-
-Các phần chính:
+Các phần chính nằm trong `frontend/src`:
 
 - `app/[locale]`: home, about, products, product detail, cart, contact.
-- `components`: header, footer, product card, chatbot, quick email, page memory.
-- `services`: client gọi API backend.
-- `store`: catalog, cart, language context.
-- `lib`: mock data, cookie helpers, quick email, search helpers.
-- `messages`: nội dung song ngữ.
+- `components`: layout, product card, chatbot, quick email, page memory.
+- `store`: cart, catalog, language context.
+- `services`: API client và service gọi backend.
+- `lib`: mock catalog fallback, cookie helpers, quick email, search.
 
-Chạy riêng frontend khi phát triển:
+Chạy dev:
 
 ```bash
 cd frontend
@@ -68,9 +47,19 @@ npm ci
 npm run dev
 ```
 
-## Backend
+Biến môi trường frontend:
 
-Backend nằm trong `backend/app`.
+```dotenv
+NEXT_PUBLIC_API_URL=/api/v1
+API_PROXY_TARGET=http://localhost:8000
+NEXT_PUBLIC_APP_NAME=2AEVENTURES
+NEXT_PUBLIC_DEFAULT_LOCALE=vi
+NEXT_PUBLIC_ENABLED_LOCALES=vi,en
+```
+
+Trên Render, `API_PROXY_TARGET` trỏ về backend service Render.
+
+## Backend
 
 Các nhóm API chính:
 
@@ -95,134 +84,56 @@ Các endpoint đọc quote/contact cần header admin:
 - `GET /api/v1/contact`
 - `GET /api/v1/contact/{message_id}`
 
-Runtime data:
-
-```text
-data/quotes.jsonl
-data/contacts.jsonl
-```
-
-## Environment
-
-Tạo file `.env` từ mẫu:
+Chạy dev:
 
 ```bash
-cp .env.example .env
+cd backend
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements-dev.txt
+uvicorn app.main:app --reload --port 8000
 ```
 
-Ví dụ `.env` production:
+Biến môi trường backend:
 
 ```dotenv
-APP_HOSTS=yourdomain.com,www.yourdomain.com
-APP_ORIGIN=https://yourdomain.com
-HTTP_PORT=80
-HTTPS_PORT=443
-
 BACKEND_ENV=production
 BACKEND_LOG_LEVEL=info
-BACKEND_CORS_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
-BACKEND_ADMIN_TOKEN=replace-with-a-long-random-token
-BACKEND_DATA_DIR=/app/data
-
-NEXT_PUBLIC_API_URL=/api/v1
+BACKEND_CORS_ORIGINS=https://twoae-demo-web.onrender.com
+BACKEND_ADMIN_TOKEN=change-this-admin-token
+BACKEND_DATA_DIR=./data
 ```
 
-`BACKEND_ADMIN_TOKEN` dùng để đọc quote/contact qua API nội bộ. Khách vẫn gửi form bình thường qua `POST` dù không có token.
+## Deploy Trên Render
 
-## Chạy Bằng Docker
+Repo dùng `render.yaml` để tạo 2 web services:
 
-Chạy production stack:
+- `twoae-demo-api`: FastAPI backend.
+- `twoae-demo-web`: Next.js frontend.
 
-```bash
-docker compose --env-file .env -f docker-compose.yml -f docker-compose.prod.yml up -d --build
-```
+Các bước chính:
 
-Kiểm tra:
+1. Push code lên branch `main`.
+2. Vào Render Dashboard, chọn **New > Blueprint**.
+3. Kết nối repo GitHub và chọn branch `main`.
+4. Để Blueprint Path mặc định là `render.yaml`.
+5. Render tạo và deploy 2 services.
 
-```bash
-docker compose --env-file .env -f docker-compose.yml -f docker-compose.prod.yml ps
-curl http://127.0.0.1/healthz
-```
+Chi tiết nằm trong `RENDER_DEPLOY.md`.
 
-Nếu chỉ chạy local nhanh, có thể dùng:
+## Dữ Liệu Quote/Contact
 
-```bash
-docker compose up -d --build
-```
-
-Mở thử:
+Backend hiện lưu dữ liệu vào JSONL:
 
 ```text
-http://127.0.0.1/vi
+quotes.jsonl
+contacts.jsonl
 ```
 
-## Demo Trên Render
+Trên Render Free, filesystem là tạm thời. Dữ liệu có thể mất khi service restart/redeploy/spin down. Khi dùng chính thức để nhận lead ổn định, cần một trong hai hướng:
 
-Repo có sẵn `render.yaml` để tạo hai Docker web services trên Render:
-
-- `twoae-demo-api`: backend FastAPI.
-- `twoae-demo-web`: frontend Next.js.
-
-Hướng dẫn chi tiết nằm trong `RENDER_DEPLOY.md`. Lưu ý Render Free có filesystem tạm, nên dữ liệu quote/contact trong `/app/data` có thể mất khi service restart/redeploy nếu chưa gắn persistent disk.
-
-## Chạy 24/7 Trên Máy Windows
-
-Điều kiện:
-
-- Cài Git.
-- Cài Docker Desktop và bật WSL 2 backend.
-- Bật `Start Docker Desktop when you sign in`.
-- Tắt sleep/hibernate khi cắm nguồn.
-- Cho phép inbound TCP `80` và `443` trong Windows Defender Firewall.
-- Nếu dùng domain thật, router cần forward port `80` và `443` vào máy Windows.
-
-Lần đầu trên máy Windows:
-
-```powershell
-git clone <repo-url>
-cd 2aeventures
-copy .env.example .env
-notepad .env
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\deploy.ps1
-```
-
-Cài tự chạy lại khi Windows user login:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\install-startup-task.ps1
-```
-
-Khi có code mới:
-
-```powershell
-git pull
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\deploy.ps1
-```
-
-Lệnh vận hành trên Windows:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\status.ps1
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\status.ps1 -Logs -Service caddy
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\backup.ps1
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\uninstall-startup-task.ps1
-```
-
-Lưu ý: Docker Desktop cần user session. Nếu máy reboot mà chưa login lại, Scheduled Task dạng `AtLogOn` chưa chạy.
-
-## Domain
-
-Để domain trỏ vào máy chạy website:
-
-- Đặt static/reserved LAN IP cho máy chạy server.
-- Forward router:
-  - WAN `80` -> LAN IP port `80`
-  - WAN `443` -> LAN IP port `443`
-- DNS tại nơi mua domain:
-  - `A @` -> public IP của mạng
-  - `A www` -> cùng public IP
-
-Nếu mạng không mở được port `80/443` hoặc dùng CGNAT, cần dùng tunnel như Cloudflare Tunnel/ngrok/Tailscale Funnel.
+- Gắn Render Persistent Disk cho backend paid service.
+- Chuyển sang managed database khi đã quyết định nơi lưu database.
 
 ## Kiểm Tra
 
@@ -231,7 +142,6 @@ Frontend:
 ```bash
 cd frontend
 npm run type-check
-npm run lint
 npm run test:unit
 npm run test:integration
 npm run build
@@ -241,40 +151,18 @@ Backend:
 
 ```bash
 cd backend
-python -m venv .venv
-. .venv/bin/activate
-pip install -r requirements-dev.txt
 python -m pytest
 ```
 
-Docker:
+Render config:
 
 ```bash
-docker compose config --quiet
-docker compose ps
-curl http://127.0.0.1/healthz
+cat render.yaml
 ```
 
-## Backup
-
-Linux/macOS:
-
-```bash
-./scripts/backup.sh
-```
-
-Windows:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\windows\backup.ps1
-```
-
-Backup sẽ nằm trong `backups/`. Không push thư mục này lên Git.
-
-## Ghi Chú Vận Hành
+## Ghi Chú
 
 - Không commit `.env`.
-- Không commit `data/` nếu đang chứa dữ liệu thật của khách.
-- Không commit `backups/`.
-- Không commit `node_modules/`, `.next/`, `.venv/` hoặc cache.
-- Khi muốn đổi sang database thật, thay repository/data adapter ở backend; API contract hiện có thể giữ ổn định.
+- Không commit `data/` nếu chứa dữ liệu khách.
+- Không commit build output hoặc dependency folders.
+- Dockerfiles vẫn được giữ vì Render đang build từng service bằng Docker.

@@ -23,11 +23,11 @@ class LlmService:
             if language == "vi":
                 return (
                     "Bạn thêm sản phẩm cần báo giá vào giỏ, nhập tên, email, công ty và số điện thoại. "
-                    "Backend hiện đã ghi quote request thành file trên VPS để chưa cần database."
+                    "Backend hiện lưu quote request thành file JSONL để chưa cần database."
                 )
             return (
                 "Add the products to your quote cart, then submit your name, email, company and phone. "
-                "The backend now saves quote requests as files on the VPS while database hosting is pending."
+                "The backend now saves quote requests as JSONL files while database hosting is pending."
             )
 
         if any(keyword in message for keyword in ["contact", "hotline", "zalo", "email", "liên hệ", "lien he"]):

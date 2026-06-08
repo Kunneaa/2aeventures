@@ -1,40 +1,52 @@
-# Demo Deploy on Render
+# Render Deployment
 
-This project can be demoed on Render with two Docker web services:
+Project này deploy bằng Render Blueprint. Render đọc file `render.yaml` ở root repo và tạo 2 web services riêng:
 
-- `twoae-demo-api`: FastAPI backend
-- `twoae-demo-web`: Next.js frontend
+- `twoae-demo-api`: FastAPI backend.
+- `twoae-demo-web`: Next.js frontend.
 
-Render does not run `docker-compose.yml` directly for web services. The root `render.yaml` defines the two services for Render Blueprints.
+## 1. Blueprint Settings
 
-## 1. Push the Repo
-
-Push the latest code to GitHub:
-
-```bash
-git push origin main
-```
-
-## 2. Create a Blueprint
-
-1. Open Render Dashboard.
-2. Select **New > Blueprint**.
-3. Connect the GitHub repository `Kunneaa/2aeventures`.
-4. Select branch `main`.
-5. Render will read `render.yaml` and create:
-   - `twoae-demo-api`
-   - `twoae-demo-web`
-
-Expected demo URLs:
+Khi tạo Blueprint trên Render:
 
 ```text
-https://twoae-demo-web.onrender.com
-https://twoae-demo-api.onrender.com
+Blueprint Name: 2aeventures
+Branch: main
+Blueprint Path: render.yaml
 ```
 
-## 3. Verify Environment URLs
+Nếu để trống Blueprint Path, Render cũng mặc định đọc `render.yaml` ở root repo.
 
-If Render creates a different service URL, update these values in Render:
+## 2. Services
+
+Backend:
+
+```text
+Service: twoae-demo-api
+Root Directory: backend
+Health Check Path: /health
+```
+
+Frontend:
+
+```text
+Service: twoae-demo-web
+Root Directory: frontend
+Health Check Path: /api/health
+```
+
+Frontend gọi backend qua proxy:
+
+```text
+NEXT_PUBLIC_API_URL=/api/v1
+API_PROXY_TARGET=https://twoae-demo-api.onrender.com
+```
+
+## 3. Environment Variables
+
+Các biến chính đã được khai báo trong `render.yaml`.
+
+Nếu Render tạo URL khác tên service hiện tại, cập nhật lại:
 
 Backend service:
 
@@ -46,21 +58,56 @@ Frontend service:
 
 ```text
 API_PROXY_TARGET=https://YOUR_BACKEND_SERVICE.onrender.com
-NEXT_PUBLIC_API_URL=/api/v1
 ```
 
-Then redeploy both services.
+Sau đó redeploy cả 2 services.
 
-## 4. Data Behavior on Free Render
+## 4. Data Behavior
 
-The backend currently stores contact and quote submissions as JSONL files.
+Backend hiện lưu form liên hệ và báo giá vào JSONL trong:
 
-On Render Free web services, the filesystem is ephemeral. Data written by the running service can be lost when the service redeploys, restarts, or spins down.
+```text
+BACKEND_DATA_DIR=/app/data
+```
 
-For a public demo, this is acceptable if you only need users to browse and test the flow. For reliable lead capture, upgrade the backend service and attach a persistent disk, or move submissions to a managed database later.
+Với Render Free, filesystem là tạm thời. Dữ liệu có thể mất khi service restart, redeploy hoặc spin down.
 
-## 5. Free Plan Notes
+Để nhận lead ổn định khi dùng thật:
 
-Render Free web services spin down after 15 minutes without traffic. The first visitor after idle time may wait around one minute while the frontend and backend wake up.
+- Dùng backend paid service và gắn Render Persistent Disk.
+- Hoặc chuyển phần lưu quote/contact sang managed database.
 
-This is fine for a temporary demo. For a smoother public demo, upgrade both services to a paid instance type.
+## 5. Deploy Flow
+
+1. Commit code lên Git.
+2. Push lên `origin/main`.
+3. Render tự auto-deploy theo `autoDeployTrigger: commit`.
+4. Nếu auto-deploy chưa chạy, vào service trên Render và chọn **Manual Deploy > Deploy latest commit**.
+
+## 6. Verify
+
+Kiểm tra backend:
+
+```text
+https://twoae-demo-api.onrender.com/health
+```
+
+Kết quả mong đợi:
+
+```json
+{"status":"ok"}
+```
+
+Kiểm tra frontend:
+
+```text
+https://twoae-demo-web.onrender.com/vi
+```
+
+Gửi thử form contact/quote để xác nhận frontend gọi được backend.
+
+## 7. Free Plan Notes
+
+Render Free web services có thể spin down sau thời gian không có traffic. Người truy cập đầu tiên sau lúc idle sẽ phải chờ service wake up.
+
+Với demo public, điều này chấp nhận được. Với website chính thức, nên dùng paid instance cho frontend/backend và thêm persistent storage cho backend nếu vẫn lưu file.

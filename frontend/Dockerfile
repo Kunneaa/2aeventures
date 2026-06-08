@@ -11,7 +11,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG NEXT_PUBLIC_API_URL=/api/v1
-ARG API_PROXY_TARGET=http://backend:8000
+ARG API_PROXY_TARGET=https://twoae-demo-api.onrender.com
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV API_PROXY_TARGET=$API_PROXY_TARGET
 
@@ -26,7 +26,7 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
-ENV API_PROXY_TARGET=http://backend:8000
+ENV API_PROXY_TARGET=https://twoae-demo-api.onrender.com
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/static ./.next/static
