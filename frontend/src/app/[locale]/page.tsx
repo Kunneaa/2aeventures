@@ -141,7 +141,7 @@ function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: string }) {
             {copy.heroSubtitle}
           </p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div className="mb-14 mt-9 flex flex-col gap-3 sm:flex-row md:mb-20">
             <Link href={`${basePath}/products`} className="btn-primary px-6 py-3 text-sm">
               {copy.primaryCta}
               <ArrowRight className="h-4 w-4" />
@@ -317,50 +317,27 @@ function FocusGroup({
 
   return (
     <motion.article
+      id={group.type}
       className="overflow-hidden rounded-lg border border-[#d8e3df] bg-white shadow-[0_16px_46px_rgba(23,36,45,0.07)]"
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, delay: index * 0.08 }}
     >
-      <div className="grid lg:grid-cols-[280px_1fr]">
+      <div className="grid lg:grid-cols-[260px_1fr]">
         <div className={`flex min-h-36 flex-col justify-between p-5 md:p-6 ${group.header}`}>
           <p className="text-sm font-extrabold uppercase tracking-[0.08em] text-white/70">
             0{index + 1}
           </p>
           <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.08em] text-[#d9a85c]">
-              {direction.label}
-            </p>
-            <p className="mt-3 text-3xl font-extrabold leading-none">
-              {group.sections.length}
-            </p>
-            <p className="mt-1 text-sm font-bold text-white/70">
-              {language === "vi" ? "nhóm trọng tâm" : "focus groups"}
-            </p>
+            <p className="text-3xl font-extrabold leading-tight">{direction.label}</p>
           </div>
         </div>
 
-        <div className="p-5 md:p-7">
-          <p className={`text-xs font-extrabold uppercase tracking-[0.08em] ${group.accent}`}>
-            {language === "vi" ? "Luồng hàng hóa" : "Trade lane"}
-          </p>
-          <h3 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-4xl">
+        <div className="flex items-center p-5 md:p-7">
+          <h3 className={`text-3xl font-extrabold leading-tight md:text-4xl ${group.accent}`}>
             {direction.title}
           </h3>
-          <p className="body-copy mt-4 max-w-2xl text-sm">
-            {direction.summary}
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {group.sections.map((section) => (
-              <span
-                key={section.title.en}
-                className="rounded-lg border border-[#d8e3df] bg-[#f6f8f6] px-3 py-2 text-xs font-extrabold uppercase text-[#42525b]"
-              >
-                {section.title[language]}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
 

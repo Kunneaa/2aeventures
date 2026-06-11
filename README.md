@@ -37,8 +37,9 @@ Không commit `.env`, dependency folders, build output, cache hoặc dữ liệu
 ## Điểm Sửa Nhanh
 
 - Brand, nội dung Home/About/Contact/Footer/Chatbot frontend: `frontend/src/config/brand.ts`.
-- Hotline, email, địa chỉ, Google Maps, social links: `frontend/src/config/site.ts`.
+- Hotline, email, địa chỉ và Google Maps: `frontend/src/config/site.ts`.
 - Catalog sản phẩm: `data/catalog.json`, sau đó chạy `python3 scripts/sync_catalog.py`.
+- Ảnh brand/layout: `frontend/public/images/`.
 - Ảnh sản phẩm: `frontend/public/images/products/`.
 - Page chính: `frontend/src/app/[locale]/`.
 - API backend: `backend/app/api/v1/`.

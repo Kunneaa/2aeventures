@@ -22,9 +22,4 @@ export const siteConfig = {
     searchUrl: `https://www.google.com/maps/search/?api=1&query=${encodedCompanyAddress}`,
     embedUrl: `https://www.google.com/maps?q=${encodedCompanyAddress}&output=embed`,
   },
-  socials: {
-    facebook: 'https://facebook.com',
-    instagram: 'https://instagram.com',
-    linkedin: 'https://linkedin.com',
-  },
 } as const;

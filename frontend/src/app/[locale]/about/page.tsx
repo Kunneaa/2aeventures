@@ -44,25 +44,25 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="max-w-4xl pb-14"
+            className="max-w-4xl pb-12"
           >
             <p className="eyebrow-on-dark mb-5">{content.heroKicker}</p>
             <h1 className="max-w-4xl text-4xl font-extrabold leading-tight text-white md:text-6xl">
               {content.heroTitle}
             </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-white/86 md:text-xl">
+            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-white/82 md:text-xl">
               {content.heroText}
             </p>
           </motion.div>
 
-          <div className="grid w-full border-t border-white/20 sm:grid-cols-3">
+          <div className="grid w-full gap-3 sm:grid-cols-3">
             {content.heroMarks.map((item, index) => (
               <div
                 key={item}
-                className="border-b border-white/10 py-4 text-sm font-bold uppercase tracking-[0.08em] text-white/82 last:border-b-0 sm:border-b-0 sm:border-r sm:border-white/10 sm:px-5 sm:first:pl-0 sm:last:border-r-0"
+                className="rounded-lg border border-white/14 bg-white/[0.08] p-4 text-sm font-bold uppercase tracking-[0.08em] text-white/82 backdrop-blur-sm"
               >
-                <span className="mr-2 text-[#d9a85c]">0{index + 1}</span>
-                {item}
+                <span className="mb-3 block text-[#d9a85c]">0{index + 1}</span>
+                <span>{item}</span>
               </div>
             ))}
           </div>
@@ -70,21 +70,32 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-[#0b151c] text-white">
-        <div className="section-shell py-14 md:py-20">
-          <div className="grid gap-8 lg:grid-cols-[420px_1fr] lg:items-end">
+        <div className="section-shell py-14 md:py-24">
+          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
               <p className="eyebrow-on-dark">{content.missionEyebrow}</p>
-              <h2 className="mt-4 text-4xl font-extrabold leading-tight md:text-5xl">
+              <h2 className="mt-4 text-4xl font-extrabold leading-tight md:text-6xl">
                 “{content.missionQuote}”
               </h2>
             </div>
-            <div className="max-w-3xl text-base leading-relaxed text-white/76 md:text-lg">
-              <p>{content.missionIntro}</p>
-              <p className="mt-4">{content.missionNote}</p>
+            <div className="grid gap-3 md:grid-cols-2">
+              {[content.missionIntro, content.missionNote].map((item, index) => (
+                <div
+                  key={item}
+                  className="rounded-lg border border-white/14 bg-white/[0.07] p-5"
+                >
+                  <p className="text-xs font-extrabold uppercase tracking-[0.08em] text-[#d9a85c]">
+                    0{index + 1}
+                  </p>
+                  <p className="mt-5 text-sm leading-relaxed text-white/74 md:text-base">
+                    {item}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {content.missionCards.map((item, index) => {
               const Icon = missionIcons[index];
 
@@ -95,11 +106,15 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.5, delay: index * 0.06 }}
-                  className="rounded-lg border border-white/14 bg-white/[0.07] p-5"
+                  className="rounded-lg border border-white/14 bg-white/[0.05] p-5 transition hover:bg-white/[0.08]"
                 >
-                  <Icon className="h-7 w-7 text-[#d9a85c]" />
-                  <h3 className="mt-5 text-xl font-extrabold">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/70">{item.text}</p>
+                  <div className="flex items-start gap-4">
+                    <Icon className="mt-1 h-6 w-6 shrink-0 text-[#d9a85c]" />
+                    <div>
+                      <h3 className="text-lg font-extrabold">{item.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-white/68">{item.text}</p>
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}
@@ -107,8 +122,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="section-shell grid gap-10 py-16 md:py-24 lg:grid-cols-[380px_1fr]">
+      <section className="bg-[#f6f8f6]">
+        <div className="section-shell grid gap-10 py-14 md:py-24 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +134,7 @@ export default function AboutPage() {
             <h2 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-5xl">
               {content.modelTitle}
             </h2>
-            <p className="body-copy mt-5 text-base md:text-lg">{content.modelText}</p>
+            <p className="body-copy mt-5 max-w-2xl text-base md:text-lg">{content.modelText}</p>
           </motion.div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -133,12 +148,12 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.45, delay: index * 0.05 }}
-                  className="commerce-card p-5"
+                  className="group overflow-hidden rounded-lg border border-[#d8e3df] bg-white p-5 shadow-[0_16px_40px_rgba(23,36,45,0.06)] transition hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(23,36,45,0.1)]"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#f2f7fb] text-[#336699]">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-5 text-xl font-extrabold text-[#17242d]">{item}</h3>
+                  <h3 className="mt-8 text-xl font-extrabold text-[#17242d]">{item}</h3>
                 </motion.div>
               );
             })}
@@ -146,47 +161,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-y border-[#d8e3df] bg-[#f6f8f6]">
-        <div className="section-shell py-14 md:py-20">
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {content.productPillars.map((item) => (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5 }}
-                className="overflow-hidden rounded-lg border border-[#d8e3df] bg-white"
-              >
-                <div className="relative aspect-[16/10] bg-[#edf3f0]">
-                  <Image
-                    src={brandAssets.productImages[item.imageKey]}
-                    alt={item.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-xl font-extrabold text-[#17242d]">{item.title}</h3>
-                  <p className="body-copy mt-3 text-sm">{item.text}</p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-white">
-        <div className="section-shell grid gap-10 py-16 md:py-24 lg:grid-cols-[1fr_420px] lg:items-start">
-          <div>
-            <p className="eyebrow">{content.supplyEyebrow}</p>
-            <h2 className="mt-3 max-w-4xl text-3xl font-extrabold leading-tight text-[#17324d] md:text-5xl">
-              {content.supplyTitle}
-            </h2>
-            <p className="body-copy mt-5 max-w-3xl text-base md:text-lg">{content.supplyText}</p>
+        <div className="section-shell py-14 md:py-24">
+          <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-end">
+            <div>
+              <p className="eyebrow">{content.supplyEyebrow}</p>
+              <h2 className="mt-3 max-w-4xl text-3xl font-extrabold leading-tight text-[#17324d] md:text-5xl">
+                {content.supplyTitle}
+              </h2>
+            </div>
+            <p className="body-copy max-w-3xl text-base md:text-lg">{content.supplyText}</p>
+          </div>
 
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-10 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.55 }}
+              className="relative min-h-[430px] overflow-hidden rounded-lg bg-[#0b151c]"
+            >
+              <Image
+                src={brandAssets.supply}
+                alt="2AE supply chain"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 52vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0b151c]/82 via-[#0b151c]/18 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                <p className="text-xs font-extrabold uppercase tracking-[0.08em] text-[#d9a85c]">
+                  {language === "vi" ? "Mỹ đến Việt Nam" : "U.S. to Vietnam"}
+                </p>
+                <p className="mt-3 max-w-xl text-2xl font-extrabold leading-tight">
+                  {content.supplyTitle}
+                </p>
+              </div>
+            </motion.div>
+
+            <div className="grid gap-4">
               {content.supplySteps.map((step, index) => {
                 const Icon = supplyIcons[index];
 
@@ -197,46 +210,19 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.25 }}
                     transition={{ duration: 0.45, delay: index * 0.05 }}
-                    className="relative border-l border-[#c7d8d1] pl-5"
+                    className="rounded-lg border border-[#d8e3df] bg-[#f6f8f6] p-5"
                   >
-                    <div className="mb-5 flex items-center gap-3">
+                    <div className="flex items-center gap-3">
                       <span className="text-sm font-extrabold text-[#9aa9a4]">0{index + 1}</span>
                       <Icon className="h-5 w-5 text-[#2f6f63]" />
                     </div>
-                    <h3 className="text-lg font-extrabold text-[#17242d]">{step.title}</h3>
+                    <h3 className="mt-5 text-lg font-extrabold text-[#17242d]">{step.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-[#53636c]">{step.text}</p>
                   </motion.div>
                 );
               })}
             </div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.55 }}
-            className="relative aspect-[4/5] overflow-hidden rounded-lg bg-[#0b151c] lg:sticky lg:top-24"
-          >
-            <Image
-              src={brandAssets.supply}
-              alt="2AE supply chain"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 420px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b151c]/84 via-[#0b151c]/18 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-              <p className="text-xs font-extrabold uppercase tracking-[0.08em] text-[#d9a85c]">
-                USA TO VIETNAM
-              </p>
-              <p className="mt-3 text-2xl font-extrabold leading-tight">
-                {language === "vi"
-                  ? "Nguồn hàng rõ ràng, vận hành ổn định."
-                  : "Clear sourcing, stable operation."}
-              </p>
-            </div>
-          </motion.div>
         </div>
       </section>
     </div>

@@ -1,27 +1,18 @@
 export const brandAssets = {
   homeHero: "/images/Banner_TrangChu.jpg?v=20260611",
   aboutHero: "/images/1.jpg",
-  supply: "/images/Banner_TrangChu.jpg",
-  contactHero:
-    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80",
-  productImages: {
-    beef: "/images/products/beef-ribeye.jpg",
-    chicken: "/images/products/chicken-breast-fillet.jpg",
-    seafood: "/images/products/half-shell-scallops.jpg",
-    agriculture: "/images/products/frozen-agriculture.jpg",
-  },
+  supply: "/images/inventory.jpg",
+  contactHero: "/images/contact_inventory.jpg",
 } as const;
 
 export const brandCopy = {
   vi: {
     metadataDescription:
-      "Nhập khẩu bò và gà từ Hoa Kỳ, xuất khẩu thủy hải sản và nông sản, phân phối thực phẩm đông lạnh tại Việt Nam.",
+      "Nhập khẩu bò và gà từ Mỹ, xuất khẩu thủy hải sản và nông sản, phân phối thực phẩm đông lạnh tại Việt Nam.",
     footerDescription:
-      "2AE VENTURES tập trung nhập khẩu bò, gà từ Hoa Kỳ; phát triển xuất khẩu thủy hải sản, nông sản và phân phối thực phẩm đông lạnh tại Việt Nam.",
+      "2AE VENTURES tập trung nhập khẩu bò, gà từ Mỹ; phát triển xuất khẩu thủy hải sản, nông sản và phân phối thực phẩm đông lạnh tại Việt Nam.",
     footerText:
       "© 2026 2AE VENTURES - Nhập khẩu bò và gà, xuất khẩu thủy hải sản và nông sản, phân phối thực phẩm đông lạnh.",
-    footerCta: "Gửi yêu cầu nguồn hàng hoặc báo giá để đội 2AE VENTURES phản hồi.",
-    sourcingSupport: "Tư vấn nguồn hàng",
     chatWidget: {
       homeGreeting:
         "Xin chào! Tôi là trợ lý ảo của 2AE VENTURES. Bạn đang tìm nhóm hàng nào hôm nay?",
@@ -54,7 +45,7 @@ export const brandCopy = {
       kicker: "Nhập khẩu, xuất khẩu và phân phối thực phẩm đông lạnh",
       heroTitle: "Kết nối nguồn thực phẩm đông lạnh chất lượng với thị trường Việt Nam.",
       heroSubtitle:
-        "2AE tập trung nhập khẩu thịt bò, thịt gà từ Hoa Kỳ; đồng thời phát triển xuất khẩu thủy hải sản và nông sản với nguồn hàng rõ ràng, vận hành ổn định và định hướng hợp tác dài hạn.",
+        "2AE tập trung nhập khẩu thịt bò, thịt gà từ Mỹ; đồng thời phát triển xuất khẩu thủy hải sản và nông sản với nguồn hàng rõ ràng, vận hành ổn định và định hướng hợp tác dài hạn.",
       primaryCta: "Xem danh mục",
       secondaryCta: "Liên hệ tư vấn",
       viewMore: "Xem thêm",
@@ -63,21 +54,17 @@ export const brandCopy = {
       directions: {
         import: {
           label: "Nhập khẩu",
-          title: "Nhập khẩu thịt bò và thịt gà từ Hoa Kỳ",
-          summary:
-            "Các nhóm hàng nhập khẩu được lấy trực tiếp từ danh mục hiện tại để khách hàng xem đúng nguồn hàng đang có.",
+          title: "Nhập khẩu thịt bò và thịt gà từ Mỹ",
         },
         export: {
           label: "Xuất khẩu",
           title: "Xuất khẩu thủy hải sản và nông sản",
-          summary:
-            "Các nhóm hàng xuất khẩu được hiển thị theo đúng danh mục sản phẩm đang có trên website.",
         },
       },
       valuesEyebrow: "Giá trị cốt lõi",
       values: [
         {
-          title: "Nguồn hàng từ Hoa Kỳ",
+          title: "Nguồn hàng từ Mỹ",
           text: "Bò và gà cấp đông",
         },
         {
@@ -88,12 +75,12 @@ export const brandCopy = {
     },
     about: {
       heroKicker: "Giới thiệu 2AE VENTURES",
-      heroTitle: "Mở rộng mô hình kinh doanh từ Hoa Kỳ vào thị trường Việt Nam.",
+      heroTitle: "Mở rộng mô hình kinh doanh từ Mỹ vào thị trường Việt Nam.",
       heroText:
-        "2AE VENTURES được thành lập bởi hai nhà sáng lập đến từ Hoa Kỳ, với mục tiêu mở rộng mô hình kinh doanh đã tồn tại hơn 36 năm tại Hoa Kỳ vào Việt Nam và đóng góp cho sự phát triển của nền kinh tế Việt Nam trong kỷ nguyên mới.",
+        "2AE VENTURES được thành lập bởi hai nhà sáng lập đến từ Mỹ, với mục tiêu mở rộng mô hình kinh doanh đã tồn tại hơn 36 năm tại Mỹ vào Việt Nam và đóng góp cho sự phát triển của nền kinh tế Việt Nam trong kỷ nguyên mới.",
       heroMarks: [
-        "36+ năm mô hình tại Hoa Kỳ",
-        "Nguồn hàng từ Hoa Kỳ",
+        "36+ năm",
+        "Nguồn hàng từ Mỹ",
         "Phục vụ thị trường Việt Nam",
       ],
       missionEyebrow: "Sứ mệnh",
@@ -101,7 +88,7 @@ export const brandCopy = {
       missionIntro:
         "2AE là nhà cung cấp cho thị trường bán buôn, bán lẻ toàn quốc, các nhà phân phối, chuỗi nhà hàng và toàn bộ ngành công nghiệp dịch vụ ăn uống.",
       missionNote:
-        "2AE tập trung phát triển danh mục thực phẩm đông lạnh từ Hoa Kỳ, trọng tâm là thịt bò và thịt gà; đồng thời mở rộng kết nối xuất khẩu thủy hải sản và nông sản theo nhu cầu đối tác.",
+        "2AE tập trung phát triển danh mục thực phẩm đông lạnh từ Mỹ, trọng tâm là thịt bò và thịt gà; đồng thời mở rộng kết nối xuất khẩu thủy hải sản và nông sản theo nhu cầu đối tác.",
       missionCards: [
         {
           title: "Sản phẩm có giá trị tốt nhất",
@@ -128,12 +115,12 @@ export const brandCopy = {
         "Doanh nghiệp vừa và nhỏ",
       ],
       supplyEyebrow: "Chuỗi cung ứng",
-      supplyTitle: "Từ nguồn hàng Hoa Kỳ và đối tác sản xuất đến thị trường Việt Nam.",
+      supplyTitle: "Từ nguồn hàng Mỹ và đối tác sản xuất đến thị trường Việt Nam.",
       supplyText:
         "2AE xây dựng chuỗi cung ứng hướng tới sự rõ ràng, ổn định và khả năng phục vụ thực tế cho thị trường Việt Nam.",
       supplySteps: [
         {
-          title: "Nguồn hàng Hoa Kỳ",
+          title: "Nguồn hàng Mỹ",
           text: "Lựa chọn thịt bò, thịt gà và các chương trình nguồn hàng từ đối tác uy tín.",
         },
         {
@@ -143,28 +130,6 @@ export const brandCopy = {
         {
           title: "Phân phối tại Việt Nam",
           text: "Đưa nguồn hàng đến khách hàng bán buôn, bán lẻ và ngành dịch vụ ăn uống.",
-        },
-      ],
-      productPillars: [
-        {
-          title: "Thịt bò Mỹ",
-          text: "Nhóm hàng nhập khẩu trọng tâm cho hệ thống thương mại thực phẩm đông lạnh.",
-          imageKey: "beef",
-        },
-        {
-          title: "Thịt gà Mỹ",
-          text: "Các phần gà cấp đông phù hợp cho bán buôn, bán lẻ và bếp dịch vụ.",
-          imageKey: "chicken",
-        },
-        {
-          title: "Thủy hải sản",
-          text: "Nhóm hàng xuất khẩu theo nhu cầu đối tác và chương trình nguồn hàng.",
-          imageKey: "seafood",
-        },
-        {
-          title: "Nông sản",
-          text: "Nông sản chọn lọc cho hợp tác xuất khẩu và nguồn hàng theo mùa.",
-          imageKey: "agriculture",
         },
       ],
     },
@@ -181,7 +146,7 @@ export const brandCopy = {
       successBody: "Thông tin của bạn đã được ghi nhận. 2AE sẽ phản hồi sớm nhất.",
       helpTitle: "2AE có thể hỗ trợ bạn ở đâu?",
       helpIntro:
-        "Hỗ trợ nhập khẩu bò và gà từ Hoa Kỳ, xuất khẩu thủy hải sản và nông sản, phân phối tại Việt Nam.",
+        "Hỗ trợ nhập khẩu bò và gà từ Mỹ, xuất khẩu thủy hải sản và nông sản, phân phối tại Việt Nam.",
       mapTitle: "Vị trí 2AE VENTURES",
       mapIntro: "Xem vị trí 2AE trên bản đồ.",
       mapAction: "Mở Google Maps",
@@ -193,7 +158,7 @@ export const brandCopy = {
       helpCards: [
         {
           title: "Nguồn hàng nhập khẩu",
-          text: "Trao đổi về thịt bò, thịt gà từ Hoa Kỳ, tiêu chuẩn chất lượng và nhu cầu đơn hàng.",
+          text: "Trao đổi về thịt bò, thịt gà từ Mỹ, tiêu chuẩn chất lượng và nhu cầu đơn hàng.",
         },
         {
           title: "Xuất khẩu thủy hải sản và nông sản",
@@ -213,8 +178,6 @@ export const brandCopy = {
       "2AE VENTURES focuses on U.S. beef and chicken imports, seafood and agricultural exports, and frozen food distribution in Vietnam.",
     footerText:
       "© 2026 2AE VENTURES - Beef and chicken import, seafood and agricultural export, and frozen food distribution.",
-    footerCta: "Send a sourcing or quote request so 2AE VENTURES can follow up.",
-    sourcingSupport: "Sourcing support",
     chatWidget: {
       homeGreeting:
         "Hello! I am the 2AE VENTURES virtual assistant. Which product group are you looking for today?",
@@ -257,14 +220,10 @@ export const brandCopy = {
         import: {
           label: "Import",
           title: "Importing U.S. beef and chicken",
-          summary:
-            "Import groups are pulled from the current catalog so customers see the active supply list.",
         },
         export: {
           label: "Export",
           title: "Exporting seafood and agricultural products",
-          summary:
-            "Export groups are synchronized with the product categories currently shown on the website.",
         },
       },
       valuesEyebrow: "Core values",
@@ -284,7 +243,7 @@ export const brandCopy = {
       heroTitle: "A strategic U.S.-founded brand expanding into Vietnam.",
       heroText:
         "2AE VENTURES is a strategic brand founded by two American entrepreneurs who venture to expand their business model in the U.S., which has existed for over 36 years, into Vietnam and contribute to the development of the Vietnamese economy in the new era.",
-      heroMarks: ["36+ years U.S. model", "U.S. sourcing", "Vietnam market"],
+      heroMarks: ["36+ years", "U.S. sourcing", "Vietnam market"],
       missionEyebrow: "Mission",
       missionQuote: "Be the most valuable one for its partners.",
       missionIntro:
@@ -326,28 +285,6 @@ export const brandCopy = {
         {
           title: "Vietnam distribution",
           text: "Connect supply with wholesale, retail, and foodservice customers.",
-        },
-      ],
-      productPillars: [
-        {
-          title: "U.S. beef",
-          text: "Core import group for frozen food trade channels.",
-          imageKey: "beef",
-        },
-        {
-          title: "U.S. chicken",
-          text: "Frozen chicken parts for wholesale, retail, and foodservice kitchens.",
-          imageKey: "chicken",
-        },
-        {
-          title: "Seafood",
-          text: "Export group developed according to partner demand and supply programs.",
-          imageKey: "seafood",
-        },
-        {
-          title: "Agricultural products",
-          text: "Selected products for export cooperation and seasonal sourcing.",
-          imageKey: "agriculture",
         },
       ],
     },
