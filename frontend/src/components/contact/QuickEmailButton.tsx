@@ -17,8 +17,8 @@ export function QuickEmailButton({
   className,
   children,
 }: QuickEmailButtonProps) {
-  const { language, t } = useLanguage();
-  const href = buildQuickEmailHref({ locale: language, products });
+  const { t } = useLanguage();
+  const href = buildQuickEmailHref({ products });
 
   return (
     <a

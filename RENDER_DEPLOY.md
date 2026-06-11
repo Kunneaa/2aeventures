@@ -42,6 +42,8 @@ NEXT_PUBLIC_API_URL=/api/v1
 API_PROXY_TARGET=https://twoae-demo-api.onrender.com
 ```
 
+Nếu frontend được gắn custom domain, backend vẫn giữ URL riêng của Render hoặc domain backend riêng. Frontend sẽ gọi backend thông qua proxy `/api/v1`, nên khách truy cập không cần thấy trực tiếp backend URL.
+
 ## 3. Environment Variables
 
 Các biến chính đã được khai báo trong `render.yaml`.
@@ -51,7 +53,7 @@ Nếu Render tạo URL khác tên service hiện tại, cập nhật lại:
 Backend service:
 
 ```text
-BACKEND_CORS_ORIGINS=https://YOUR_FRONTEND_SERVICE.onrender.com
+BACKEND_CORS_ORIGINS=https://YOUR_FRONTEND_SERVICE.onrender.com,https://2aeventures.com,https://www.2aeventures.com
 ```
 
 Frontend service:
@@ -61,6 +63,8 @@ API_PROXY_TARGET=https://YOUR_BACKEND_SERVICE.onrender.com
 ```
 
 Sau đó redeploy cả 2 services.
+
+Khi dùng domain chính thức `2aeventures.com`, thêm domain vào custom domain của frontend service trên Render, sau đó trỏ DNS từ Squarespace theo hướng dẫn Render. Backend chỉ cần cập nhật CORS để chấp nhận domain frontend đó.
 
 ## 4. Data Behavior
 

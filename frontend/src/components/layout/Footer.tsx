@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { brandCopy } from '../../config/brand';
 import { siteConfig } from '../../config/site';
 import { useLanguage } from '../../store/LanguageContext';
 import { BrandLogo } from './BrandLogo';
@@ -12,6 +13,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ locale }) => {
   const { t, language } = useLanguage();
+  const copy = brandCopy[language];
 
   const companyLinks = [
     { href: `/${locale}/about`, label: t('about_us') },
@@ -22,7 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
   const supportLinks = [
     { href: `/${locale}/cart`, label: t('quote_request') },
     { href: `/${locale}/products`, label: t('products') },
-    { href: `/${locale}/contact`, label: language === 'vi' ? 'Tư vấn nguồn hàng' : 'Sourcing support' },
+    { href: `/${locale}/contact`, label: copy.sourcingSupport },
   ];
 
   return (
@@ -37,9 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
               />
             </div>
             <p className="max-w-md text-sm leading-relaxed text-white/75">
-              {language === 'vi'
-                ? '2AE Ventures hoạt động trong lĩnh vực phân phối, bán lẻ, nhập khẩu và xuất khẩu thực phẩm, hướng đến các sản phẩm an toàn, chất lượng và có nguồn gốc rõ ràng.'
-                : '2AE Ventures operates in food distribution, retail, import, and export, focusing on safe, quality products with clear origin.'}
+              {copy.footerDescription}
             </p>
             <div className="mt-6 space-y-2 text-sm">
               <p className="flex items-center gap-2">
@@ -92,12 +92,10 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
 
           <div>
             <h4 className="text-white font-semibold mb-4">
-              {language === 'vi' ? 'Nhận tư vấn' : 'Get Support'}
+              {language === 'vi' ? 'Nhận tư vấn' : 'Get support'}
             </h4>
             <p className="text-sm text-gray-300 mb-4">
-              {language === 'vi'
-                ? 'Gửi yêu cầu báo giá hoặc để lại thông tin để đội 2AEVENTURES phản hồi.'
-                : 'Submit a quote request or leave your details so 2AEVENTURES can follow up.'}
+              {copy.footerCta}
             </p>
             <Link
               href={`/${locale}/contact`}
@@ -139,7 +137,7 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6">
-          <p className="text-center text-sm text-white/60 md:text-left">{t('footer_text')}</p>
+          <p className="text-center text-sm text-white/60 md:text-left">{copy.footerText}</p>
         </div>
       </div>
     </footer>

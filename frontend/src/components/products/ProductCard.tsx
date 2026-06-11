@@ -25,8 +25,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <article className="commerce-card commerce-card-hover group flex h-full flex-col overflow-hidden">
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#edf3f0]">
         <Image
-          src={product.image} 
-          alt={product.name[language]} 
+          src={product.image}
+          alt={product.name[language]}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

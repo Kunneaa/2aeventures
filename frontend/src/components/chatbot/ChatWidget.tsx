@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { MessageCircle, X, Send, Sparkles, Phone } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { brandCopy } from '../../config/brand';
 import { siteConfig } from '../../config/site';
 import { normalizeLocalePath } from '../../lib/localePath';
 import { useCart } from '../../store/CartContext';
@@ -47,8 +48,12 @@ const resolveBotText = (payload: unknown): string | null => {
   return null;
 };
 
+const formatCountMessage = (template: string, count: number): string =>
+  template.replace('{count}', count.toString());
+
 export function ChatWidget({ locale }: ChatWidgetProps) {
   const { language, t } = useLanguage();
+  const copy = brandCopy[language].chatWidget;
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -92,37 +97,27 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     const normalizedPath = normalizeLocalePath(pathname);
 
     if (normalizedPath === '/') {
-      return language === 'vi'
-        ? 'Xin chào! Tôi là trợ lý ảo của 2AEVENTURES. Bạn đang tìm kiếm sản phẩm gì để nhập hàng?'
-        : 'Hello! I am the 2AEVENTURES virtual assistant. What products are you looking for today?';
+      return copy.homeGreeting;
     }
 
     if (normalizedPath.startsWith('/products/')) {
-      return language === 'vi'
-        ? 'Tôi thấy bạn đang xem sản phẩm. Bạn cần tư vấn thêm hoặc tìm sản phẩm tương tự không?'
-        : 'I see you are viewing a product. Do you want more details or similar product suggestions?';
+      return copy.productGreeting;
     }
 
     if (normalizedPath === '/products') {
-      return language === 'vi'
-        ? 'Bạn đang tìm sản phẩm nào? Tôi có thể giúp bạn tìm kiếm hoặc gợi ý sản phẩm phù hợp!'
-        : 'Which product are you looking for? I can help you search and suggest suitable options.';
+      return copy.productsGreeting;
     }
 
     if (normalizedPath === '/cart') {
       const itemCount = items.length;
       if (itemCount > 0) {
-        return language === 'vi'
-          ? `Bạn đã có ${itemCount} sản phẩm trong giỏ. Bạn muốn gửi yêu cầu báo giá ngay không?`
-          : `You already have ${itemCount} items in your cart. Do you want to submit a quote request now?`;
+        return formatCountMessage(copy.quoteListHasItems, itemCount);
       }
-      return language === 'vi'
-        ? 'Giỏ hàng của bạn đang trống. Hãy để tôi giúp bạn tìm sản phẩm phù hợp!'
-        : 'Your cart is currently empty. Let me help you find the right products.';
+      return copy.quoteListEmpty;
     }
 
-    return t('ai_greeting');
-  }, [items, language, pathname, t]);
+    return copy.defaultGreeting;
+  }, [copy, items, pathname]);
 
   const getQuickActions = useCallback((): QuickAction[] => {
     const normalizedPath = normalizeLocalePath(pathname);
@@ -130,7 +125,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     if (normalizedPath === '/') {
       return [
         {
-          label: language === 'vi' ? 'Xem sản phẩm ngay' : 'Browse products',
+          label: copy.browseProducts,
           action: () => router.push(`/${locale}/products`),
         },
       ];
@@ -143,13 +138,13 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
 
       if (product) {
         actions.push({
-          label: language === 'vi' ? 'Thêm sản phẩm này vào giỏ' : 'Add this product to cart',
+          label: copy.addToQuoteList,
           action: () => addToCart(product),
         });
       }
 
       actions.push({
-        label: language === 'vi' ? 'Tới giỏ yêu cầu báo giá' : 'Go to quote cart',
+        label: copy.goToQuoteRequest,
         action: () => router.push(`/${locale}/cart`),
       });
 
@@ -159,7 +154,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     if (normalizedPath === '/products') {
       return [
         {
-          label: language === 'vi' ? 'Mở giỏ báo giá' : 'Open quote cart',
+          label: copy.openQuoteRequest,
           action: () => router.push(`/${locale}/cart`),
         },
       ];
@@ -168,14 +163,14 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
     if (normalizedPath === '/cart') {
       return [
         {
-          label: language === 'vi' ? 'Tiếp tục xem sản phẩm' : 'Continue browsing products',
+          label: copy.continueBrowsing,
           action: () => router.push(`/${locale}/products`),
         },
       ];
     }
 
     return [];
-  }, [addToCart, getProduct, language, locale, pathname, router]);
+  }, [addToCart, copy, getProduct, locale, pathname, router]);
 
   useEffect(() => {
     if (hasUserInteracted) return;
@@ -234,27 +229,13 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
       });
 
       if (response.success) {
-        const botText =
-          resolveBotText(response.data) ||
-          (language === 'vi'
-            ? 'Tôi đã nhận yêu cầu của bạn và đang xử lý.'
-            : 'I received your request and I am processing it.');
+        const botText = resolveBotText(response.data) || copy.received;
         addMessage('bot', botText);
       } else {
-        addMessage(
-          'bot',
-          language === 'vi'
-            ? 'Hiện tại hệ thống AI đang bận. Bạn vui lòng thử lại sau ít phút.'
-            : 'The AI service is currently busy. Please try again in a few minutes.'
-        );
+        addMessage('bot', copy.busy);
       }
     } catch {
-      addMessage(
-        'bot',
-        language === 'vi'
-          ? 'Kết nối AI tạm thời gián đoạn. Vui lòng thử lại.'
-          : 'The AI connection is temporarily unavailable. Please try again.'
-      );
+      addMessage('bot', copy.offline);
     } finally {
       setIsBotTyping(false);
     }
@@ -277,12 +258,10 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             </div>
             <div>
               <p className="text-sm font-semibold">
-                {language === 'vi' ? 'Trợ lý 2AEVENTURES luôn sẵn sàng' : '2AEVENTURES assistant is online'}
+                {copy.alertTitle}
               </p>
               <p className="mt-1 text-xs text-white/80">
-                {language === 'vi'
-                  ? 'Chat ngay để được gợi ý sản phẩm phù hợp và báo giá nhanh.'
-                  : 'Start chatting for quick product suggestions and fast quotation support.'}
+                {copy.alertBody}
               </p>
               <button
                 onClick={() => {
@@ -291,7 +270,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
                 }}
                 className="mt-3 rounded-lg bg-white px-3 py-1.5 text-xs font-bold text-[#17324d] transition-colors hover:bg-[#f2f7fb]"
               >
-                {language === 'vi' ? 'Mở Chatbot' : 'Open Chatbot'}
+                {copy.openChatbot}
               </button>
             </div>
           </div>
@@ -341,9 +320,9 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
         <div className="fixed bottom-24 left-4 right-4 z-50 flex h-[500px] flex-col overflow-hidden rounded-lg border border-[#d8e3df] bg-white text-[14px] shadow-[0_30px_70px_rgba(15,23,42,0.28)] sm:left-auto sm:right-6 sm:w-96">
           <div className="bg-[#17324d] p-4 text-white">
             <h3 className="font-semibold text-sm">
-              {language === 'vi' ? 'Trợ lý ảo 2AEVENTURES' : '2AEVENTURES AI Assistant'}
+              {copy.panelTitle}
             </h3>
-            <p className="text-[11px] text-white/70">{language === 'vi' ? 'Tư vấn sản phẩm và báo giá' : 'Product and quote support'}</p>
+            <p className="text-[11px] text-white/70">{copy.panelSubtitle}</p>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -381,7 +360,7 @@ export function ChatWidget({ locale }: ChatWidgetProps) {
             {isBotTyping && (
               <div className="flex justify-start">
                 <div className="rounded-lg bg-[#f2f7fb] p-3 text-[#17242d]">
-                  <p className="text-sm">{language === 'vi' ? 'AI đang trả lời...' : 'AI is typing...'}</p>
+                  <p className="text-sm">{copy.typing}</p>
                 </div>
               </div>
             )}

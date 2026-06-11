@@ -99,10 +99,10 @@ export default function ProductDetailPage({
 
             <div className="mt-6 border-l-2 border-[#d9a85c] bg-[#f8faf8] py-1 pl-4">
               <p className="text-sm font-extrabold text-[#17324d]">
-                {t("wholesale_notice_title")}
+                {t("quote_notice_title")}
               </p>
               <ul className="mt-3 space-y-2 text-sm font-semibold text-[#42525b]">
-                {[t("wholesale_benefit_discount"), t("wholesale_benefit_delivery"), t("wholesale_benefit_support")].map((item) => (
+                {[t("quote_benefit_pricing"), t("quote_benefit_delivery"), t("quote_benefit_support")].map((item) => (
                   <li key={item} className="flex gap-2">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#2f6f63]" />
                     <span>{item}</span>

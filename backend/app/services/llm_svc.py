@@ -1,3 +1,4 @@
+from app.core.brand import CHAT_PRODUCT_GROUPS, QUOTE_FLOW
 from app.schemas.chat import ChatSendRequest
 from app.schemas.product import Product
 
@@ -12,36 +13,28 @@ class LlmService:
             if language == "vi":
                 return (
                     f"Mình tìm thấy {names}. Bạn có thể mở chi tiết sản phẩm, "
-                    "thêm sản phẩm vào danh sách yêu cầu báo giá rồi gửi thông tin liên hệ để đội 2AEVENTURES phản hồi."
+                    "thêm sản phẩm vào danh sách yêu cầu báo giá rồi gửi thông tin liên hệ để đội 2AE VENTURES phản hồi."
                 )
             return (
                 f"I found {names}. You can open the product detail, add products to the quote list, "
-                "then send your contact details so 2AEVENTURES can follow up."
+                "then send your contact details so 2AE VENTURES can follow up."
             )
 
         if any(keyword in message for keyword in ["quote", "quotation", "báo giá", "bao gia", "giá", "price"]):
-            if language == "vi":
-                return (
-                    "Bạn thêm sản phẩm cần báo giá vào giỏ, nhập tên, email, công ty và số điện thoại. "
-                    "Backend hiện lưu quote request thành file JSONL để chưa cần database."
-                )
-            return (
-                "Add the products to your quote cart, then submit your name, email, company and phone. "
-                "The backend now saves quote requests as JSONL files while database hosting is pending."
-            )
+            return QUOTE_FLOW["vi" if language == "vi" else "en"]
 
         if any(keyword in message for keyword in ["contact", "hotline", "zalo", "email", "liên hệ", "lien he"]):
             if language == "vi":
-                return "Bạn có thể để lại thông tin trên form liên hệ hoặc gửi yêu cầu báo giá để đội 2AEVENTURES phản hồi nhanh."
+                return "Bạn có thể để lại thông tin trên form liên hệ hoặc gửi yêu cầu báo giá để đội 2AE VENTURES phản hồi nhanh."
             return "You can leave your details through the contact form or submit a quote request for a quick follow-up."
 
         if language == "vi":
             return (
-                "Mình có thể hỗ trợ tìm sản phẩm theo nhóm như bò, gà, vịt, cá, hải sản, tôm hoặc hàng đông lạnh tổng hợp. "
+                f"Mình có thể hỗ trợ tìm sản phẩm theo nhóm như {CHAT_PRODUCT_GROUPS['vi']}. "
                 "Bạn đang cần nhóm nào?"
             )
         return (
-            "I can help you find products by category such as beef, chicken, duck, fish, seafood, shrimp or mixed frozen items. "
+            f"I can help you find products by category such as {CHAT_PRODUCT_GROUPS['en']}. "
             "Which group are you looking for?"
         )
 

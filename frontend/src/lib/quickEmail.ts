@@ -1,21 +1,20 @@
 import { siteConfig } from '../config/site';
-import type { LocaleCode, Product } from '../types';
+import type { Product } from '../types';
 
 interface QuickEmailOptions {
-  locale: LocaleCode;
   products?: Product[];
 }
 
 const buildSubject = ({ products = [] }: QuickEmailOptions): string => {
   if (products.length === 1) {
-    return `Quotation Request: ${products[0].name.en}`;
+    return `Quotation request: ${products[0].name.en}`;
   }
 
   if (products.length > 1) {
-    return 'Quotation Request: Product List';
+    return 'Quotation request: product list';
   }
 
-  return 'Quotation Request';
+  return 'Quotation request';
 };
 
 const buildProductIntro = (products: Product[]): string => {
@@ -27,7 +26,7 @@ const buildProductIntro = (products: Product[]): string => {
     return 'I am interested in the following product and would like to request a quotation:';
   }
 
-  return 'I would like to request a quotation and more information from 2AE Ventures.';
+  return 'I would like to request a quotation and more information from 2AE VENTURES.';
 };
 
 const buildProductLines = (products: Product[]): string[] => {
@@ -40,7 +39,7 @@ const buildBody = ({ products = [] }: QuickEmailOptions): string => {
   const productLines = buildProductLines(products);
 
   return [
-    'Dear 2AE Ventures Team,',
+    'Dear 2AE VENTURES Team,',
     '',
     buildProductIntro(products),
     '',

@@ -27,14 +27,14 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       >
         <Image
           src="/images/logo_2ae.jpg"
-          alt="2AEVENTURES"
+          alt="2AE VENTURES"
           width={logo.pixels}
           height={logo.pixels}
           priority={priority}
           className="h-full w-full object-contain"
         />
       </span>
-      <span className={labelClassName}>2AEVENTURES</span>
+      <span className={labelClassName}>2AE VENTURES</span>
     </>
   );
 };

@@ -4,7 +4,7 @@ const companyAddress =
 const encodedCompanyAddress = encodeURIComponent(companyAddress);
 
 export const siteConfig = {
-  name: '2AEVENTURES',
+  name: '2AE VENTURES',
   hotline: {
     label: '0901 234 567',
     href: 'tel:+84901234567',

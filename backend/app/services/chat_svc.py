@@ -1,10 +1,11 @@
 from datetime import UTC, datetime
 from uuid import uuid4
 
+from app.core.brand import CHAT_SUGGESTIONS
 from app.repositories.chat_repo import chat_repository
 from app.schemas.chat import ChatMessage, ChatSendRequest, ChatSessionResponse
 from app.services.llm_svc import llm_service
-from app.services.rag_svc import catalog_retrieval_service
+from app.services.product_svc import product_service
 
 
 class ChatService:
@@ -23,7 +24,7 @@ class ChatService:
         )
         chat_repository.add_message(session_id, user_message)
 
-        matches = catalog_retrieval_service.find_catalog_matches(request.message)
+        matches = product_service.search_products(request.message, limit=3)
         bot_message = ChatMessage(
             id=str(uuid4()),
             sender="bot",
@@ -40,12 +41,7 @@ class ChatService:
         return chat_repository.clear_history(session_id)
 
     def suggestions(self) -> list[str]:
-        return [
-            "Tôi cần báo giá thịt bò Mỹ",
-            "Có những nhóm hàng đông lạnh nào?",
-            "Làm sao để gửi yêu cầu báo giá?",
-            "I need seafood suggestions",
-        ]
+        return CHAT_SUGGESTIONS
 
     def _now(self) -> str:
         return datetime.now(UTC).isoformat()

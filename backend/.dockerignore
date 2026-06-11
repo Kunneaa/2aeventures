@@ -1,4 +1,9 @@
+# Runtime data is mounted/generated at runtime.
 data
+
+# Catalog data is part of the application build.
+!app/data
+!app/data/catalog.json
 .DS_Store
 __pycache__
 *.pyc

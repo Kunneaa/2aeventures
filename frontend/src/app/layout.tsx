@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { brandCopy } from "../config/brand";
 import "../styles/index.css";
 
 export const metadata: Metadata = {
-  title: "2AEVENTURES",
-  description: "Food distribution, retail, import, and export in Vietnam.",
+  title: "2AE VENTURES",
+  description: brandCopy.en.metadataDescription,
 };
 
 export default function RootLayout({

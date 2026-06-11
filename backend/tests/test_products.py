@@ -1,3 +1,23 @@
+import json
+from pathlib import Path
+
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+
+
+def test_catalog_data_files_are_synced():
+    source_catalog = json.loads(
+        (ROOT_DIR / "data" / "catalog.json").read_text(encoding="utf-8")
+    )
+    target_paths = (
+        ROOT_DIR / "backend" / "app" / "data" / "catalog.json",
+        ROOT_DIR / "frontend" / "src" / "data" / "catalog.json",
+    )
+
+    for target_path in target_paths:
+        assert json.loads(target_path.read_text(encoding="utf-8")) == source_catalog
+
+
 def test_list_products_uses_frontend_contract(client):
     response = client.get("/api/v1/products")
 
@@ -18,3 +38,51 @@ def test_product_detail_and_search(client):
     assert any(product["id"] == "p-beef-1" for product in search.json())
     assert no_accent_search.status_code == 200
     assert any(product["id"] == "p-beef-1" for product in no_accent_search.json())
+
+
+def test_featured_products_use_catalog_order(client):
+    response = client.get("/api/v1/products/featured", params={"limit": 6})
+
+    assert response.status_code == 200
+    assert [product["id"] for product in response.json()] == [
+        "p-beef-1",
+        "p-chicken-1",
+        "p-fish-1",
+        "p-seafood-1",
+        "p-shrimp-1",
+        "p-agriculture-1",
+    ]
+
+
+def test_beef_category_contains_detailed_cut_catalog(client):
+    response = client.get("/api/v1/products/category/beef")
+    search = client.get("/api/v1/products/search", params={"q": "than noi"})
+
+    assert response.status_code == 200
+    products = response.json()
+    product_ids = {product["id"] for product in products}
+    assert len(products) >= 24
+    assert {
+        "p-beef-chuck-7-bone-pot-roast",
+        "p-beef-tenderloin",
+        "p-beef-eye-of-round",
+    }.issubset(product_ids)
+    assert search.status_code == 200
+    assert any(product["id"] == "p-beef-tenderloin" for product in search.json())
+
+
+def test_chicken_category_contains_detailed_part_catalog(client):
+    response = client.get("/api/v1/products/category/chicken")
+    search = client.get("/api/v1/products/search", params={"q": "canh giua"})
+
+    assert response.status_code == 200
+    products = response.json()
+    product_ids = {product["id"] for product in products}
+    assert len(products) >= 16
+    assert {
+        "p-chicken-whole",
+        "p-chicken-wingette",
+        "p-chicken-gizzard",
+    }.issubset(product_ids)
+    assert search.status_code == 200
+    assert any(product["id"] == "p-chicken-wingette" for product in search.json())

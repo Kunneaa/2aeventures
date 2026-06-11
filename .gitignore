@@ -29,8 +29,13 @@ logs/
 *.pid
 
 # Runtime data
-data/
-backend/data/
+/data/*
+!/data/catalog.json
+/backend/data/
+/backend/app/data/*
+!/backend/app/data/catalog.json
+/frontend/src/data/*
+!/frontend/src/data/catalog.json
 backups/
 
 # Editor

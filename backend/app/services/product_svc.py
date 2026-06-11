@@ -66,7 +66,12 @@ class ProductService:
         return self.list_products(category=category_id)
 
     def get_featured_products(self, limit: int = 4) -> list[Product]:
-        return self.list_products(limit=limit)
+        products = [
+            product
+            for product_id in product_repository.list_featured_product_ids()
+            if (product := self.get_product(product_id)) is not None
+        ]
+        return products[:limit]
 
     def search_products(self, query: str, limit: int = 20) -> list[Product]:
         return self.list_products(search=query, limit=limit)

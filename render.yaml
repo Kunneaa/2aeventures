@@ -16,7 +16,7 @@ services:
       - key: BACKEND_LOG_LEVEL
         value: info
       - key: BACKEND_CORS_ORIGINS
-        value: https://twoae-demo-web.onrender.com
+        value: https://twoae-demo-web.onrender.com,https://2aeventures.com,https://www.2aeventures.com
       - key: BACKEND_ADMIN_TOKEN
         generateValue: true
       - key: BACKEND_DATA_DIR
@@ -39,7 +39,7 @@ services:
       - key: API_PROXY_TARGET
         value: https://twoae-demo-api.onrender.com
       - key: NEXT_PUBLIC_APP_NAME
-        value: 2AEVENTURES
+        value: 2AE VENTURES
       - key: NEXT_PUBLIC_DEFAULT_LOCALE
         value: vi
       - key: NEXT_PUBLIC_ENABLED_LOCALES

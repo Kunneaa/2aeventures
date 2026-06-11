@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
     <header className="sticky top-0 z-40 w-full border-b border-[#d8e3df] bg-white/95 shadow-sm backdrop-blur">
       <div className="section-shell flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href={`/${locale}`} className="flex items-center gap-2" aria-label="2AEVENTURES">
+          <Link href={`/${locale}`} className="flex items-center gap-2" aria-label="2AE VENTURES">
             <BrandLogo
               priority
               labelClassName="hidden font-bold text-xl text-[#17324d] sm:block"

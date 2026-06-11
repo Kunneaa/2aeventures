@@ -189,20 +189,6 @@
     text-transform: uppercase;
   }
 
-  .heading-xl {
-    color: #17324d;
-    font-size: 2.25rem;
-    font-weight: 800;
-    letter-spacing: 0;
-    line-height: 1.15;
-  }
-
-  @media (min-width: 768px) {
-    .heading-xl {
-      font-size: 3.5rem;
-    }
-  }
-
   .heading-lg {
     color: #17324d;
     font-size: 1.875rem;

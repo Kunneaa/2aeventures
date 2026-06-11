@@ -17,93 +17,18 @@ import {
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { FormField } from "../../../components/forms/FormField";
+import { brandAssets, brandCopy } from "../../../config/brand";
 import { siteConfig } from "../../../config/site";
 import { contactService } from "../../../services/contact";
 import { useLanguage } from "../../../store/LanguageContext";
 
 type ContactField = "name" | "email" | "phone" | "message";
 
-const contactVisual =
-  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80";
-
-const pageCopy = {
-  vi: {
-    kicker: "Liên hệ 2AE Ventures",
-    title: "Bạn cần nguồn hàng hoặc đối tác phân phối thực phẩm?",
-    intro:
-      "Chia sẻ nhu cầu của bạn, 2AE sẽ xem xét hướng sản phẩm, kênh phân phối và cách hợp tác phù hợp.",
-    quickTitle: "Kênh liên hệ nhanh",
-    formEyebrow: "Gửi yêu cầu",
-    formIntro: "Càng rõ nhu cầu, đội 2AE càng dễ phản hồi đúng trọng tâm.",
-    sendLoading: "Đang gửi yêu cầu...",
-    successBody: "Thông tin của bạn đã được ghi nhận. 2AE sẽ phản hồi sớm nhất.",
-    helpTitle: "2AE có thể hỗ trợ bạn ở đâu?",
-    helpIntro: "Hỗ trợ nguồn hàng, phân phối và hợp tác thực phẩm tại Việt Nam.",
-    mapTitle: "Vị trí 2AE Ventures",
-    mapIntro: "Xem vị trí 2AE trên bản đồ.",
-    mapAction: "Mở Google Maps",
-    channels: {
-      call: "Gọi trực tiếp",
-      zalo: "Nhắn Zalo",
-      email: "Gửi email",
-    },
-    helpCards: [
-      {
-        title: "Tìm nguồn hàng",
-        text: "Trao đổi về nhóm sản phẩm, tiêu chuẩn chất lượng và nguồn gốc phù hợp.",
-      },
-      {
-        title: "Hợp tác phân phối",
-        text: "Kết nối nhu cầu thị trường với hệ thống phân phối và bán lẻ có chọn lọc.",
-      },
-      {
-        title: "Nhập khẩu / xuất khẩu",
-        text: "Tiếp nhận yêu cầu liên quan đến nguồn hàng quốc tế và hợp tác thương mại.",
-      },
-    ],
-  },
-  en: {
-    kicker: "Contact 2AE Ventures",
-    title: "Looking for food sourcing or a distribution partner?",
-    intro:
-      "Share your needs and 2AE will review the right product direction, distribution channel, and cooperation path.",
-    quickTitle: "Fast contact channels",
-    formEyebrow: "Send a request",
-    formIntro: "The clearer your request, the easier it is for 2AE to respond with the right direction.",
-    sendLoading: "Sending request...",
-    successBody: "Your information has been received. 2AE will respond as soon as possible.",
-    helpTitle: "Where can 2AE support you?",
-    helpIntro: "Support for sourcing, distribution, and food partnerships in Vietnam.",
-    mapTitle: "2AE Ventures location",
-    mapIntro: "View 2AE on the map.",
-    mapAction: "Open Google Maps",
-    channels: {
-      call: "Call now",
-      zalo: "Message Zalo",
-      email: "Send email",
-    },
-    helpCards: [
-      {
-        title: "Product sourcing",
-        text: "Discuss product categories, quality standards, and suitable origin requirements.",
-      },
-      {
-        title: "Distribution partnership",
-        text: "Connect market demand with selective distribution and retail channels.",
-      },
-      {
-        title: "Import / export",
-        text: "Receive requests related to international sourcing and trade cooperation.",
-      },
-    ],
-  },
-};
-
 const helpIcons = [PackageSearch, Truck, Globe2];
 
 export default function ContactPage() {
   const { t, language } = useLanguage();
-  const copy = pageCopy[language];
+  const copy = brandCopy[language].contact;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -177,8 +102,8 @@ export default function ContactPage() {
     <div className="app-shell w-full">
       <section className="relative overflow-hidden bg-[#0b151c]">
         <Image
-          src={contactVisual}
-          alt="2AE food distribution contact"
+          src={brandAssets.contactHero}
+          alt="2AE frozen food trade contact"
           fill
           priority
           className="object-cover opacity-40"
@@ -330,7 +255,7 @@ export default function ContactPage() {
           <div className="grid gap-10 lg:grid-cols-[380px_1fr]">
             <div>
               <p className="eyebrow">
-                2AE Ventures
+                2AE VENTURES
               </p>
               <h2 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-4xl">
                 {copy.helpTitle}
@@ -371,7 +296,7 @@ export default function ContactPage() {
       <section className="border-y border-[#d8e3df] bg-[#f6f8f6]">
         <div className="section-shell grid gap-8 py-14 md:py-16 lg:grid-cols-[380px_1fr]">
           <div>
-            <p className="eyebrow">2AE Ventures</p>
+            <p className="eyebrow">2AE VENTURES</p>
             <h2 className="mt-3 text-3xl font-extrabold leading-tight text-[#17324d] md:text-4xl">
               {copy.mapTitle}
             </h2>
@@ -395,7 +320,7 @@ export default function ContactPage() {
 
           <div className="commerce-card overflow-hidden">
             <iframe
-              title="2AE Ventures map"
+              title="2AE VENTURES map"
               src={siteConfig.googleMaps.embedUrl}
               className="h-[360px] w-full border-0 md:h-[460px]"
               loading="lazy"

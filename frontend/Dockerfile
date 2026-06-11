@@ -12,8 +12,14 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG NEXT_PUBLIC_API_URL=/api/v1
 ARG API_PROXY_TARGET=https://twoae-demo-api.onrender.com
+ARG NEXT_PUBLIC_APP_NAME="2AE VENTURES"
+ARG NEXT_PUBLIC_DEFAULT_LOCALE=vi
+ARG NEXT_PUBLIC_ENABLED_LOCALES=vi,en
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV API_PROXY_TARGET=$API_PROXY_TARGET
+ENV NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME
+ENV NEXT_PUBLIC_DEFAULT_LOCALE=$NEXT_PUBLIC_DEFAULT_LOCALE
+ENV NEXT_PUBLIC_ENABLED_LOCALES=$NEXT_PUBLIC_ENABLED_LOCALES
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -25,13 +31,19 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV HOSTNAME=0.0.0.0
-ENV PORT=3000
+ENV PORT=10000
+ENV NEXT_PUBLIC_API_URL=/api/v1
+ENV NEXT_PUBLIC_APP_NAME="2AE VENTURES"
+ENV NEXT_PUBLIC_DEFAULT_LOCALE=vi
+ENV NEXT_PUBLIC_ENABLED_LOCALES=vi,en
 ENV API_PROXY_TARGET=https://twoae-demo-api.onrender.com
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/public ./public
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/.next/standalone ./
 
-EXPOSE 3000
+USER node
+
+EXPOSE 10000
 
 CMD ["node", "server.js"]

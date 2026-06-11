@@ -1,6 +1,6 @@
 import type { ApiResponse } from '../types';
 
-type HttpMethod = 'GET' | 'POST' | 'DELETE';
+type HttpMethod = 'GET' | 'POST';
 
 class ApiClient {
   private baseURL: string;
@@ -20,10 +20,6 @@ class ApiClient {
 
   async post<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, 'POST', data);
-  }
-
-  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, 'DELETE');
   }
 
   private async request<T>(

@@ -1,4 +1,4 @@
-import { categories as fallbackCategories, products as fallbackProducts } from '../lib/mockData';
+import { categories as fallbackCategories, products as fallbackProducts } from '../lib/catalogData';
 import type { Category, Product } from '../types';
 import { apiClient } from './apiClient';
 
