@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from app.repositories.contact_repo import contact_repository
 from app.schemas.contact import ContactCreate, ContactResponse
 

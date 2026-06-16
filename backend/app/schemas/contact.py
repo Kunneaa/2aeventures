@@ -1,4 +1,6 @@
-from typing import Annotated, Literal
+from __future__ import annotations
+
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -12,7 +14,7 @@ class ContactCreate(BaseModel):
     email: EmailString
     phone: PhoneString
     message: LongTextString
-    locale: Literal["vi", "en"] | None = None
+    locale: Optional[Literal["vi", "en"]] = None
 
 
 class ContactResponse(BaseModel):
@@ -24,5 +26,5 @@ class ContactResponse(BaseModel):
     email: str
     phone: str
     message: str
-    locale: Literal["vi", "en"] | None = None
+    locale: Optional[Literal["vi", "en"]] = None
     created_at: Annotated[str, Field(alias="createdAt")]

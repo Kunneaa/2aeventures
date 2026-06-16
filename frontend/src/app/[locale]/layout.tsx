@@ -23,7 +23,7 @@ export default function LocaleLayout({
     <LanguageProvider initialLanguage={locale}>
       <CatalogProvider>
         <CartProvider>
-          <div className="min-h-screen flex flex-col">
+          <div className="flex min-h-screen flex-col bg-[#f8fafa] font-sans text-[#17324d] antialiased">
             <PageMemory locale={locale} />
             <Header locale={locale} />
             <main className="flex-1">{children}</main>

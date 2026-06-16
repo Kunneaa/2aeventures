@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 from hmac import compare_digest
+from typing import Optional
 
 from fastapi import Header, HTTPException, status
 
 from app.core.config import get_settings
 
 
-def require_admin_token(x_admin_token: str | None = Header(default=None, alias="X-Admin-Token")) -> None:
+def require_admin_token(x_admin_token: Optional[str] = Header(default=None, alias="X-Admin-Token")) -> None:
     expected_token = get_settings().admin_token
     if (
         not expected_token

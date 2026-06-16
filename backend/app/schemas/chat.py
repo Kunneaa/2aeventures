@@ -1,4 +1,6 @@
-from typing import Annotated, Literal
+from __future__ import annotations
+
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -6,7 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field
 class ChatSessionCreate(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    created_at: Annotated[str | None, Field(alias="createdAt")] = None
+    created_at: Annotated[Optional[str], Field(alias="createdAt")] = None
 
 
 class ChatSessionResponse(BaseModel):
@@ -19,11 +21,11 @@ class ChatSendRequest(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
     message: str
-    session_id: Annotated[str | None, Field(alias="sessionId")] = None
-    timestamp: str | None = None
-    language: Literal["vi", "en"] | None = None
-    locale: Literal["vi", "en"] | None = None
-    pathname: str | None = None
+    session_id: Annotated[Optional[str], Field(alias="sessionId")] = None
+    timestamp: Optional[str] = None
+    language: Optional[Literal["vi", "en"]] = None
+    locale: Optional[Literal["vi", "en"]] = None
+    pathname: Optional[str] = None
 
 
 class ChatMessage(BaseModel):

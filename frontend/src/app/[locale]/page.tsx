@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import {
   homeFocusGroups,
@@ -117,7 +116,7 @@ function HeroAndValuesSection({
         fill
         priority
         sizes="100vw"
-        className="object-contain object-center opacity-60"
+        className="object-cover object-center opacity-60"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,15,22,0.95),rgba(7,15,22,0.78)_50%,rgba(7,15,22,0.38)_100%)]" />
       <div className="absolute inset-x-0 bottom-0 h-80 bg-gradient-to-t from-[#0b151c] via-[#0b151c]/82 to-transparent" />
@@ -142,9 +141,9 @@ function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: string }) {
           </p>
 
           <div className="mb-14 mt-9 flex flex-col gap-3 sm:flex-row md:mb-20">
-            <Link href={`${basePath}/products`} className="btn-primary px-6 py-3 text-sm">
-              {copy.primaryCta}
-              <ArrowRight className="h-4 w-4" />
+            <Link href={`${basePath}/products`} className="btn-primary px-6 py-3 text-sm group flex items-center gap-1.5 justify-center">
+              <span>{copy.primaryCta}</span>
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
             <Link href={`${basePath}/contact`} className="btn-secondary px-6 py-3 text-sm">
               {copy.secondaryCta}
@@ -238,7 +237,9 @@ function FocusTile({
             {item.name[language]}
           </h4>
         </div>
-        <ArrowRight className="h-4 w-4 shrink-0 text-[#336699] opacity-60 transition-transform group-hover:translate-x-1 group-hover:opacity-100" />
+        <span className="text-base font-extrabold text-[#336699] opacity-60 transition-transform group-hover:translate-x-1 group-hover:opacity-100">
+          →
+        </span>
       </div>
     </Link>
   );
@@ -277,10 +278,10 @@ function FocusSectionBlock({
         {hasMoreItems && (
           <Link
             href={sectionHref}
-            className="inline-flex items-center gap-2 text-sm font-extrabold text-[#336699] transition hover:text-[#17324d] lg:mt-5"
+            className="inline-flex items-center gap-1 text-sm font-extrabold text-[#336699] transition hover:text-[#17324d] lg:mt-5 group"
           >
-            {copy.viewMore}
-            <ArrowRight className="h-4 w-4" />
+            <span>{copy.viewMore}</span>
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
         )}
       </div>
@@ -371,9 +372,9 @@ function FeaturedCategoriesSection({
       <div className="section-shell section-y">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <p className="eyebrow">{copy.featuredEyebrow}</p>
-          <Link href={`${basePath}/products`} className="btn-secondary px-5 py-2.5 text-sm">
-            {copy.primaryCta}
-            <ArrowRight className="h-4 w-4" />
+          <Link href={`${basePath}/products`} className="btn-secondary px-5 py-2.5 text-sm group flex items-center gap-1.5 justify-center">
+            <span>{copy.primaryCta}</span>
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
         </div>
 

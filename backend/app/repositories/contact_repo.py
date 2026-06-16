@@ -1,4 +1,6 @@
-from datetime import UTC, datetime
+from __future__ import annotations
+
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.core.config import get_settings
@@ -19,7 +21,7 @@ class ContactRepository:
             phone=payload.phone,
             message=payload.message,
             locale=payload.locale,
-            createdAt=datetime.now(UTC).isoformat(),
+            createdAt=datetime.now(timezone.utc).isoformat(),
         )
         self._store.append(message)
         return message

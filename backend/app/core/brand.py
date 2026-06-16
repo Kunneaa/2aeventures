@@ -14,6 +14,21 @@ QUOTE_FLOW = {
     ),
 }
 
+CONTACT_REPLY = {
+    "vi": "Bạn có thể để lại thông tin trên form liên hệ hoặc gửi yêu cầu báo giá để đội 2AE VENTURES phản hồi nhanh.",
+    "en": "You can leave your details through the contact form or submit a quote request for a quick follow-up."
+}
+
+MATCH_REPLY = {
+    "vi": "Mình tìm thấy {names}. Bạn có thể mở chi tiết sản phẩm, thêm sản phẩm vào danh sách yêu cầu báo giá rồi gửi thông tin liên hệ để đội 2AE VENTURES phản hồi.",
+    "en": "I found {names}. You can open the product detail, add products to the quote list, then send your contact details so 2AE VENTURES can follow up."
+}
+
+DEFAULT_REPLY = {
+    "vi": "Mình có thể hỗ trợ tìm sản phẩm theo nhóm như {groups}. Bạn đang cần nhóm nào?",
+    "en": "I can help you find products by category such as {groups}. Which group are you looking for?"
+}
+
 CHAT_SUGGESTIONS = [
     "Tôi cần báo giá thịt bò Mỹ",
     "2AE có những nhóm hàng trọng tâm nào?",

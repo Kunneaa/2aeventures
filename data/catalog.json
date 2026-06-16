@@ -1,55 +1,52 @@
 {
   "images": {
     "beef": "/images/products/beef-ribeye.jpg",
-    "quail": "/images/products/whole-quail.jpg",
     "chicken": "/images/products/chicken-breast-fillet.jpg",
-    "duck": "/images/products/duck-leg-quarter.jpg",
-    "fish": "/images/products/whole-seabass.jpg",
     "seafood": "/images/products/half-shell-scallops.jpg",
-    "pork": "/images/products/pork-belly.jpg",
+    "fish": "/images/products/whole-seabass.jpg",
     "shrimp": "/images/products/black-tiger-shrimp.jpg",
     "agriculture": "/images/products/frozen-agriculture.jpg"
   },
   "categories": [
-    {
-      "id": "beef",
-      "name": {
-        "en": "Beef",
-        "vi": "Thịt bò"
-      },
-      "imageKey": "beef"
-    },
-    {
-      "id": "quail",
-      "name": {
-        "en": "Quail",
-        "vi": "Cút"
-      },
-      "imageKey": "quail"
-    },
     {
       "id": "chicken",
       "name": {
         "en": "Chicken",
         "vi": "Gà"
       },
-      "imageKey": "chicken"
+      "imageKey": "chicken",
+      "brands": [
+        {
+          "id": "tyson",
+          "name": "Tyson Foods",
+          "logoUrl": "/images/brands/tyson.svg"
+        },
+        {
+          "id": "mountaire",
+          "name": "Mountaire Farms",
+          "logoUrl": "/images/brands/mountaire.svg"
+        }
+      ]
     },
     {
-      "id": "duck",
+      "id": "beef",
       "name": {
-        "en": "Duck",
-        "vi": "Vịt"
+        "en": "Beef",
+        "vi": "Thịt bò"
       },
-      "imageKey": "duck"
-    },
-    {
-      "id": "fish",
-      "name": {
-        "en": "Fish",
-        "vi": "Cá"
-      },
-      "imageKey": "fish"
+      "imageKey": "beef",
+      "brands": [
+        {
+          "id": "washington-beef",
+          "name": "Washington State Beef",
+          "logoUrl": "/images/brands/washington.svg"
+        },
+        {
+          "id": "excel-beef",
+          "name": "Excel Beef",
+          "logoUrl": "/images/brands/excel.svg"
+        }
+      ]
     },
     {
       "id": "seafood",
@@ -58,22 +55,6 @@
         "vi": "Hải sản"
       },
       "imageKey": "seafood"
-    },
-    {
-      "id": "pork",
-      "name": {
-        "en": "Pork",
-        "vi": "Thịt heo"
-      },
-      "imageKey": "pork"
-    },
-    {
-      "id": "shrimp",
-      "name": {
-        "en": "Shrimp",
-        "vi": "Tôm"
-      },
-      "imageKey": "shrimp"
     },
     {
       "id": "agriculture",
@@ -90,11 +71,16 @@
       "categoryId": "beef",
       "name": {
         "en": "7 Bone Pot Roast",
-        "vi": "7 Bone Pot Roast - Cổ bò xương số 7"
+        "vi": "Cổ bò xương số 7"
       },
       "description": {
         "en": "Chuck section. Bone-in shoulder cut for braising, roasting, and food service.",
         "vi": "Phần vai (Chuck - Nạc vai). Lát cắt có xương phù hợp cho hầm, nướng chậm và bếp dịch vụ."
+      },
+      "cutId": "chuck",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -102,11 +88,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Blade",
-        "vi": "Blade - Sườn vai"
+        "vi": "Sườn vai"
       },
       "description": {
         "en": "Chuck section. Shoulder blade cut with balanced lean meat and connective texture.",
         "vi": "Phần vai (Chuck - Nạc vai). Sườn vai có phần nạc cân bằng, phù hợp cho chế biến chậm."
+      },
+      "cutId": "chuck",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -114,11 +105,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Boneless Shoulder",
-        "vi": "Boneless Shoulder - Bã vai rút xương"
+        "vi": "Bã vai rút xương"
       },
       "description": {
         "en": "Chuck section. Boneless shoulder cut for slicing, roasting, and processed menus.",
         "vi": "Phần vai (Chuck - Nạc vai). Bã vai rút xương phù hợp cho cắt lát, nướng và thực đơn chế biến."
+      },
+      "cutId": "chuck",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -126,11 +122,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Brisket",
-        "vi": "Brisket - Nạm bò ức"
+        "vi": "Nạm bò ức"
       },
       "description": {
         "en": "Brisket and shank section. Beef breast cut for slow cooking and smoking.",
         "vi": "Phần ức và bắp (Brisket & Shank). Nạm bò ức phù hợp cho hầm, nấu chậm và xông khói."
+      },
+      "cutId": "brisket",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -138,11 +139,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Shank",
-        "vi": "Shank - Bắp bò"
+        "vi": "Bắp bò"
       },
       "description": {
         "en": "Brisket and shank section. Front or hind leg cut for soups, stews, and braised dishes.",
         "vi": "Phần ức và bắp (Brisket & Shank). Bắp nằm ở chân trước và chân sau, phù hợp cho súp, hầm và kho."
+      },
+      "cutId": "shank",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -150,11 +156,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Rib Steak",
-        "vi": "Rib Steak - Sườn để nướng"
+        "vi": "Sườn để nướng"
       },
       "description": {
         "en": "Rib section. Bone-in rib cut for grilling and steak menus.",
         "vi": "Phần sườn (Rib - Sườn). Lát sườn có xương phù hợp cho nướng và steak."
+      },
+      "cutId": "rib",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -162,11 +173,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Rib Eye",
-        "vi": "Rib Eye - Thăn vai"
+        "vi": "Thăn vai"
       },
       "description": {
         "en": "Rib section. U.S. beef cut for grilling, steak, and distribution.",
         "vi": "Phần sườn (Rib - Sườn). Lát cắt thịt bò Mỹ phù hợp cho nướng, steak và kênh phân phối."
+      },
+      "cutId": "rib",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -174,11 +190,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Back Ribs",
-        "vi": "Back Ribs - Xương sườn"
+        "vi": "Xương sườn"
       },
       "description": {
         "en": "Rib section. Beef back ribs for grilling, barbecue, and soup bases.",
         "vi": "Phần sườn (Rib - Sườn). Xương sườn bò phù hợp cho nướng, barbecue và nấu nước dùng."
+      },
+      "cutId": "rib",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -186,11 +207,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Plate",
-        "vi": "Plate - Ba chỉ"
+        "vi": "Ba chỉ"
       },
       "description": {
         "en": "Plate and flank section. Belly plate cut with rich fat and beef flavor.",
         "vi": "Phần ba chỉ và bụng (Plate & Flank). Ba chỉ bò có độ béo và hương vị đậm."
+      },
+      "cutId": "plate",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -198,11 +224,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Flank",
-        "vi": "Flank - Bụng"
+        "vi": "Bụng"
       },
       "description": {
         "en": "Plate and flank section. Lean belly cut for slicing and quick-cook menus.",
         "vi": "Phần ba chỉ và bụng (Plate & Flank). Phần bụng có thớ rõ, phù hợp cắt lát và chế biến nhanh."
+      },
+      "cutId": "flank",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -210,11 +241,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Short Ribs",
-        "vi": "Short Ribs - Ba chỉ bò"
+        "vi": "Ba chỉ bò"
       },
       "description": {
         "en": "Plate and flank detail cut. Short ribs for barbecue, grilling, and braised dishes.",
         "vi": "Chi tiết phần ba chỉ và bụng. Ba chỉ bò phù hợp cho barbecue, nướng và món hầm."
+      },
+      "cutId": "plate",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -222,11 +258,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Skirt Steak",
-        "vi": "Skirt Steak - Các miếng bít tết nhỏ"
+        "vi": "Các miếng bít tết nhỏ"
       },
       "description": {
         "en": "Plate and flank detail cut. Thin steak cut for grilling and quick searing.",
         "vi": "Chi tiết phần ba chỉ và bụng. Lát steak mỏng phù hợp cho nướng và áp chảo nhanh."
+      },
+      "cutId": "flank",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -234,11 +275,16 @@
       "categoryId": "beef",
       "name": {
         "en": "T-Bone",
-        "vi": "T-Bone - Thịt hình chữ T"
+        "vi": "Thịt hình chữ T"
       },
       "description": {
         "en": "Short loin section. T-shaped bone cut combining striploin and tenderloin.",
         "vi": "Phần thăn lưng (Short Loin - Thăn chuột). Lát cắt xương chữ T kết hợp thăn viền mỡ và thăn nội."
+      },
+      "cutId": "short_loin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -251,6 +297,11 @@
       "description": {
         "en": "Short loin section. Large steak cut with striploin and a larger tenderloin portion.",
         "vi": "Phần thăn lưng (Short Loin - Thăn chuột). Lát steak lớn gồm thăn viền mỡ và phần thăn nội lớn hơn."
+      },
+      "cutId": "short_loin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -258,11 +309,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Striploin",
-        "vi": "Striploin - Thịt thăn viền mỡ"
+        "vi": "Thịt thăn viền mỡ"
       },
       "description": {
         "en": "Short loin section. Striploin cut with a fat edge for steak and grilling.",
         "vi": "Phần thăn lưng (Short Loin - Thăn chuột). Thịt thăn viền mỡ phù hợp cho steak và nướng."
+      },
+      "cutId": "short_loin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -270,11 +326,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Sirloin Tip",
-        "vi": "Sirloin Tip - Ba chỉ"
+        "vi": "Ba chỉ"
       },
       "description": {
         "en": "Sirloin section. Tip cut listed from the sirloin area for slicing and cooking.",
         "vi": "Phần thăn ngoại (Sirloin - Thăn ngoại). Lát cắt sirloin tip theo ghi chú sơ đồ, phù hợp cho cắt lát và chế biến."
+      },
+      "cutId": "sirloin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -282,11 +343,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Top Sirloin",
-        "vi": "Top Sirloin - Thịt nạc thăn"
+        "vi": "Thịt nạc thăn"
       },
       "description": {
         "en": "Sirloin section. Top sirloin cut with lean texture for steak and grilling.",
         "vi": "Phần thăn ngoại (Sirloin - Thăn ngoại). Thịt nạc thăn phù hợp cho steak, nướng và cắt khẩu phần."
+      },
+      "cutId": "sirloin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -294,11 +360,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Bottom Sirloin",
-        "vi": "Bottom Sirloin - Thăn ngoại dưới"
+        "vi": "Thăn ngoại dưới"
       },
       "description": {
         "en": "Sirloin section. Bottom sirloin cut for roasting, slicing, and food service.",
         "vi": "Phần thăn ngoại (Sirloin - Thăn ngoại). Thăn ngoại dưới phù hợp cho nướng, cắt lát và bếp dịch vụ."
+      },
+      "cutId": "sirloin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -306,11 +377,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Tenderloin",
-        "vi": "Tenderloin - Thịt thăn nội"
+        "vi": "Thịt thăn nội"
       },
       "description": {
         "en": "Tenderloin section. Premium inner loin cut known for tenderness.",
         "vi": "Phần thăn nội (Tenderloin). Thịt thăn nội cao cấp, nổi bật về độ mềm."
+      },
+      "cutId": "short_loin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -318,11 +394,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Fillet Mignon",
-        "vi": "Fillet Mignon - Thăn phi lê"
+        "vi": "Thăn phi lê"
       },
       "description": {
         "en": "Tenderloin section. Premium fillet cut for steak and fine dining menus.",
         "vi": "Phần thăn nội (Tenderloin). Thăn phi lê cao cấp phù hợp cho steak và thực đơn nhà hàng."
+      },
+      "cutId": "short_loin",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -330,11 +411,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Top Round",
-        "vi": "Top Round - Mông trên"
+        "vi": "Mông trên"
       },
       "description": {
         "en": "Round section. Lean top round cut for slicing, roasting, and processed dishes.",
         "vi": "Phần mông (Round - Mông). Mông trên nạc, phù hợp cho cắt lát, nướng và món chế biến."
+      },
+      "cutId": "round",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -342,11 +428,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Bottom Round",
-        "vi": "Bottom Round - Mông dưới"
+        "vi": "Mông dưới"
       },
       "description": {
         "en": "Round section. Bottom round cut for roasting, braising, and slicing.",
         "vi": "Phần mông (Round - Mông). Mông dưới phù hợp cho nướng, kho/hầm và cắt lát."
+      },
+      "cutId": "round",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -354,11 +445,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Rump",
-        "vi": "Rump - Thịt mông bò"
+        "vi": "Thịt mông bò"
       },
       "description": {
         "en": "Round section. Rump cut for roasting, steak portions, and distribution channels.",
         "vi": "Phần mông (Round - Mông). Thịt mông bò phù hợp cho nướng, cắt steak và kênh phân phối."
+      },
+      "cutId": "round",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -366,23 +462,16 @@
       "categoryId": "beef",
       "name": {
         "en": "Eye of Round",
-        "vi": "Eye of Round - Lõi mông"
+        "vi": "Lõi mông"
       },
       "description": {
         "en": "Round section. Eye of round cut with lean texture for slicing and roasting.",
         "vi": "Phần mông (Round - Mông). Lõi mông nạc, phù hợp cho cắt lát và nướng."
-      }
-    },
-    {
-      "id": "p-quail-1",
-      "categoryId": "quail",
-      "name": {
-        "en": "Whole Quail",
-        "vi": "Cút nguyên con"
       },
-      "description": {
-        "en": "Cleaned and frozen quail for restaurants and catering.",
-        "vi": "Cút làm sạch cấp đông cho nhà hàng và suất ăn."
+      "cutId": "round",
+      "specs": {
+        "packing": "kg",
+        "brand": "Washington State Beef"
       }
     },
     {
@@ -390,11 +479,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Whole Chicken",
-        "vi": "Whole Chicken - Gà nguyên con"
+        "vi": "Gà nguyên con"
       },
       "description": {
         "en": "Whole chicken for cutting, roasting, and food service distribution.",
         "vi": "Gà nguyên con phù hợp cho pha lóc, quay/nướng và kênh phân phối."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -402,11 +496,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Leg Quarter",
-        "vi": "Leg Quarter - Phần đùi gà"
+        "vi": "Phần đùi gà"
       },
       "description": {
         "en": "Leg quarter cut including thigh and drumstick.",
         "vi": "Phần đùi gà, còn gọi là góc phần tư đùi hoặc má đùi kèm tỏi."
+      },
+      "cutId": "thigh",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -414,11 +513,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Forequarter",
-        "vi": "Forequarter - Phần thân trước gà"
+        "vi": "Phần thân trước gà"
       },
       "description": {
         "en": "Front quarter cut including the breast section.",
         "vi": "Phần thân trước gà, còn gọi là góc phần tư ức."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -426,11 +530,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Breast",
-        "vi": "Breast - Ức gà"
+        "vi": "Ức gà"
       },
       "description": {
         "en": "Chicken breast section for fillet, slicing, and high-volume kitchens.",
         "vi": "Ức gà, còn gọi là lườn gà, phù hợp cho phi lê, cắt lát và bếp công suất lớn."
+      },
+      "cutId": "breast",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -438,11 +547,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Whole Leg",
-        "vi": "Whole Leg - Đùi gà nguyên"
+        "vi": "Đùi gà nguyên"
       },
       "description": {
         "en": "Whole leg cut with thigh and drumstick connected.",
         "vi": "Đùi gà nguyên, gồm đùi tỏi nối liền má đùi."
+      },
+      "cutId": "thigh",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -450,11 +564,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Thigh",
-        "vi": "Thigh - Đùi gà trên"
+        "vi": "Đùi gà trên"
       },
       "description": {
         "en": "Upper leg thigh cut for grilling, roasting, and food service.",
         "vi": "Đùi gà trên, còn gọi là má đùi, phù hợp cho nướng, quay và bếp dịch vụ."
+      },
+      "cutId": "thigh",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -462,11 +581,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Drumstick",
-        "vi": "Drumstick - Tỏi gà"
+        "vi": "Tỏi gà"
       },
       "description": {
         "en": "Lower leg drumstick cut for grilling, frying, and portioned menus.",
         "vi": "Tỏi gà, còn gọi là đùi tỏi, phù hợp cho nướng, chiên và thực đơn khẩu phần."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -474,11 +598,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Foot",
-        "vi": "Foot - Chân gà"
+        "vi": "Chân gà"
       },
       "description": {
         "en": "Chicken feet for food service, processing, and distribution channels.",
         "vi": "Chân gà phù hợp cho bếp dịch vụ, chế biến và kênh phân phối."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -486,11 +615,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Wing",
-        "vi": "Wing - Cánh gà"
+        "vi": "Cánh gà"
       },
       "description": {
         "en": "Whole wing cut for grilling, frying, and restaurant menus.",
         "vi": "Cánh gà nguyên phù hợp cho nướng, chiên và thực đơn nhà hàng."
+      },
+      "cutId": "wing",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -498,11 +632,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Drumette",
-        "vi": "Drumette - Nách cánh gà"
+        "vi": "Nách cánh gà"
       },
       "description": {
         "en": "First wing segment, commonly used for fried and grilled wing menus.",
         "vi": "Nách cánh gà, còn gọi là tỏi cánh hoặc phôi cánh."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -510,11 +649,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Wingette",
-        "vi": "Wingette - Khớp giữa cánh gà"
+        "vi": "Khớp giữa cánh gà"
       },
       "description": {
         "en": "Middle wing segment for fried, grilled, and sauced wing menus.",
         "vi": "Khớp giữa cánh gà, còn gọi là cánh giữa hoặc khúc giữa."
+      },
+      "cutId": "wing",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -522,11 +666,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Wing Tip",
-        "vi": "Wing Tip - Đầu cánh gà"
+        "vi": "Đầu cánh gà"
       },
       "description": {
         "en": "Wing tip segment for processing, soup bases, and selected menus.",
         "vi": "Đầu cánh gà, còn gọi là chóp cánh hoặc rìa cánh."
+      },
+      "cutId": "wing",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -534,11 +683,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Neck",
-        "vi": "Neck - Cổ gà"
+        "vi": "Cổ gà"
       },
       "description": {
         "en": "Chicken neck for food service, processing, and broth preparation.",
         "vi": "Cổ gà phù hợp cho bếp dịch vụ, chế biến và nấu nước dùng."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -546,11 +700,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Heart",
-        "vi": "Heart - Tim gà"
+        "vi": "Tim gà"
       },
       "description": {
         "en": "Chicken heart for skewers, stir-fry, and processed menus.",
         "vi": "Tim gà phù hợp cho xiên nướng, xào và thực đơn chế biến."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -558,11 +717,16 @@
       "categoryId": "chicken",
       "name": {
         "en": "Liver",
-        "vi": "Liver - Gan gà"
+        "vi": "Gan gà"
       },
       "description": {
         "en": "Chicken liver for food service and processed dishes.",
         "vi": "Gan gà phù hợp cho bếp dịch vụ và các món chế biến."
+      },
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
@@ -570,28 +734,21 @@
       "categoryId": "chicken",
       "name": {
         "en": "Gizzard",
-        "vi": "Gizzard - Mề gà"
+        "vi": "Mề gà"
       },
       "description": {
         "en": "Chicken gizzard for food service, skewers, and processed menus.",
         "vi": "Mề gà phù hợp cho bếp dịch vụ, xiên nướng và thực đơn chế biến."
-      }
-    },
-    {
-      "id": "p-duck-1",
-      "categoryId": "duck",
-      "name": {
-        "en": "Duck Leg Quarter",
-        "vi": "Đùi vịt góc tư"
       },
-      "description": {
-        "en": "Imported duck cuts for roasting and premium menus.",
-        "vi": "Phần vịt nhập khẩu cho món quay và menu cao cấp."
+      "cutId": "whole",
+      "specs": {
+        "packing": "kg",
+        "brand": "Tyson Foods"
       }
     },
     {
       "id": "p-fish-1",
-      "categoryId": "fish",
+      "categoryId": "seafood",
       "name": {
         "en": "Whole Seabass",
         "vi": "Cá chẽm nguyên con"
@@ -599,23 +756,12 @@
       "description": {
         "en": "Selected fish for export inquiries, foodservice demand, and partner supply programs.",
         "vi": "Cá chọn lọc cho nhu cầu xuất khẩu, bếp dịch vụ và chương trình nguồn hàng đối tác."
-      }
-    },
-    {
-      "id": "p-pork-1",
-      "categoryId": "pork",
-      "name": {
-        "en": "Pork Belly",
-        "vi": "Ba chỉ heo"
       },
-      "description": {
-        "en": "Balanced pork cuts for grill and hotpot businesses.",
-        "vi": "Thịt heo cân đối cho quán nướng và lẩu."
-      }
+      "imageKey": "fish"
     },
     {
       "id": "p-shrimp-1",
-      "categoryId": "shrimp",
+      "categoryId": "seafood",
       "name": {
         "en": "Black Tiger Shrimp",
         "vi": "Tôm sú"
@@ -623,7 +769,8 @@
       "description": {
         "en": "Large shrimp for export inquiries, foodservice menus, and commercial supply programs.",
         "vi": "Tôm size lớn cho nhu cầu xuất khẩu, bếp dịch vụ và chương trình nguồn hàng thương mại."
-      }
+      },
+      "imageKey": "shrimp"
     },
     {
       "id": "p-seafood-1",
@@ -651,33 +798,15 @@
     }
   ],
   "featuredProductIds": [
-    "p-beef-1",
     "p-chicken-1",
-    "p-fish-1",
+    "p-beef-1",
     "p-seafood-1",
-    "p-shrimp-1",
     "p-agriculture-1"
   ],
   "homeFocusGroups": [
     {
       "type": "import",
       "sections": [
-        {
-          "title": {
-            "en": "U.S. beef",
-            "vi": "Thịt bò Mỹ"
-          },
-          "categoryIds": [
-            "beef"
-          ],
-          "featuredProductIds": [
-            "p-beef-1",
-            "p-beef-rib-steak",
-            "p-beef-brisket",
-            "p-beef-tenderloin"
-          ],
-          "maxItems": 4
-        },
         {
           "title": {
             "en": "U.S. chicken",
@@ -693,6 +822,22 @@
             "p-chicken-wing"
           ],
           "maxItems": 4
+        },
+        {
+          "title": {
+            "en": "U.S. beef",
+            "vi": "Thịt bò Mỹ"
+          },
+          "categoryIds": [
+            "beef"
+          ],
+          "featuredProductIds": [
+            "p-beef-1",
+            "p-beef-rib-steak",
+            "p-beef-brisket",
+            "p-beef-tenderloin"
+          ],
+          "maxItems": 4
         }
       ]
     },
@@ -705,9 +850,12 @@
             "vi": "Thủy hải sản"
           },
           "categoryIds": [
-            "fish",
-            "shrimp",
             "seafood"
+          ],
+          "featuredProductIds": [
+            "p-seafood-1",
+            "p-shrimp-1",
+            "p-fish-1"
           ],
           "maxItems": 4
         },

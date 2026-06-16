@@ -1,4 +1,6 @@
-from typing import Annotated, Literal
+from __future__ import annotations
+
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -25,8 +27,8 @@ class QuoteCreate(BaseModel):
 
     items: list[QuoteItemCreate] = Field(min_length=1)
     customer_info: Annotated[QuoteCustomerInfo, Field(alias="customerInfo")]
-    notes: LongTextString | None = None
-    locale: Literal["vi", "en"] | None = None
+    notes: Optional[LongTextString] = None
+    locale: Optional[Literal["vi", "en"]] = None
 
 
 class QuoteResponse(BaseModel):
@@ -36,6 +38,6 @@ class QuoteResponse(BaseModel):
     status: Literal["pending"]
     items: list[QuoteItemCreate]
     customer_info: Annotated[QuoteCustomerInfo, Field(alias="customerInfo")]
-    notes: str | None = None
-    locale: Literal["vi", "en"] | None = None
+    notes: Optional[str] = None
+    locale: Optional[Literal["vi", "en"]] = None
     created_at: Annotated[str, Field(alias="createdAt")]

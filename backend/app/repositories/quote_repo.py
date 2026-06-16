@@ -1,4 +1,6 @@
-from datetime import UTC, datetime
+from __future__ import annotations
+
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.core.config import get_settings
@@ -18,7 +20,7 @@ class QuoteRepository:
             customerInfo=payload.customer_info,
             notes=payload.notes,
             locale=payload.locale,
-            createdAt=datetime.now(UTC).isoformat(),
+            createdAt=datetime.now(timezone.utc).isoformat(),
         )
         self._store.append(quote)
         return quote

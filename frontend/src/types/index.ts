@@ -5,19 +5,33 @@ export interface LocalizedText {
   vi: string;
 }
 
-export interface Product {
+export interface CategoryBrand {
   id: string;
-  name: LocalizedText;
-  categoryId: string;
-  image: string;
-  unit: LocalizedText;
-  description: LocalizedText;
+  name: string;
+  logoUrl: string;
 }
 
 export interface Category {
   id: string;
   name: LocalizedText;
   image: string;
+  brands?: CategoryBrand[];
+}
+
+export interface ProductSpecs {
+  packing: string;
+  brand: string;
+}
+
+export interface Product {
+  id: string;
+  name: LocalizedText;
+  categoryId: string;
+  cutId?: string;
+  image: string;
+  unit: LocalizedText;
+  description: LocalizedText;
+  specs?: ProductSpecs;
 }
 
 export interface ChatMessage {

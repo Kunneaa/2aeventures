@@ -2,24 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import {
-  Building2,
-  Factory,
-  Globe2,
-  Handshake,
-  PackageCheck,
-  Route,
-  Store,
-  Truck,
-  Utensils,
-  Users,
-} from "lucide-react";
 import { brandAssets, brandCopy } from "../../../config/brand";
 import { useLanguage } from "../../../store/LanguageContext";
-
-const customerIcons = [Store, Utensils, Building2, Users];
-const missionIcons = [PackageCheck, Truck, Handshake];
-const supplyIcons = [Factory, Route, Globe2];
 
 export default function AboutPage() {
   const { language } = useLanguage();
@@ -97,8 +81,6 @@ export default function AboutPage() {
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {content.missionCards.map((item, index) => {
-              const Icon = missionIcons[index];
-
               return (
                 <motion.div
                   key={item.title}
@@ -108,12 +90,12 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, delay: index * 0.06 }}
                   className="rounded-lg border border-white/14 bg-white/[0.05] p-5 transition hover:bg-white/[0.08]"
                 >
-                  <div className="flex items-start gap-4">
-                    <Icon className="mt-1 h-6 w-6 shrink-0 text-[#d9a85c]" />
-                    <div>
-                      <h3 className="text-lg font-extrabold">{item.title}</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-white/68">{item.text}</p>
-                    </div>
+                  <div>
+                    <p className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#d9a85c]">
+                      Mission 0{index + 1}
+                    </p>
+                    <h3 className="text-lg font-extrabold mt-2">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-white/68">{item.text}</p>
                   </div>
                 </motion.div>
               );
@@ -121,7 +103,31 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
+ 
+      {/* Full-width Image banner - Truck */}
+      <section className="relative h-[400px] md:h-[580px] w-full overflow-hidden">
+        <Image
+          src="/images/Truck.jpg"
+          alt="2AE Cold Chain Logistics"
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[#0b151c]/30" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="section-shell text-center">
+            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#d9a85c]">
+              {language === "vi" ? "Logistics Chuỗi Lạnh Toàn Diện" : "Cold Chain Logistics"}
+            </p>
+            <h2 className="mt-3 text-2xl font-extrabold text-white md:text-4xl leading-tight max-w-2xl mx-auto drop-shadow-md">
+              {language === "vi" 
+                ? "Vận chuyển nhanh chóng, bảo quản tối ưu từ kho đến tay khách hàng" 
+                : "Fast and optimal temperature-controlled distribution"}
+            </h2>
+          </div>
+        </div>
+      </section>
+ 
       <section className="bg-[#f6f8f6]">
         <div className="section-shell grid gap-10 py-14 md:py-24 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <motion.div
@@ -139,8 +145,6 @@ export default function AboutPage() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {content.customerGroups.map((item, index) => {
-              const Icon = customerIcons[index];
-
               return (
                 <motion.div
                   key={item}
@@ -148,12 +152,12 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.45, delay: index * 0.05 }}
-                  className="group overflow-hidden rounded-lg border border-[#d8e3df] bg-white p-5 shadow-[0_16px_40px_rgba(23,36,45,0.06)] transition hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(23,36,45,0.1)]"
+                  className="group overflow-hidden rounded-lg border border-[#d8e3df] bg-white p-6 shadow-[0_16px_40px_rgba(23,36,45,0.06)] transition hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(23,36,45,0.1)]"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#f2f7fb] text-[#336699]">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-8 text-xl font-extrabold text-[#17242d]">{item}</h3>
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#336699]">
+                    0{index + 1}
+                  </p>
+                  <h3 className="mt-4 text-xl font-extrabold text-[#17242d]">{item}</h3>
                 </motion.div>
               );
             })}
@@ -201,8 +205,6 @@ export default function AboutPage() {
 
             <div className="grid gap-4">
               {content.supplySteps.map((step, index) => {
-                const Icon = supplyIcons[index];
-
                 return (
                   <motion.div
                     key={step.title}
@@ -212,11 +214,10 @@ export default function AboutPage() {
                     transition={{ duration: 0.45, delay: index * 0.05 }}
                     className="rounded-lg border border-[#d8e3df] bg-[#f6f8f6] p-5"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-extrabold text-[#9aa9a4]">0{index + 1}</span>
-                      <Icon className="h-5 w-5 text-[#2f6f63]" />
+                    <div className="flex items-center">
+                      <span className="text-xs font-extrabold text-[#2f6f63] uppercase tracking-[0.08em]">Step 0{index + 1}</span>
                     </div>
-                    <h3 className="mt-5 text-lg font-extrabold text-[#17242d]">{step.title}</h3>
+                    <h3 className="mt-3 text-lg font-extrabold text-[#17242d]">{step.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-[#53636c]">{step.text}</p>
                   </motion.div>
                 );

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from unicodedata import combining, normalize
 
 from app.repositories.product_repo import product_repository
@@ -80,26 +82,18 @@ class ProductService:
         return product_repository.category_exists(category_id)
 
     def _matches_product(self, product: Product, query: str) -> bool:
-        searchable = self._normalize(
-            " ".join(
-                [
-                    product.id,
-                    product.category_id,
-                    product.name.en,
-                    product.name.vi,
-                    product.description.en,
-                    product.description.vi,
-                ]
-            )
-        )
-        tokens = [
-            token
-            for token in query.split()
-            if len(token) > 1 and token not in SEARCH_STOPWORDS
-        ]
-        if not tokens:
-            return query in searchable
-        return any(token in searchable for token in tokens)
+        searchable = self._normalize(" ".join([
+            product.id,
+            product.category_id,
+            product.name.en,
+            product.name.vi,
+            product.description.en,
+            product.description.vi,
+        ]))
+
+        tokens = [token for token in query.split() if len(token) > 1 and token not in SEARCH_STOPWORDS]
+
+        return query in searchable if not tokens else any(token in searchable for token in tokens)
 
     def _normalize(self, value: str) -> str:
         without_accents = "".join(

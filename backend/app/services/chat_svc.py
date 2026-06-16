@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.core.brand import CHAT_SUGGESTIONS
@@ -44,7 +44,7 @@ class ChatService:
         return CHAT_SUGGESTIONS
 
     def _now(self) -> str:
-        return datetime.now(UTC).isoformat()
+        return datetime.now(timezone.utc).isoformat()
 
 
 chat_service = ChatService()

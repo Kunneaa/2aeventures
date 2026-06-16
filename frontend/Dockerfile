@@ -2,7 +2,7 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 
 FROM node:20-alpine AS builder
@@ -22,7 +22,8 @@ ENV NEXT_PUBLIC_DEFAULT_LOCALE=$NEXT_PUBLIC_DEFAULT_LOCALE
 ENV NEXT_PUBLIC_ENABLED_LOCALES=$NEXT_PUBLIC_ENABLED_LOCALES
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY frontend/ .
+COPY data/ /data/
 RUN npm run build
 
 FROM node:20-alpine AS runner

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import APIRouter, HTTPException, Query
 
 from app.schemas.product import Category, Product
@@ -8,9 +10,9 @@ router = APIRouter()
 
 @router.get("", response_model=list[Product], response_model_by_alias=True)
 def list_products(
-    search: str | None = Query(default=None, min_length=1),
-    category: str | None = Query(default=None, min_length=1),
-    sort_by: str | None = Query(default=None, alias="sortBy"),
+    search: Optional[str] = Query(default=None, min_length=1),
+    category: Optional[str] = Query(default=None, min_length=1),
+    sort_by: Optional[str] = Query(default=None, alias="sortBy"),
     page: int = Query(default=1, ge=1),
     limit: int = Query(default=100, ge=1, le=100),
 ) -> list[Product]:

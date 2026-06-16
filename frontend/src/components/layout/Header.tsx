@@ -8,7 +8,6 @@ import { siteConfig } from '../../config/site';
 import { normalizeLocalePath } from '../../lib/localePath';
 import { useLanguage } from '../../store/LanguageContext';
 import { useCart } from '../../store/CartContext';
-import { useCatalog } from '../../store/CatalogContext';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { BrandLogo } from './BrandLogo';
 
@@ -19,7 +18,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ locale }) => {
   const { t, language } = useLanguage();
   const { cartCount } = useCart();
-  const { categories } = useCatalog();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -31,6 +29,19 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
       { href: '/contact', label: t('contact') },
     ],
     [t]
+  );
+  const productDropdownLinks = useMemo(
+    () => [
+      {
+        href: `/${locale}/products?group=import`,
+        label: language === 'vi' ? 'Nhập khẩu' : 'Import',
+      },
+      {
+        href: `/${locale}/products?group=export`,
+        label: language === 'vi' ? 'Xuất khẩu' : 'Export',
+      },
+    ],
+    [language, locale]
   );
 
   const normalizedPath = normalizeLocalePath(pathname);
@@ -56,30 +67,13 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
               const isProducts = link.href === '/products';
 
               return (
-                <div key={link.href} className={isProducts ? 'relative group' : ''}>
+                <div key={link.href}>
                   <Link
                     href={href}
                     className={`text-sm font-bold transition-colors hover:text-[#336699] ${isActive ? 'text-[#336699]' : 'text-[#42525b]'}`}
                   >
                     {link.label}
                   </Link>
-                  {isProducts && (
-                    <div className="absolute left-0 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <div className="w-[420px] rounded-lg border border-[#d8e3df] bg-white p-4 shadow-[0_18px_45px_rgba(23,36,45,0.14)]">
-                        <div className="grid grid-cols-3 gap-2">
-                          {categories.map((category) => (
-                            <Link
-                              key={category.id}
-                              href={`/${locale}/products?category=${category.id}`}
-                              className="filter-pill w-full px-3 py-2.5 text-center text-[#17242d]"
-                            >
-                              {category.name[language]}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}

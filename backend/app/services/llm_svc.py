@@ -1,4 +1,4 @@
-from app.core.brand import CHAT_PRODUCT_GROUPS, QUOTE_FLOW
+from app.core.brand import CHAT_PRODUCT_GROUPS, QUOTE_FLOW, CONTACT_REPLY, MATCH_REPLY, DEFAULT_REPLY
 from app.schemas.chat import ChatSendRequest
 from app.schemas.product import Product
 
@@ -6,37 +6,21 @@ from app.schemas.product import Product
 class LlmService:
     def generate_reply(self, request: ChatSendRequest, matches: list[Product]) -> str:
         language = request.language or request.locale or "vi"
+        lang_key = "vi" if language == "vi" else "en"
         message = request.message.casefold()
 
         if matches:
             names = ", ".join(product.name.vi if language == "vi" else product.name.en for product in matches)
-            if language == "vi":
-                return (
-                    f"Mình tìm thấy {names}. Bạn có thể mở chi tiết sản phẩm, "
-                    "thêm sản phẩm vào danh sách yêu cầu báo giá rồi gửi thông tin liên hệ để đội 2AE VENTURES phản hồi."
-                )
-            return (
-                f"I found {names}. You can open the product detail, add products to the quote list, "
-                "then send your contact details so 2AE VENTURES can follow up."
-            )
+            return MATCH_REPLY[lang_key].format(names=names)
 
         if any(keyword in message for keyword in ["quote", "quotation", "báo giá", "bao gia", "giá", "price"]):
-            return QUOTE_FLOW["vi" if language == "vi" else "en"]
+            return QUOTE_FLOW[lang_key]
 
         if any(keyword in message for keyword in ["contact", "hotline", "zalo", "email", "liên hệ", "lien he"]):
-            if language == "vi":
-                return "Bạn có thể để lại thông tin trên form liên hệ hoặc gửi yêu cầu báo giá để đội 2AE VENTURES phản hồi nhanh."
-            return "You can leave your details through the contact form or submit a quote request for a quick follow-up."
+            return CONTACT_REPLY[lang_key]
 
-        if language == "vi":
-            return (
-                f"Mình có thể hỗ trợ tìm sản phẩm theo nhóm như {CHAT_PRODUCT_GROUPS['vi']}. "
-                "Bạn đang cần nhóm nào?"
-            )
-        return (
-            f"I can help you find products by category such as {CHAT_PRODUCT_GROUPS['en']}. "
-            "Which group are you looking for?"
-        )
+        groups = CHAT_PRODUCT_GROUPS[lang_key]
+        return DEFAULT_REPLY[lang_key].format(groups=groups)
 
 
 llm_service = LlmService()

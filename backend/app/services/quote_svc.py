@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from fastapi import HTTPException
 
 from app.repositories.quote_repo import quote_repository

@@ -29,8 +29,7 @@ logs/
 *.pid
 
 # Runtime data
-/data/*
-!/data/catalog.json
+/data/*.jsonl
 /backend/data/
 /backend/app/data/*
 !/backend/app/data/catalog.json

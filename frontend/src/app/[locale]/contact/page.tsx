@@ -2,30 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Globe2,
-  Mail,
-  MapPin,
-  MessageCircle,
-  PackageSearch,
-  Phone,
-  Send,
-  Truck,
-} from "lucide-react";
+import { brandAssets, brandCopy } from "../../../config/brand";
+import { useLanguage } from "../../../store/LanguageContext";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { FormField } from "../../../components/forms/FormField";
-import { brandAssets, brandCopy } from "../../../config/brand";
 import { siteConfig } from "../../../config/site";
 import { contactService } from "../../../services/contact";
-import { useLanguage } from "../../../store/LanguageContext";
-
+ 
 type ContactField = "name" | "email" | "phone" | "message";
-
-const helpIcons = [PackageSearch, Truck, Globe2];
-
+ 
 export default function ContactPage() {
   const { t, language } = useLanguage();
   const copy = brandCopy[language].contact;
@@ -37,23 +23,23 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+ 
   const updateField = (field: ContactField, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
-
+ 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
-
+ 
     setIsSubmitting(true);
     const response = await contactService.sendMessage({
       ...formData,
       locale: language,
     });
-
+ 
     setIsSubmitting(false);
-
+ 
     if (response.success) {
       setSubmitted(true);
       toast.success(t("contact_success_title"));
@@ -63,14 +49,14 @@ export default function ContactPage() {
       }, 3000);
       return;
     }
-
+ 
     toast.error(
       language === "vi"
         ? "Chưa gửi được tin nhắn. Vui lòng thử lại."
         : "Could not send your message. Please try again.",
     );
   };
-
+ 
   const contactChannels = [
     {
       label: copy.channels.call,
@@ -78,7 +64,6 @@ export default function ContactPage() {
       value: siteConfig.hotline.label,
       note: t("contact_hotline_note"),
       href: siteConfig.hotline.href,
-      icon: Phone,
     },
     {
       label: copy.channels.zalo,
@@ -86,7 +71,6 @@ export default function ContactPage() {
       value: siteConfig.zalo.label,
       note: t("contact_zalo_note"),
       href: siteConfig.zalo.href,
-      icon: MessageCircle,
     },
     {
       label: copy.channels.email,
@@ -94,7 +78,6 @@ export default function ContactPage() {
       value: siteConfig.email.label,
       note: t("contact_email_note"),
       href: siteConfig.email.href,
-      icon: Mail,
     },
   ];
 
@@ -133,20 +116,20 @@ export default function ContactPage() {
                 {copy.quickTitle}
               </h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                {contactChannels.map((channel) => {
-                  const Icon = channel.icon;
-
+                {contactChannels.map((channel, index) => {
                   return (
                     <a
                       key={channel.title}
                       href={channel.href}
                       target={channel.href.startsWith("http") ? "_blank" : undefined}
                       rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="group rounded-lg border border-white/20 bg-white/10 p-4 text-white backdrop-blur transition-colors hover:bg-white hover:text-[#17324d]"
+                      className="group rounded-lg border border-white/20 bg-white/10 p-5 text-white backdrop-blur transition-all duration-300 hover:bg-white hover:text-[#17324d]"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <Icon className="h-5 w-5 text-[#d9a85c]" />
-                        <ArrowRight className="h-4 w-4 opacity-60 transition-transform group-hover:translate-x-1" />
+                        <span className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#d9a85c]">
+                          Channel 0{index + 1}
+                        </span>
+                        <span className="text-sm font-bold opacity-60 transition-transform group-hover:translate-x-1">→</span>
                       </div>
                       <p className="mt-5 text-base font-extrabold">{channel.label}</p>
                       <p className="mt-1 text-sm text-white/70 group-hover:text-[#53636c]">
@@ -182,9 +165,7 @@ export default function ContactPage() {
 
               {submitted ? (
                 <div className="py-12 text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#e8f4ee]">
-                    <CheckCircle2 className="h-8 w-8 text-[#2f6f63]" />
-                  </div>
+                  <div className="mb-4 h-1.5 w-12 bg-[#2f6f63] rounded-full mx-auto" />
                   <h3 className="mt-5 text-xl font-extrabold text-[#17324d]">
                     {t("contact_success_title")}
                   </h3>
@@ -238,9 +219,8 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-primary w-full px-5 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-70"
+                    className="btn-primary w-full px-5 py-3 text-sm uppercase tracking-wider font-extrabold disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    <Send className="h-4 w-4" />
                     {isSubmitting ? copy.sendLoading : t("contact_form_submit")}
                   </button>
                 </form>
@@ -267,8 +247,6 @@ export default function ContactPage() {
 
             <div className="grid gap-4 md:grid-cols-3">
               {copy.helpCards.map((card, index) => {
-                const Icon = helpIcons[index];
-
                 return (
                   <motion.div
                     key={card.title}
@@ -278,7 +256,9 @@ export default function ContactPage() {
                     transition={{ duration: 0.5, delay: index * 0.06 }}
                     className="commerce-card commerce-card-hover p-5"
                   >
-                    <Icon className="h-7 w-7 text-[#b87333]" />
+                    <span className="text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#b87333]">
+                      Help 0{index + 1}
+                    </span>
                     <h3 className="mt-5 text-lg font-extrabold text-[#17242d]">
                       {card.title}
                     </h3>
@@ -303,18 +283,18 @@ export default function ContactPage() {
             <p className="mt-4 text-base leading-relaxed text-[#5c6a72]">
               {copy.mapIntro}
             </p>
-            <p className="mt-5 flex gap-3 text-sm font-bold leading-relaxed text-[#17242d]">
-              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#336699]" />
+            <p className="mt-5 text-sm font-bold leading-relaxed text-[#17242d]">
+              <span className="text-[#336699] font-extrabold block text-xs uppercase tracking-widest mb-1">{language === "vi" ? "Địa chỉ" : "Address"}</span>
               <span>{siteConfig.address}</span>
             </p>
             <a
               href={siteConfig.googleMaps.searchUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary mt-7 px-5 py-3 text-sm"
+              className="btn-primary mt-7 px-5 py-3 text-sm group flex items-center gap-1.5 justify-center sm:inline-flex"
             >
-              {copy.mapAction}
-              <ArrowRight className="h-4 w-4" />
+              <span>{copy.mapAction}</span>
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </a>
           </div>
 

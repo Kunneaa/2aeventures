@@ -1,14 +1,16 @@
 import catalogData from "../data/catalog.json";
-import type { Category, LocalizedText, Product } from "../types";
+import type { Category, LocalizedText, Product, CategoryBrand, ProductSpecs } from "../types";
 
 type CatalogProductRecord = {
   id: string;
   categoryId: string;
+  cutId?: string;
   name: LocalizedText;
   description: LocalizedText;
   image?: string;
   imageKey?: string;
   unit?: LocalizedText;
+  specs?: ProductSpecs;
 };
 
 type CatalogCategoryRecord = {
@@ -16,6 +18,7 @@ type CatalogCategoryRecord = {
   name: LocalizedText;
   image?: string;
   imageKey?: string;
+  brands?: CategoryBrand[];
 };
 
 export type HomeFocusSection = {
@@ -61,15 +64,18 @@ export const categories: Category[] = catalog.categories.map((category) => ({
   id: category.id,
   name: category.name,
   image: resolveImage(category, category.id),
+  brands: category.brands,
 }));
 
 export const products: Product[] = catalog.products.map((product) => ({
   id: product.id,
   name: product.name,
   categoryId: product.categoryId,
+  cutId: product.cutId,
   image: resolveImage(product, product.categoryId),
   unit: product.unit ?? defaultUnit,
   description: product.description,
+  specs: product.specs,
 }));
 
 export const featuredProductIds = catalog.featuredProductIds;

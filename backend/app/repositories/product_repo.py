@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from pathlib import Path
 from typing import Any
@@ -34,6 +36,7 @@ def category_from_record(record: dict[str, Any]) -> Category:
         id=record["id"],
         name=record["name"],
         image=resolve_image(record, record["id"]),
+        brands=record.get("brands") or None,
     )
 
 
@@ -44,9 +47,11 @@ def product_from_record(record: dict[str, Any]) -> Product:
         id=record["id"],
         name=record["name"],
         categoryId=category_id,
+        cutId=record.get("cutId"),
         image=resolve_image(record, category_id),
-        unit=record.get("unit", DEFAULT_UNIT),
+        unit=record.get("unit") or DEFAULT_UNIT,
         description=record["description"],
+        specs=record.get("specs"),
     )
 
 
