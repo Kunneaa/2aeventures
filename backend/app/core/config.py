@@ -9,7 +9,7 @@ class Settings:
     backend_env = os.getenv("BACKEND_ENV", "development")
     log_level = os.getenv("BACKEND_LOG_LEVEL", "info")
     admin_token = os.getenv("BACKEND_ADMIN_TOKEN")
-    data_dir = Path(os.getenv("BACKEND_DATA_DIR", "data")).expanduser()
+    data_dir = Path(os.getenv("BACKEND_DATA_DIR", "../data")).expanduser()
     cors_origins = tuple(
         origin.strip()
         for origin in os.getenv(

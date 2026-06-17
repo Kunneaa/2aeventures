@@ -4,10 +4,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from app.core.config import get_settings
 from app.schemas.product import Category, Product
 
 
-CATALOG_PATH = Path(__file__).resolve().parents[1] / "data" / "catalog.json"
+CATALOG_PATH = get_settings().data_dir / "catalog.json"
 DEFAULT_UNIT = {"en": "pound", "vi": "pound"}
 
 

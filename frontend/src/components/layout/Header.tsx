@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, Menu } from 'lucide-react';
+import { ShoppingBag, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { siteConfig } from '../../config/site';
 import { normalizeLocalePath } from '../../lib/localePath';
 import { useLanguage } from '../../store/LanguageContext';
@@ -55,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
                 <div key={link.href}>
                   <Link
                     href={href}
-                    className={`text-sm font-bold transition-colors hover:text-[#336699] ${isActive ? 'text-[#336699]' : 'text-[#42525b]'}`}
+                    className={`text-sm font-bold transition-colors hover:text-[#336699] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-md px-1 py-0.5 ${isActive ? 'text-[#336699]' : 'text-[#42525b]'}`}
                   >
                     {link.label}
                   </Link>
@@ -68,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
         <div className="flex items-center gap-3 sm:gap-4">
           <a
             href={siteConfig.hotline.href}
-            className="hidden items-center rounded-lg border border-[#d8e3df] bg-[#f2f7fb] px-3 py-1.5 text-sm font-bold text-[#17324d] transition-colors hover:border-[#b8cbc4] hover:bg-white lg:inline-flex"
+            className="hidden items-center rounded-lg border border-[#d8e3df] bg-[#f2f7fb] px-3 py-1.5 text-sm font-bold text-[#17324d] transition-colors hover:border-[#b8cbc4] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent lg:inline-flex"
           >
             Hotline: {siteConfig.hotline.label}
           </a>
@@ -79,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
 
           <Link 
             href={`/${locale}/cart`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[#17324d] text-white transition-colors hover:bg-[#244f78]"
+            className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[#17324d] text-white transition-colors hover:bg-[#244f78] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
           >
             <ShoppingBag size={20} />
             {cartCount > 0 && (
@@ -90,39 +91,49 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
           </Link>
 
           <button 
-            className="rounded-lg p-2 text-[#42525b] hover:bg-[#f2f7fb] hover:text-[#17324d] md:hidden"
+            className="rounded-lg p-2 text-[#42525b] hover:bg-[#f2f7fb] hover:text-[#17324d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle menu"
           >
-            <Menu size={24} />
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {isMenuOpen && (
-        <div className="absolute left-0 top-16 w-full space-y-1 border-t border-[#d8e3df] bg-white px-4 py-2 shadow-lg md:hidden">
-          <div className="px-3 py-2">
-            <LanguageSwitcher />
-          </div>
-          {navLinks.map((link) => {
-            const href = `/${locale}${link.href === '/' ? '' : link.href}`;
-            const isActive =
-              link.href === '/products'
-                ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
-                : normalizedPath === link.href;
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-0 top-16 w-full space-y-1 border-t border-[#d8e3df] bg-white px-4 py-2 shadow-lg md:hidden"
+          >
+            <div className="px-3 py-2">
+              <LanguageSwitcher />
+            </div>
+            {navLinks.map((link) => {
+              const href = `/${locale}${link.href === '/' ? '' : link.href}`;
+              const isActive =
+                link.href === '/products'
+                  ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
+                  : normalizedPath === link.href;
 
-            return (
-              <Link
-                key={link.href}
-                href={href}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block rounded-lg px-3 py-2 text-base font-bold ${isActive ? 'bg-[#f2f7fb] text-[#17324d]' : 'text-[#42525b] hover:bg-[#f6f8f6] hover:text-[#17324d]'}`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </div>
-      )}
+              return (
+                <Link
+                  key={link.href}
+                  href={href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block rounded-lg px-3 py-2 text-base font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent ${isActive ? 'bg-[#f2f7fb] text-[#17324d]' : 'text-[#42525b] hover:bg-[#f6f8f6] hover:text-[#17324d]'}`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

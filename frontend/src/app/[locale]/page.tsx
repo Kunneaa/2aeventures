@@ -27,7 +27,6 @@ type FocusItem = Pick<Product, "id" | "name" | "image">;
 type FocusSection = {
   title: FocusSectionConfig["title"];
   categoryIds: string[];
-  items: FocusItem[];
   totalItems: number;
 };
 
@@ -58,19 +57,6 @@ const getProductsByCategories = (categoryIds: string[]): FocusItem[] =>
     .filter((product) => categoryIds.includes(product.categoryId))
     .map(({ id, name, image }) => ({ id, name, image }));
 
-const getFeaturedProductsBySection = (
-  section: FocusSectionConfig,
-  sectionProducts: FocusItem[],
-): FocusItem[] => {
-  const featuredIds = new Set(section.featuredProductIds ?? []);
-  const featuredProducts = (section.featuredProductIds ?? [])
-    .map((id) => sectionProducts.find((product) => product.id === id))
-    .filter((product): product is FocusItem => Boolean(product));
-  const remainingProducts = sectionProducts.filter((product) => !featuredIds.has(product.id));
-
-  return [...featuredProducts, ...remainingProducts].slice(0, section.maxItems ?? 4);
-};
-
 const directionGroups: DirectionGroup[] = directionGroupConfigs.map((group) => ({
   ...group,
   sections: group.sections.map((section) => {
@@ -79,7 +65,6 @@ const directionGroups: DirectionGroup[] = directionGroupConfigs.map((group) => (
     return {
       title: section.title,
       categoryIds: section.categoryIds,
-      items: getFeaturedProductsBySection(section, sectionProducts),
       totalItems: sectionProducts.length,
     };
   }),
@@ -203,48 +188,6 @@ function CoreValuesSection({ copy }: { copy: HomeCopy }) {
   );
 }
 
-function FocusTile({
-  item,
-  language,
-  index,
-  basePath,
-}: {
-  item: FocusItem;
-  language: LocaleCode;
-  index: number;
-  basePath: string;
-}) {
-  return (
-    <Link
-      href={`${basePath}/products/${item.id}`}
-      className="group grid min-h-24 grid-cols-[92px_1fr] overflow-hidden rounded-lg bg-[#f6f8f6] ring-1 ring-[#d8e3df] transition duration-200 hover:bg-white hover:ring-[#b8cbc4] sm:block"
-    >
-      <div className="relative h-full min-h-24 overflow-hidden bg-[#edf3f0] sm:aspect-[4/3]">
-        <Image
-          src={item.image}
-          alt={item.name[language]}
-          fill
-          sizes="(max-width: 768px) 50vw, 18vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-      <div className="flex min-h-20 items-center justify-between gap-3 p-3.5">
-        <div className="min-w-0">
-          <p className="text-[11px] font-extrabold uppercase text-[#8a969b]">
-            {String(index + 1).padStart(2, "0")}
-          </p>
-          <h4 className="mt-1 text-base font-extrabold leading-tight text-[#17242d]">
-            {item.name[language]}
-          </h4>
-        </div>
-        <span className="text-base font-extrabold text-[#336699] opacity-60 transition-transform group-hover:translate-x-1 group-hover:opacity-100">
-          →
-        </span>
-      </div>
-    </Link>
-  );
-}
-
 function FocusSectionBlock({
   section,
   copy,
@@ -258,8 +201,14 @@ function FocusSectionBlock({
   badgeClassName: string;
   basePath: string;
 }) {
-  const hasMoreItems = section.totalItems > section.items.length;
   const sectionHref = getProductsHref(basePath, section.categoryIds);
+  
+  const categoryImageMap: Record<string, string> = {
+    beef: "/images/US-Beef.jpg",
+    chicken: "/images/US-Chicken.jpg",
+    seafood: "/images/Frozen-Seafood.jpg",
+  };
+  const bannerImage = categoryImageMap[section.categoryIds[0]] || "/images/US-Beef.jpg";
 
   return (
     <div className="grid gap-5 px-4 py-6 md:px-6 lg:grid-cols-[210px_1fr]">
@@ -271,31 +220,29 @@ function FocusSectionBlock({
             {section.title[language]}
           </h4>
           <p className="text-sm font-bold text-[#7a858a] lg:mt-4">
-            {hasMoreItems ? `${section.items.length} / ${section.totalItems}` : section.totalItems}{" "}
-            {language === "vi" ? "sản phẩm" : "products"}
+            {section.totalItems} {language === "vi" ? "sản phẩm" : "products"}
           </p>
         </div>
-        {hasMoreItems && (
-          <Link
-            href={sectionHref}
-            className="inline-flex items-center gap-1 text-sm font-extrabold text-[#336699] transition hover:text-[#17324d] lg:mt-5 group"
-          >
-            <span>{copy.viewMore}</span>
-            <span className="transition-transform group-hover:translate-x-0.5">→</span>
-          </Link>
-        )}
+        <Link
+          href={sectionHref}
+          className="inline-flex items-center gap-1 text-sm font-extrabold text-[#336699] transition hover:text-[#17324d] lg:mt-5 group"
+        >
+          <span>{copy.viewMore}</span>
+          <span className="transition-transform group-hover:translate-x-0.5">→</span>
+        </Link>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {section.items.map((item, itemIndex) => (
-          <FocusTile
-            key={item.id}
-            item={item}
-            language={language}
-            index={itemIndex}
-            basePath={basePath}
+      <div className="relative h-[280px] w-full overflow-hidden rounded-xl border border-[#d8e3df] bg-[#edf3f0] sm:h-[360px] lg:h-[480px]">
+        <Link href={sectionHref} className="group block h-full w-full">
+          <Image
+            src={bannerImage}
+            alt={section.title[language]}
+            fill
+            sizes="(max-width: 1024px) 100vw, 75vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
-        ))}
+          <div className="absolute inset-0 bg-[#0b151c]/10 transition-colors group-hover:bg-transparent" />
+        </Link>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import catalogData from "../data/catalog.json";
+import catalogData from "../../../data/catalog.json";
 import type { Category, LocalizedText, Product, CategoryBrand, ProductSpecs } from "../types";
 
 type CatalogProductRecord = {

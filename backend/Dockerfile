@@ -7,14 +7,13 @@ ENV BACKEND_DATA_DIR=/app/data
 
 WORKDIR /app
 
-COPY requirements.txt ./
+COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app ./app
+COPY backend/app ./app
 
-# Catalog is read from app/data/catalog.json (path relative to product_repo.py)
-# Runtime data dir for JSONL files is /app/data — created here so it's writable
-RUN mkdir -p /app/data
+# Copy data directory from root context
+COPY data ./data
 
 EXPOSE 8000
 

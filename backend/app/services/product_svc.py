@@ -93,7 +93,7 @@ class ProductService:
 
         tokens = [token for token in query.split() if len(token) > 1 and token not in SEARCH_STOPWORDS]
 
-        return query in searchable if not tokens else any(token in searchable for token in tokens)
+        return query in searchable if not tokens else all(token in searchable for token in tokens)
 
     def _normalize(self, value: str) -> str:
         without_accents = "".join(

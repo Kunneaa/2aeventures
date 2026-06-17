@@ -3,7 +3,7 @@ services:
     name: twoae-demo-api
     runtime: docker
     dockerfilePath: ./Dockerfile
-    dockerContext: .
+    dockerContext: ..
     rootDir: backend
     plan: free
     region: singapore
@@ -28,7 +28,7 @@ services:
     name: twoae-demo-web
     runtime: docker
     dockerfilePath: ./Dockerfile
-    dockerContext: .
+    dockerContext: ..
     rootDir: frontend
     plan: free
     region: singapore

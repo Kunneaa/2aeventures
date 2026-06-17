@@ -218,8 +218,14 @@ export default function ProductsPage() {
     return tradeGroups.find((g) => g.type === activeGroup);
   }, [tradeGroups, activeGroup]);
 
-  /* Hero background image based on active group */
-  const heroBgImage = activeGroup === "import" ? "/images/US-Beef.jpg" : "/images/Frozen-Seafood.jpg";
+  /* Hero background image based on active group and category */
+  const heroBgImage = useMemo(() => {
+    if (activeGroup === "import") {
+      if (activeCategory === "chicken") return "/images/US-Chicken.jpg";
+      return "/images/US-Beef.jpg";
+    }
+    return "/images/Frozen-Seafood.jpg";
+  }, [activeGroup, activeCategory]);
 
   /* ─────────────────────────────────────────────
      Render: Animal Cut Map
@@ -271,7 +277,7 @@ export default function ProductsPage() {
       <section className="relative overflow-hidden bg-[#0b151c]" style={{ minHeight: 220 }}>
         <Image
           src={heroBgImage}
-          alt={activeGroup === "import" ? "US Beef Import" : "Frozen Seafood Export"}
+          alt={activeGroup === "import" ? (activeCategory === "chicken" ? "US Chicken Import" : "US Beef Import") : "Frozen Seafood Export"}
           fill
           priority
           sizes="100vw"
