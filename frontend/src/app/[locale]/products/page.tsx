@@ -224,6 +224,7 @@ export default function ProductsPage() {
       if (activeCategory === "chicken") return "/images/US-Chicken.jpg";
       return "/images/US-Beef.jpg";
     }
+    if (activeCategory === "agriculture") return "/images/Agricultural.jpg";
     return "/images/Frozen-Seafood.jpg";
   }, [activeGroup, activeCategory]);
 
@@ -277,7 +278,7 @@ export default function ProductsPage() {
       <section className="relative overflow-hidden bg-[#0b151c]" style={{ minHeight: 220 }}>
         <Image
           src={heroBgImage}
-          alt={activeGroup === "import" ? (activeCategory === "chicken" ? "US Chicken Import" : "US Beef Import") : "Frozen Seafood Export"}
+          alt={activeGroup === "import" ? (activeCategory === "chicken" ? "US Chicken Import" : "US Beef Import") : (activeCategory === "agriculture" ? "Agricultural Export" : "Frozen Seafood Export")}
           fill
           priority
           sizes="100vw"

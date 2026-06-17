@@ -207,6 +207,7 @@ function FocusSectionBlock({
     beef: "/images/US-Beef.jpg",
     chicken: "/images/US-Chicken.jpg",
     seafood: "/images/Frozen-Seafood.jpg",
+    agriculture: "/images/Agricultural.jpg",
   };
   const bannerImage = categoryImageMap[section.categoryIds[0]] || "/images/US-Beef.jpg";
 
