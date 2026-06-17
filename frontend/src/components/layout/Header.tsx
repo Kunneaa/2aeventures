@@ -30,20 +30,6 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
     ],
     [t]
   );
-  const productDropdownLinks = useMemo(
-    () => [
-      {
-        href: `/${locale}/products?group=import`,
-        label: language === 'vi' ? 'Nhập khẩu' : 'Import',
-      },
-      {
-        href: `/${locale}/products?group=export`,
-        label: language === 'vi' ? 'Xuất khẩu' : 'Export',
-      },
-    ],
-    [language, locale]
-  );
-
   const normalizedPath = normalizeLocalePath(pathname);
 
   return (
@@ -64,7 +50,6 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
                 link.href === '/products'
                   ? normalizedPath === '/products' || normalizedPath.startsWith('/products/')
                   : normalizedPath === link.href;
-              const isProducts = link.href === '/products';
 
               return (
                 <div key={link.href}>

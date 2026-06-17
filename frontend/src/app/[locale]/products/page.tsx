@@ -33,8 +33,6 @@ type ProductTradeGroup = {
   sections: ProductGroupSection[];
 };
 
-
-
 const isTradeGroupType = (value: string | null): value is TradeGroupType =>
   value === "import" || value === "export";
 
@@ -229,8 +227,6 @@ export default function ProductsPage() {
   const renderAnimalMap = () => {
     if (!displayAnimalCategory) return null;
     const isBeef = displayAnimalCategory.id === "beef";
-    const isChicken = displayAnimalCategory.id === "chicken";
-    if (!isBeef && !isChicken) return null;
 
     const titleText = isBeef
       ? (language === "vi" ? "Sơ đồ cắt lọc Bò Mỹ" : "U.S. Beef Cuts Diagram")
