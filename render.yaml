@@ -2,6 +2,7 @@ services:
   - type: web
     name: twoae-demo-api
     runtime: docker
+    rootDir: .
     dockerfilePath: backend/Dockerfile
     dockerContext: .
     plan: free
@@ -26,6 +27,7 @@ services:
   - type: web
     name: twoae-demo-web
     runtime: docker
+    rootDir: .
     dockerfilePath: frontend/Dockerfile
     dockerContext: .
     plan: free
