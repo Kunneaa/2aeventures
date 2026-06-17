@@ -2,7 +2,7 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 
 FROM node:20-alpine AS builder
@@ -22,8 +22,7 @@ ENV NEXT_PUBLIC_DEFAULT_LOCALE=$NEXT_PUBLIC_DEFAULT_LOCALE
 ENV NEXT_PUBLIC_ENABLED_LOCALES=$NEXT_PUBLIC_ENABLED_LOCALES
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY frontend/ .
-COPY data/ /data/
+COPY . .
 RUN npm run build
 
 FROM node:20-alpine AS runner
@@ -42,7 +41,6 @@ ENV API_PROXY_TARGET=https://twoae-demo-api.onrender.com
 COPY --from=builder --chown=node:node /app/public ./public
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 COPY --from=builder --chown=node:node /app/.next/standalone ./
-COPY --from=builder --chown=node:node /data /data
 
 USER node
 

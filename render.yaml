@@ -2,9 +2,9 @@ services:
   - type: web
     name: twoae-demo-api
     runtime: docker
-    rootDir: .
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: ./Dockerfile
     dockerContext: .
+    rootDir: backend
     plan: free
     region: singapore
     branch: main
@@ -27,9 +27,9 @@ services:
   - type: web
     name: twoae-demo-web
     runtime: docker
-    rootDir: .
-    dockerfilePath: frontend/Dockerfile
+    dockerfilePath: ./Dockerfile
     dockerContext: .
+    rootDir: frontend
     plan: free
     region: singapore
     branch: main

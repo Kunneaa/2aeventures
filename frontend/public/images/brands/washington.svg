@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <rect width="200" height="100" fill="#17324d" rx="10"/>
+  <circle cx="50" cy="50" r="30" fill="#f0f0f0" opacity="0.1"/>
+  <text x="100" y="55" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">WASHINGTON</text>
+  <text x="100" y="75" fill="#a0b0c0" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">STATE BEEF</text>
+  <path d="M 30,50 L 70,50 M 50,30 L 50,70" stroke="#facc15" stroke-width="4" opacity="0.8"/>
+</svg>

@@ -1,9 +1,10 @@
-# Runtime data is mounted/generated at runtime.
-data
+# Runtime JSONL data (contacts, quotes) — not needed in image
+data/*.jsonl
+data/images
 
-# Catalog data is part of the application build.
-!app/data
-!app/data/catalog.json
+# Static catalog is part of app — include app/data/catalog.json
+# (no need to ignore app/data here)
+
 .DS_Store
 __pycache__
 *.pyc

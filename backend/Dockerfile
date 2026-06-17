@@ -6,12 +6,10 @@ ENV BACKEND_DATA_DIR=/app/data
 
 WORKDIR /app
 
-COPY backend/requirements.txt ./
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY backend/app ./app
-COPY data/catalog.json /data/catalog.json
-RUN mkdir -p /app/data
+COPY app ./app
 
 EXPOSE 8000
 
