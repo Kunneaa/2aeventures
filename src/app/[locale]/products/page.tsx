@@ -4,8 +4,9 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X } from "lucide-react";
+import { Mail, X } from "lucide-react";
 
+import { QuickEmailButton } from "../../../components/contact/QuickEmailButton";
 import { InteractiveCutMap, ANIMAL_CUTS } from "../../../components/products/InteractiveCutMap";
 import { getProductSearchableText } from "../../../lib/catalog";
 import { matchesSearchQuery, normalizeSearchText } from "../../../lib/search";
@@ -124,7 +125,7 @@ export default function ProductsPage() {
                 <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-xs font-bold">Premium US Sourcing</p>
               </div>
               
-              <div className="w-full max-w-5xl">
+              <div className="w-full px-4 lg:px-12">
                 <InteractiveCutMap 
                   category={activeCategory as "beef" | "chicken"} 
                   selectedCutId={selectedCutId} 
@@ -176,16 +177,23 @@ export default function ProductsPage() {
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-12 sm:gap-16 space-y-12 sm:space-y-16">
                {visibleProducts.map((product) => (
                  <div key={product.id} className="break-inside-avoid group cursor-pointer relative">
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0d1821] mb-6">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0d1821] mb-6 rounded-lg">
                       <Image 
                         src={product.image} 
                         alt={product.name[language]} 
                         fill 
                         className="object-cover transition-all duration-[1.5s] group-hover:scale-105 opacity-80 group-hover:opacity-100" 
                       />
-                      <div className="absolute inset-0 bg-[#071018]/10 group-hover:bg-transparent transition-colors duration-700" />
+                      <div className="absolute inset-0 bg-[#071018]/10 group-hover:bg-[#071018]/50 backdrop-blur-[0px] group-hover:backdrop-blur-sm transition-all duration-700 flex items-center justify-center opacity-0 group-hover:opacity-100 z-20">
+                        <QuickEmailButton 
+                          products={[product]} 
+                          className="bg-[#c9a86a] text-[#0b151c] px-5 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300 shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0"
+                        >
+                          <Mail size={16} /> {t("quick_contact")}
+                        </QuickEmailButton>
+                      </div>
                     </div>
-                    <div className="pr-4 border-l border-[#c9a86a]/0 group-hover:border-[#c9a86a]/30 pl-4 transition-all duration-500">
+                    <div className="pr-4 border-l border-[#c9a86a]/0 group-hover:border-[#c9a86a]/30 pl-4 transition-all duration-500 relative z-10">
                       <h3 className="font-serif text-3xl text-[#f5f5f5] mb-3" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                         {product.name[language]}
                       </h3>
@@ -236,9 +244,18 @@ export default function ProductsPage() {
                 </button>
                 
                 <p className="text-[#c9a86a] uppercase tracking-[0.2em] text-[10px] font-bold mb-4">Cut Specification</p>
-                <h2 className="font-serif text-4xl md:text-5xl text-[#f5f5f5] mb-12 tracking-tight" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+                <h2 className="font-serif text-4xl md:text-5xl text-[#f5f5f5] mb-8 tracking-tight" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                   {getCutName(selectedCutId)}
                 </h2>
+                
+                <div className="mb-12">
+                  <QuickEmailButton 
+                    products={[{ id: selectedCutId, name: { en: `${getCutName(selectedCutId)} (${activeCategoryObj?.name.en})`, vi: "" }, categoryId: activeCategory, specs: {} } as any]} 
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-[#c9a86a] text-[#c9a86a] hover:bg-[#c9a86a] hover:text-[#0b151c] transition-colors duration-300 rounded-full text-xs font-bold uppercase tracking-widest"
+                  >
+                    <Mail size={16} /> {t("quick_contact")}
+                  </QuickEmailButton>
+                </div>
                 
                 <div className="w-8 h-px bg-[#c9a86a]/50 mb-12" />
                 

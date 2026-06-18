@@ -44,14 +44,17 @@ export function InteractiveCutMap({ category, selectedCutId, onSelectCut }: Inte
   const cuts = ANIMAL_CUTS[category] || [];
   const imageSrc = `/images/maps/${category}-cut.jpg`;
 
+  const aspectRatio = category === "beef" ? "2290 / 1856" : "1448 / 1086";
+
   return (
-    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#0d1821]/50 border border-white/5">
+    <div className="relative w-full rounded-2xl overflow-hidden" style={{ aspectRatio, transform: "translateZ(0)" }}>
       <Image
         src={imageSrc}
         alt={`${category} Cut Map`}
         fill
         sizes="(max-width: 1024px) 100vw, 1024px"
-        className="object-contain"
+        className="object-contain rounded-2xl"
+        style={{ borderRadius: "1rem" }}
         priority
       />
       {cuts.map((cut) => {
