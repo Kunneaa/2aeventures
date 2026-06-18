@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { sendNotificationEmail, ContactMailData } from '../../../../lib/mail';
 
 export async function POST(request: Request) {
   try {
@@ -16,6 +17,9 @@ export async function POST(request: Request) {
     };
     
     await fs.appendFile(dataPath, JSON.stringify(record) + '\n', 'utf-8');
+    
+    // Send email notification without blocking the response
+    sendNotificationEmail('New Contact Form Submission', payload as ContactMailData).catch(console.error);
     
     return NextResponse.json(record, { status: 201 });
   } catch (error) {
