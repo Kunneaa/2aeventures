@@ -1,45 +1,17 @@
 services:
   - type: web
-    name: twoae-demo-api
-    runtime: docker
-    dockerfilePath: backend/Dockerfile
-    dockerContext: .
-    plan: free
-    region: singapore
-    branch: main
-    healthCheckPath: /health
-    autoDeployTrigger: commit
-    envVars:
-      - key: PORT
-        value: "10000"
-      - key: BACKEND_ENV
-        value: production
-      - key: BACKEND_LOG_LEVEL
-        value: info
-      - key: BACKEND_CORS_ORIGINS
-        value: https://twoae-demo-web.onrender.com,https://2aeventures.com,https://www.2aeventures.com
-      - key: BACKEND_ADMIN_TOKEN
-        generateValue: true
-      - key: BACKEND_DATA_DIR
-        value: /app/data
-
-  - type: web
     name: twoae-demo-web
-    runtime: docker
-    dockerfilePath: frontend/Dockerfile
-    dockerContext: .
+    runtime: node
     plan: free
     region: singapore
     branch: main
-    healthCheckPath: /api/health
-    autoDeployTrigger: commit
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run start"
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: PORT
         value: "10000"
-      - key: NEXT_PUBLIC_API_URL
-        value: /api/v1
-      - key: API_PROXY_TARGET
-        value: https://twoae-demo-api.onrender.com
       - key: NEXT_PUBLIC_APP_NAME
         value: 2AE VENTURES
       - key: NEXT_PUBLIC_DEFAULT_LOCALE

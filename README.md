@@ -1,15 +1,19 @@
 # 2AE VENTURES
 
-Website giới thiệu doanh nghiệp và catalog thực phẩm đông lạnh (nhập khẩu/xuất khẩu).
+Website thương mại điện tử giới thiệu doanh nghiệp và catalog thực phẩm đông lạnh (nhập khẩu/xuất khẩu) cao cấp.
 
 ---
 
 ## 🛠 Tech Stack & Architecture
 
-- **Frontend**: Next.js 14 (React, TypeScript, Tailwind CSS)
-- **Backend**: FastAPI (Python 3.11, Pydantic, JSONL Store)
-- **Data (Single Source of Truth)**: Quản lý tập trung tại `data/catalog.json` và `data/images/`. Phân phối động qua symbolic links.
-- **Deployment**: Docker, Render Blueprint (`render.yaml`)
+Hệ thống được thiết kế theo kiến trúc **Fullstack Monolith** hiện đại:
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Typography**: Be Vietnam Pro (Sans), Playfair Display (Serif)
+- **API & Data**: Next.js Route Handlers đọc/ghi trực tiếp với các file JSON/JSONL.
+- **Localization**: Hệ thống Đa ngôn ngữ (i18n) với từ điển JSON (vi/en).
 
 ---
 
@@ -17,42 +21,53 @@ Website giới thiệu doanh nghiệp và catalog thực phẩm đông lạnh (n
 
 ```text
 2aeventures/
-├── data/                    # Catalog gốc (catalog.json) & Ảnh gốc (images/)
-├── backend/                 # Mã nguồn FastAPI backend (catalog.json trỏ symlink về root)
-└── frontend/                # Mã nguồn Next.js frontend (catalog.json & images trỏ symlink về root)
+├── data/                    # Nguồn dữ liệu (catalog.json) & Lịch sử gửi Contact/Quotes (jsonl)
+├── messages/                # Từ điển đa ngôn ngữ (vi.json, en.json)
+├── public/                  # Tài nguyên tĩnh (fonts, images phân chia theo heroes, categories, maps...)
+├── src/                     # Toàn bộ mã nguồn ứng dụng
+│   ├── app/                 # Next.js App Router (Pages, Layouts, API Routes)
+│   ├── components/          # React Components tái sử dụng
+│   ├── config/              # Cấu hình dự án (site, brand...)
+│   ├── lib/                 # Các hàm utility và data loaders
+│   ├── services/            # API Services kết nối frontend với backend
+│   ├── store/               # React Context Providers (State Management)
+│   ├── styles/              # Global CSS, Tailwind base
+│   └── types/               # TypeScript Definitions
+├── render.yaml              # Cấu hình tự động deploy trên Render
+├── tailwind.config.ts       # Cấu hình TailwindCSS
+└── next.config.js           # Cấu hình Next.js
 ```
 
 ---
 
 ## 🚀 Hướng Dẫn Phát Triển (Local)
 
-### 1. Khởi chạy Backend
+Dự án đã được tích hợp toàn bộ Frontend và Backend vào một hệ thống duy nhất. Không cần cấu hình môi trường phức tạp hay Docker.
+
+### Khởi chạy môi trường:
+
+1. **Cài đặt thư viện:**
+   ```bash
+   npm install
+   ```
+
+2. **Khởi chạy Development Server:**
+   ```bash
+   npm run dev
+   ```
+   *Truy cập: `http://localhost:3000`*
+
+### Build bản Production:
 ```bash
-cd backend
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt
-PYTHONPATH=. uvicorn app.main:app --reload --port 8000
+npm run build
+npm run start
 ```
-
-### 2. Khởi chạy Frontend
-```bash
-cd frontend
-npm ci
-npm run dev
-```
-*Frontend tự động proxy các request `/api/v1` sang backend `http://localhost:8000`.*
-
----
-
-## 🧪 Kiểm Thử (Testing)
-
-* **Backend Tests**: `cd backend && PYTHONPATH=. pytest`
-* **Frontend Checks**: `cd frontend && npm run lint && npm run type-check && npm run test:unit && npm run test:integration`
 
 ---
 
 ## 🌐 Deployment (Render)
 
-Hệ thống deploy tự động qua Render blueprint (`render.yaml`):
-- **API (backend)**: Chạy FastAPI qua `backend/Dockerfile` với build context ở thư mục gốc `.`.
-- **Web (frontend)**: Chạy Next.js qua `frontend/Dockerfile` với build context ở thư mục gốc `.`.
+Hệ thống được thiết kế để tự động deploy qua Render (Blueprint) một cách cực kỳ gọn nhẹ:
+- Chỉ triển khai **duy nhất 1 Node Web Service** thay vì phải phân tách Frontend / Backend.
+- Tự động chạy `npm install && npm run build` và khởi chạy với `npm run start`.
+- File cấu hình triển khai nằm tại `render.yaml`.

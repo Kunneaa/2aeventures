@@ -1,7 +1,7 @@
 {
   "images": {
-    "beef": "/images/products/beef-ribeye.jpg",
-    "chicken": "/images/products/chicken-breast-fillet.jpg",
+    "beef": "/images/categories/beef.jpg",
+    "chicken": "/images/categories/chicken.jpg",
     "seafood": "/images/products/half-shell-scallops.jpg",
     "fish": "/images/products/whole-seabass.jpg",
     "shrimp": "/images/products/black-tiger-shrimp.jpg",
@@ -176,7 +176,7 @@
         "vi": "Thăn vai"
       },
       "description": {
-        "en": "Rib section. U.S. beef cut for grilling, steak, and distribution.",
+        "en": "Rib section. US beef cut for grilling, steak, and distribution.",
         "vi": "Phần sườn (Rib - Sườn). Lát cắt thịt bò Mỹ phù hợp cho nướng, steak và kênh phân phối."
       },
       "cutId": "rib",
@@ -809,7 +809,7 @@
       "sections": [
         {
           "title": {
-            "en": "U.S. chicken",
+            "en": "US chicken",
             "vi": "Thịt gà Mỹ"
           },
           "categoryIds": [
@@ -825,7 +825,7 @@
         },
         {
           "title": {
-            "en": "U.S. beef",
+            "en": "US beef",
             "vi": "Thịt bò Mỹ"
           },
           "categoryIds": [
