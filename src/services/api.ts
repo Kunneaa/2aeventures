@@ -9,7 +9,7 @@ class ApiClient {
 
   constructor(baseURL?: string) {
     this.baseURL =
-      (baseURL || process.env.NEXT_PUBLIC_API_URL || '/api/v1').replace(/\/$/, '');
+      (baseURL || process.env.NEXT_PUBLIC_API_URL || '/api').replace(/\/$/, '');
     this.headers = {
       'Content-Type': 'application/json',
     };

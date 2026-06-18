@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import { sendNotificationEmail, ContactMailData } from '../../../../lib/mail';
+import { sendNotificationEmail, ContactMailData } from '../../../lib/mail';
 
 export async function POST(request: Request) {
   try {
