@@ -228,7 +228,7 @@ export default function ProductsPage() {
               exit={{ opacity: 0 }} 
               transition={{ duration: 0.5 }}
               onClick={() => setSelectedCutId(null)}
-              className="fixed inset-0 bg-[#071018]/70 backdrop-blur-md z-[60]" 
+              className="fixed inset-0 bg-[#071018]/20 backdrop-blur-sm z-[60]" 
             />
             {/* Sliding Panel */}
             <motion.div
@@ -236,7 +236,7 @@ export default function ProductsPage() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-[480px] bg-[#0d1821]/95 backdrop-blur-3xl border-l border-[#c9a86a]/20 z-[70] overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-[480px] bg-[#0d1821]/95 backdrop-blur-xl border-l border-[#c9a86a]/20 z-[70] overflow-y-auto"
             >
               <div className="p-10 md:p-14">
                 <button onClick={() => setSelectedCutId(null)} className="absolute top-10 right-10 text-[#8d9ba8] hover:text-[#c9a86a] transition-colors duration-300">
