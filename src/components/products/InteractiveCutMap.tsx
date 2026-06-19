@@ -17,7 +17,7 @@ export interface CutDefinition {
   viewBox?: string;
 }
 
-export const ANIMAL_CUTS = {
+export const ANIMAL_CUTS: Record<string, CutDefinition[]> = {
   beef: [
     { id: "chuck", labelEn: "Chuck", labelVi: "Nạc vai", top: "15%", left: "22%", width: "18%", height: "35%" },
     { id: "brisket", labelEn: "Brisket", labelVi: "Gầu bò", top: "50%", left: "26%", width: "12%", height: "20%" },
