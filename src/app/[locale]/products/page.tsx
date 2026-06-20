@@ -6,18 +6,17 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, X } from "lucide-react";
 
+import dynamic from "next/dynamic";
 import { QuickEmailButton } from "../../../components/contact/QuickEmailButton";
-import { InteractiveCutMap, ANIMAL_CUTS } from "../../../components/products/InteractiveCutMap";
+import { ANIMAL_CUTS } from "../../../components/products/cutMapData";
+
+const InteractiveCutMap = dynamic(
+  () => import("../../../components/products/InteractiveCutMap")
+);
 import { getProductSearchableText } from "../../../lib/catalog";
 import { matchesSearchQuery, normalizeSearchText } from "../../../lib/search";
 import { useCatalog, useLanguage } from "../../../store";
 
-const AVAILABLE_CATEGORIES = [
-  { id: "beef", labelEn: "Beef", labelVi: "Thịt Bò" },
-  { id: "chicken", labelEn: "Chicken", labelVi: "Thịt Gà" },
-  { id: "seafood", labelEn: "Seafood", labelVi: "Hải Sản" },
-  { id: "agriculture", labelEn: "Agriculture", labelVi: "Nông Sản" },
-];
 
 export default function ProductsPage() {
   const { language, t } = useLanguage();
@@ -30,7 +29,7 @@ export default function ProductsPage() {
   const [selectedCutId, setSelectedCutId] = useState<string | null>(null);
 
   const categoryParam = searchParams.get("category") || "beef";
-  const activeCategory = AVAILABLE_CATEGORIES.some(c => c.id === categoryParam) ? categoryParam : "beef";
+  const activeCategory = categories.some(c => c.id === categoryParam) ? categoryParam : (categories[0]?.id || "beef");
 
   const activeCategoryObj = useMemo(() => {
     return categories.find((c) => c.id === activeCategory);
@@ -80,7 +79,7 @@ export default function ProductsPage() {
       {/* FLOATING NAVIGATION */}
       <div className="fixed top-[100px] left-1/2 -translate-x-1/2 z-50">
         <div className="backdrop-blur-2xl bg-[#0d1821]/60 border border-white/5 rounded-full p-2 flex items-center shadow-2xl">
-          {AVAILABLE_CATEGORIES.map(cat => {
+          {categories.map(cat => {
             const isActive = activeCategory === cat.id;
             return (
               <button 
@@ -95,7 +94,7 @@ export default function ProductsPage() {
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-                <span className="relative z-10">{language === "vi" ? cat.labelVi : cat.labelEn}</span>
+                <span className="relative z-10">{cat.name[language]}</span>
               </button>
             )
           })}
@@ -250,7 +249,18 @@ export default function ProductsPage() {
                 
                 <div className="mb-12">
                   <QuickEmailButton 
-                    products={[{ id: selectedCutId, name: { en: `${getCutName(selectedCutId)} (${activeCategoryObj?.name.en})`, vi: "" }, categoryId: activeCategory, specs: {} } as any]} 
+                    products={[{ 
+                      id: selectedCutId, 
+                      categoryId: activeCategory,
+                      name: { 
+                        en: `${getCutName(selectedCutId)} (${activeCategoryObj?.name.en})`, 
+                        vi: `${getCutName(selectedCutId)} (${activeCategoryObj?.name.vi})` 
+                      },
+                      image: activeCategoryObj?.image || "",
+                      unit: { en: "box", vi: "thùng" },
+                      description: { en: "", vi: "" },
+                      specs: { packing: "", brand: "" }
+                    }]} 
                     className="inline-flex items-center gap-2 px-6 py-3 border border-[#c9a86a] text-[#c9a86a] hover:bg-[#c9a86a] hover:text-[#0b151c] transition-colors duration-300 rounded-full text-xs font-bold uppercase tracking-widest"
                   >
                     <Mail size={16} /> {t("quick_contact")}
