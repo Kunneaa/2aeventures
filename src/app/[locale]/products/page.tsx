@@ -196,10 +196,14 @@ export default function ProductsPage() {
                       <h3 className="font-serif text-3xl text-[#f5f5f5] mb-3" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                         {product.name[language]}
                       </h3>
-                      <p className="text-[#8d9ba8] text-xs uppercase tracking-widest leading-relaxed">
-                        {product.specs?.packing || "Custom packaging"} <br/>
-                        <span className="text-[#c9a86a] opacity-80">{product.specs?.brand || "Premium Selection"}</span>
-                      </p>
+                      <div className="text-[#8d9ba8] text-xs uppercase tracking-widest leading-relaxed flex flex-col gap-1 mt-1">
+                        {product.specs?.packing && (
+                          <span>{product.specs.packing}</span>
+                        )}
+                        {product.specs?.brand && (
+                          <span className="text-[#c9a86a] opacity-80">{product.specs.brand}</span>
+                        )}
+                      </div>
                     </div>
                  </div>
                ))}
