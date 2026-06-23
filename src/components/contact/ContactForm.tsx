@@ -93,7 +93,7 @@ export function ContactForm() {
               id="name"
             />
             <label htmlFor="name" className="absolute left-0 -top-3.5 text-xs text-[#8d9ba8] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:text-[#8d9ba8]/50 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-[#c9a86a] uppercase tracking-widest">
-              {t("contact_form_name_label")} *
+              {t("contact_form_name_label")}
             </label>
           </div>
 
@@ -108,7 +108,7 @@ export function ContactForm() {
               id="phone"
             />
             <label htmlFor="phone" className="absolute left-0 -top-3.5 text-xs text-[#8d9ba8] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:text-[#8d9ba8]/50 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-[#c9a86a] uppercase tracking-widest">
-              {t("contact_form_phone_label")} *
+              {t("contact_form_phone_label")}
             </label>
           </div>
 
@@ -123,7 +123,7 @@ export function ContactForm() {
               id="email"
             />
             <label htmlFor="email" className="absolute left-0 -top-3.5 text-xs text-[#8d9ba8] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:text-[#8d9ba8]/50 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-[#c9a86a] uppercase tracking-widest">
-              {t("contact_form_email_label")} *
+              {t("contact_form_email_label")}
             </label>
           </div>
 
@@ -138,7 +138,7 @@ export function ContactForm() {
               id="message"
             />
             <label htmlFor="message" className="absolute left-0 -top-3.5 text-xs text-[#8d9ba8] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:text-[#8d9ba8]/50 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-[#c9a86a] uppercase tracking-widest">
-              {t("contact_form_message_label")} *
+              {t("contact_form_message_label")}
             </label>
           </div>
 
