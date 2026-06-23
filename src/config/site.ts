@@ -6,12 +6,12 @@ const encodedCompanyAddress = encodeURIComponent(companyAddress);
 export const siteConfig = {
   name: '2AE VENTURES',
   hotline: {
-    label: '0901 234 567',
-    href: 'tel:+84901234567',
+    label: '0908 415 068',
+    href: 'tel:+84908415068',
   },
   zalo: {
-    label: '0901 234 567',
-    href: 'https://zalo.me/0901234567',
+    label: '0908 415 068',
+    href: 'https://zalo.me/0908415068',
   },
   email: {
     label: 'contact@2aeventures.com',
