@@ -20,6 +20,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://2aeventures.com"),
   title: "2AE VENTURES",
   description: brandCopy.en.metadataDescription,
 };
