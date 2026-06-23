@@ -17,39 +17,64 @@
       "imageKey": "chicken",
       "brands": [
         {
-          "id": "tyson",
-          "name": "Tyson Foods",
-          "logoUrl": "/images/brands/tyson.svg"
+          "id": "agrosuper",
+          "name": "Agrosuper",
+          "logoUrl": "/images/brands/chicken/agrosuper.png"
+        },
+        {
+          "id": "ariztia",
+          "name": "Ariztia",
+          "logoUrl": "/images/brands/chicken/ariztia.png"
+        },
+        {
+          "id": "draper-valley",
+          "name": "Draper Valley",
+          "logoUrl": "/images/brands/chicken/draper-valley.png"
+        },
+        {
+          "id": "foster-farms",
+          "name": "Foster Farms",
+          "logoUrl": "/images/brands/chicken/foster-farms.png"
+        },
+        {
+          "id": "marys",
+          "name": "Mary's Chicken",
+          "logoUrl": "/images/brands/chicken/marys.png"
         },
         {
           "id": "mountaire",
           "name": "Mountaire Farms",
-          "logoUrl": "/images/brands/mountaire.svg"
-        },
-        {
-          "id": "pilgrims_pride",
-          "name": "Pilgrim's Pride",
-          "logoUrl": "/images/brands/pilgrims_pride.svg"
-        },
-        {
-          "id": "wayne_sanderson",
-          "name": "Wayne-Sanderson Farms",
-          "logoUrl": "/images/brands/wayne_sanderson.svg"
+          "logoUrl": "/images/brands/chicken/mountaire.png"
         },
         {
           "id": "perdue",
           "name": "Perdue Farms",
-          "logoUrl": "/images/brands/perdue.svg"
+          "logoUrl": "/images/brands/chicken/perdue.png"
         },
         {
-          "id": "koch_foods",
-          "name": "Koch Foods",
-          "logoUrl": "/images/brands/koch_foods.svg"
+          "id": "petaluma",
+          "name": "Petaluma Poultry",
+          "logoUrl": "/images/brands/chicken/petaluma.png"
         },
         {
-          "id": "foster_farms",
-          "name": "Foster Farms",
-          "logoUrl": "/images/brands/foster_farms.svg"
+          "id": "sanderson-farms",
+          "name": "Sanderson Farms",
+          "logoUrl": "/images/brands/chicken/sanderson-farms.png"
+        },
+        {
+          "id": "squab",
+          "name": "Squab Producers",
+          "logoUrl": "/images/brands/chicken/squab.png"
+        },
+        {
+          "id": "tyson",
+          "name": "Tyson Foods",
+          "logoUrl": "/images/brands/chicken/tyson.png"
+        },
+        {
+          "id": "wayne-farms",
+          "name": "Wayne Farms",
+          "logoUrl": "/images/brands/chicken/wayne-farms.png"
         }
       ]
     },
@@ -62,84 +87,64 @@
       "imageKey": "beef",
       "brands": [
         {
-          "id": "washington-beef",
-          "name": "Washington State Beef",
-          "logoUrl": "/images/brands/washington.svg"
+          "id": "5-star",
+          "name": "5 Star",
+          "logoUrl": "/images/brands/beef/5-star.png"
         },
         {
-          "id": "excel-beef",
-          "name": "Excel Beef",
-          "logoUrl": "/images/brands/excel.svg"
+          "id": "ab-foods",
+          "name": "AB Foods",
+          "logoUrl": "/images/brands/beef/ab-foods.png"
         },
         {
-          "id": "ibp",
-          "name": "IBP",
-          "logoUrl": "/images/brands/ibp.svg"
+          "id": "blueribbon",
+          "name": "Blue Ribbon",
+          "logoUrl": "/images/brands/beef/blueribbon.png"
         },
         {
-          "id": "swift",
-          "name": "Swift",
-          "logoUrl": "/images/brands/swift.svg"
+          "id": "cargrill",
+          "name": "Cargill",
+          "logoUrl": "/images/brands/beef/cargrill.png"
         },
         {
-          "id": "st_helens",
-          "name": "St. Helens",
-          "logoUrl": "/images/brands/st_helens.svg"
+          "id": "central-valley",
+          "name": "Central Valley",
+          "logoUrl": "/images/brands/beef/central-valley.png"
         },
         {
-          "id": "national_beef",
+          "id": "certified-angus-beef",
+          "name": "Certified Angus Beef",
+          "logoUrl": "/images/brands/beef/certified-angus-beef.png"
+        },
+        {
+          "id": "jbs",
+          "name": "JBS",
+          "logoUrl": "/images/brands/beef/jbs.png"
+        },
+        {
+          "id": "national-brand",
           "name": "National Beef",
-          "logoUrl": "/images/brands/national_beef.svg"
+          "logoUrl": "/images/brands/beef/national-brand.png"
         },
         {
-          "id": "greater_omaha",
-          "name": "Greater Omaha",
-          "logoUrl": "/images/brands/greater_omaha.svg"
+          "id": "schenk-brand",
+          "name": "Schenk Brand",
+          "logoUrl": "/images/brands/beef/schenk-brand.png"
         },
         {
-          "id": "1855_black_angus",
-          "name": "1855 Black Angus",
-          "logoUrl": "/images/brands/1855_black_angus.svg"
+          "id": "sukarne",
+          "name": "SuKarne",
+          "logoUrl": "/images/brands/beef/sukarne.png"
         },
         {
-          "id": "sterling_silver",
-          "name": "Sterling Silver Premium Meats",
-          "logoUrl": "/images/brands/sterling_silver.svg"
+          "id": "tyson",
+          "name": "Tyson Foods",
+          "logoUrl": "/images/brands/beef/tyson.png"
         },
         {
-          "id": "chairmans_reserve",
-          "name": "Chairman's Reserve",
-          "logoUrl": "/images/brands/chairmans_reserve.svg"
-        },
-        {
-          "id": "star_ranch_angus",
-          "name": "Star Ranch Angus",
-          "logoUrl": "/images/brands/star_ranch_angus.svg"
-        },
-        {
-          "id": "black_canyon",
-          "name": "Black Canyon Angus Beef",
-          "logoUrl": "/images/brands/black_canyon.svg"
-        },
-        {
-          "id": "aurora_packing",
-          "name": "Aurora Packing Company",
-          "logoUrl": "/images/brands/aurora_packing.svg"
-        },
-        {
-          "id": "iowa_premium",
-          "name": "Iowa Premium",
-          "logoUrl": "/images/brands/iowa_premium.svg"
-        },
-        {
-          "id": "demkota_ranch",
-          "name": "Demkota Ranch Beef",
-          "logoUrl": "/images/brands/demkota_ranch.svg"
-        },
-        {
-          "id": "caviness_beef",
-          "name": "Caviness Beef Packers",
-          "logoUrl": "/images/brands/caviness_beef.svg"
+          "id": "washington",
+          "name": "Washington State Beef",
+          "logoUrl": "/images/brands/beef/washington.png"
         }
       ]
     },
