@@ -895,13 +895,30 @@
         "en": "Selected agricultural products for export inquiries and seasonal supply programs.",
         "vi": "Nông sản chọn lọc cho nhu cầu xuất khẩu và các chương trình nguồn hàng theo mùa."
       }
+    },
+    {
+      "id": "p-agriculture-durian-ri6",
+      "categoryId": "agriculture",
+      "name": {
+        "en": "Ri6 Durian",
+        "vi": "Sầu riêng 6 Ri"
+      },
+      "description": {
+        "en": "Premium Vietnamese Ri6 Durian, known for its bright yellow flesh, rich flavor, and thick texture.",
+        "vi": "Sầu riêng 6 Ri thượng hạng Việt Nam, cơm vàng hạt lép, béo ngậy và vị ngọt đậm đà."
+      },
+      "image": "/images/products/Durian.jpg",
+      "specs": {
+        "packing": "kg",
+        "brand": "Vietnamese Local Farmers"
+      }
     }
   ],
   "featuredProductIds": [
     "p-chicken-1",
     "p-beef-1",
     "p-seafood-1",
-    "p-agriculture-1"
+    "p-agriculture-durian-ri6"
   ],
   "homeFocusGroups": [
     {
@@ -966,6 +983,9 @@
           },
           "categoryIds": [
             "agriculture"
+          ],
+          "featuredProductIds": [
+            "p-agriculture-durian-ri6"
           ],
           "maxItems": 4
         }
