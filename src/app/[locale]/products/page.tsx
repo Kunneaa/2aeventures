@@ -172,10 +172,16 @@ export default function ProductsPage() {
                <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-xs font-bold">Global Export Sourcing</p>
             </div>
 
-            {/* Editorial Masonry Layout */}
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-12 sm:gap-16 space-y-12 sm:space-y-16">
+            {/* Editorial Grid Layout */}
+            <div className={`grid grid-cols-1 gap-12 sm:gap-16 ${
+              visibleProducts.length === 1 
+                ? 'max-w-md mx-auto' 
+                : visibleProducts.length === 2 
+                  ? 'max-w-4xl mx-auto sm:grid-cols-2' 
+                  : 'sm:grid-cols-2 lg:grid-cols-3'
+            }`}>
                {visibleProducts.map((product) => (
-                 <div key={product.id} className="break-inside-avoid group cursor-pointer relative">
+                 <div key={product.id} className="group cursor-pointer relative">
                     <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0d1821] mb-6 rounded-lg">
                       <Image 
                         src={product.image} 
