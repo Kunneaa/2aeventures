@@ -34,13 +34,7 @@ export interface Product {
   specs?: ProductSpecs;
 }
 
-export interface ChatMessage {
-  id: string;
-  sender: 'user' | 'bot';
-  message: string;
-  timestamp: string;
-  attachments?: string[];
-}
+
 
 export interface QuoteCustomerInfo {
   name: string;
