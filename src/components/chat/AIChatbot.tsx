@@ -101,8 +101,7 @@ export function AIChatbot({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             value={input || ""}
             onChange={handleInputChange}
             placeholder="Nhập câu hỏi của bạn..."
-            disabled={isLoading}
-            className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2.5 text-sm text-[#f5f5f5] placeholder:text-[#8d9ba8] focus:outline-none focus:border-[#c9a86a]/50 transition-colors disabled:opacity-50"
+            className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2.5 text-sm text-[#f5f5f5] placeholder:text-[#8d9ba8] focus:outline-none focus:border-[#c9a86a]/50 transition-colors"
           />
           <button 
             type="submit" 
