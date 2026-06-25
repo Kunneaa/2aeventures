@@ -98,7 +98,7 @@ export function AIChatbot({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
       <div className="p-4 bg-[#071018] border-t border-white/10">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
-            value={input}
+            value={input || ""}
             onChange={handleInputChange}
             placeholder="Nhập câu hỏi của bạn..."
             disabled={isLoading}
@@ -106,7 +106,7 @@ export function AIChatbot({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
           />
           <button 
             type="submit" 
-            disabled={isLoading || !input.trim()}
+            disabled={isLoading || !input?.trim()}
             className="flex items-center justify-center w-10 h-10 rounded-full bg-[#c9a86a] text-[#071018] hover:bg-white hover:scale-105 transition-all disabled:opacity-50 disabled:hover:bg-[#c9a86a] disabled:hover:scale-100 disabled:cursor-not-allowed"
           >
             <Send size={16} className="ml-1" />
