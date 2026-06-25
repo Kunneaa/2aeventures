@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.83",
+    "@ai-sdk/react": "^3.0.211",
     "ai": "^6.0.209",
     "lucide-react": "0.487.0",
     "motion": "12.23.24",
