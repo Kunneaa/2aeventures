@@ -145,8 +145,8 @@ export default function ProductsPage() {
                   transition={{ repeat: Infinity, ease: "linear", duration: 35 }}
                 >
                   {[...displayAnimalCategory.brands, ...displayAnimalCategory.brands, ...displayAnimalCategory.brands, ...displayAnimalCategory.brands].map((brand, i) => (
-                    <div key={`${brand.id}-${i}`} className="w-[200px] md:w-[300px] flex-shrink-0 flex justify-center items-center px-8">
-                       <div className="relative w-full h-[60px] opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700 cursor-pointer">
+                    <div key={`${brand.id}-${i}`} className="w-[250px] md:w-[350px] flex-shrink-0 flex justify-center items-center px-8">
+                       <div className="relative w-full h-[80px] md:h-[120px] opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700 cursor-pointer">
                          <Image src={brand.logoUrl} alt={brand.name} fill className="object-contain" />
                        </div>
                     </div>
@@ -291,7 +291,7 @@ export default function ProductsPage() {
                            key={b.id} 
                            className="flex items-center gap-6 group cursor-pointer"
                          >
-                            <div className="w-20 h-12 relative bg-white/5 rounded-sm border border-white/5 group-hover:border-[#c9a86a]/30 transition-colors duration-300">
+                            <div className="w-32 h-20 relative bg-white/5 rounded-sm border border-white/5 group-hover:border-[#c9a86a]/30 transition-colors duration-300">
                               <Image src={b.logoUrl} alt={b.name} fill className="object-contain p-2 grayscale group-hover:grayscale-0 transition-all duration-300" />
                             </div>
                             <span className="text-[#f5f5f5] text-sm group-hover:text-[#c9a86a] transition-colors duration-300 font-medium tracking-wide">{b.name}</span>
