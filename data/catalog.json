@@ -643,23 +643,6 @@
       }
     },
     {
-      "id": "p-chicken-whole-leg",
-      "categoryId": "chicken",
-      "name": {
-        "en": "Whole Leg",
-        "vi": "Đùi gà nguyên"
-      },
-      "description": {
-        "en": "Whole leg cut with thigh and drumstick connected.",
-        "vi": "Đùi gà nguyên, gồm đùi tỏi nối liền má đùi."
-      },
-      "cutId": "thigh",
-      "specs": {
-        "packing": "kg",
-        "brand": "Tyson Foods"
-      }
-    },
-    {
       "id": "p-chicken-thigh",
       "categoryId": "chicken",
       "name": {
