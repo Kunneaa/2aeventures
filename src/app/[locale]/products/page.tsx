@@ -77,8 +77,8 @@ export default function ProductsPage() {
     <div className="min-h-screen bg-[#071018] text-[#f5f5f5] selection:bg-[#c9a86a] selection:text-[#071018] font-sans relative overflow-x-hidden pt-12">
       
       {/* FLOATING NAVIGATION */}
-      <div className="fixed top-[100px] left-1/2 -translate-x-1/2 z-50">
-        <div className="backdrop-blur-2xl bg-[#0d1821]/60 border border-white/5 rounded-full p-2 flex items-center shadow-2xl">
+      <div className="fixed top-16 md:top-[100px] left-0 w-full z-30 flex justify-center pt-4 pb-6 bg-gradient-to-b from-[#071018] via-[#071018]/80 to-transparent md:bg-none pointer-events-none">
+        <div className="backdrop-blur-2xl bg-[#0d1821]/80 md:bg-[#0d1821]/60 border border-white/10 md:border-white/5 rounded-full p-2 flex items-center shadow-2xl pointer-events-auto">
           {categories.map(cat => {
             const isActive = activeCategory === cat.id;
             return (
@@ -189,7 +189,7 @@ export default function ProductsPage() {
                         fill 
                         className="object-cover transition-all duration-[1.5s] group-hover:scale-105 opacity-80 group-hover:opacity-100" 
                       />
-                      <div className="absolute inset-0 bg-[#071018]/10 group-hover:bg-[#071018]/50 backdrop-blur-[0px] group-hover:backdrop-blur-sm transition-all duration-700 flex items-center justify-center opacity-0 group-hover:opacity-100 z-20">
+                      <div className="absolute inset-0 bg-[#071018]/10 group-hover:bg-[#071018]/50 backdrop-blur-[0px] group-hover:backdrop-blur-sm transition-all duration-700 items-center justify-center opacity-0 group-hover:opacity-100 z-20 hidden md:flex">
                         <QuickEmailButton 
                           products={[product]} 
                           className="bg-[#c9a86a] text-[#0b151c] px-5 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300 shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0"
@@ -209,6 +209,14 @@ export default function ProductsPage() {
                         {product.specs?.brand && (
                           <span className="text-[#c9a86a] opacity-80">{product.specs.brand}</span>
                         )}
+                      </div>
+                      <div className="mt-5 md:hidden">
+                        <QuickEmailButton 
+                          products={[product]} 
+                          className="w-full justify-center bg-[#c9a86a]/10 text-[#c9a86a] border border-[#c9a86a]/20 px-4 py-3 rounded-full text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 active:bg-[#c9a86a]/20"
+                        >
+                          <Mail size={16} /> {t("quick_contact")}
+                        </QuickEmailButton>
                       </div>
                     </div>
                  </div>
