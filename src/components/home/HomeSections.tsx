@@ -247,7 +247,7 @@ function FocusSectionBlock({
             alt={section.title[language]}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover transition-transform duration-[1.5s] group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale group-hover:grayscale-0"
+            className="object-cover transition-transform duration-[1.5s] md:group-hover:scale-105 opacity-100 grayscale-0 md:opacity-80 md:group-hover:opacity-100 md:grayscale md:group-hover:grayscale-0"
           />
           <div className="absolute inset-0 bg-[#071018]/20 group-hover:bg-transparent transition-colors duration-700" />
         </Link>

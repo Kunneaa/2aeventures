@@ -49,7 +49,7 @@ export default function ContactPage() {
             alt="2AE frozen food trade contact"
             fill
             priority
-            className="object-cover opacity-40 grayscale"
+            className="object-cover opacity-60 md:opacity-40 grayscale-0 md:grayscale"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-[#071018]/60" />
@@ -188,7 +188,7 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+              className="h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative grayscale-0 opacity-100 md:grayscale md:opacity-80 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-1000"
             >
               <iframe
                 title="2AE Ventures Location Map"

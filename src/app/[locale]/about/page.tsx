@@ -29,7 +29,7 @@ export default function AboutPage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-top opacity-50 grayscale hover:grayscale-0 transition-all duration-1000"
+            className="object-cover object-top opacity-100 grayscale-0 md:opacity-50 md:grayscale md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-1000"
           />
           <div className="absolute inset-0 bg-[#071018]/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#071018] via-[#071018]/80 to-transparent" />
@@ -138,7 +138,7 @@ export default function AboutPage() {
           src="/images/about/truck-logistics.jpg"
           alt={t("about_cold_chain_alt")}
           fill
-          className="object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+          className="object-cover grayscale-0 opacity-100 md:grayscale md:opacity-60 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-1000"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-[#071018]/40" />
