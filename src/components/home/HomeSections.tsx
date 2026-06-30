@@ -109,7 +109,7 @@ export function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: stri
         <div className="absolute inset-0 bg-gradient-to-b from-[#071018]/50 via-transparent to-transparent" />
       </div>
 
-      <div className="section-shell relative z-10 w-full pt-32 pb-40 text-center flex flex-col items-center">
+      <div className="section-shell relative z-10 w-full pt-24 pb-20 md:pt-32 md:pb-40 text-center flex flex-col items-center">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -119,7 +119,7 @@ export function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: stri
           <p className="text-[#c9a86a] uppercase tracking-[0.4em] text-xs font-bold mb-8">
             {copy.kicker}
           </p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
             {copy.heroTitle}
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-[#8d9ba8] mb-12 font-light">
@@ -151,12 +151,12 @@ export function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: stri
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="grid sm:grid-cols-3 gap-8 sm:gap-0 mt-32 w-full max-w-5xl mx-auto border-t border-white/10 pt-10"
+          className="grid sm:grid-cols-3 gap-12 sm:gap-0 mt-20 md:mt-32 w-full max-w-5xl mx-auto border-t border-white/10 pt-10"
         >
           {copy.priority.map((item, index) => (
             <div
               key={item}
-              className="text-center sm:border-r border-white/10 last:border-r-0 px-6"
+              className="text-center sm:border-r border-white/10 last:border-r-0 px-4 sm:px-6 relative after:content-[''] after:absolute after:bottom-[-24px] after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-px after:bg-white/10 sm:after:hidden last:after:hidden"
             >
               <p className="text-[#c9a86a] font-serif text-3xl italic mb-3">0{index + 1}</p>
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#8d9ba8] leading-relaxed">

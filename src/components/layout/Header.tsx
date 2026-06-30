@@ -94,9 +94,9 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute left-0 top-16 w-full space-y-1 border-t border-[#d8e3df] bg-white px-4 py-2 shadow-lg md:hidden"
+            className="absolute left-0 top-16 w-full flex flex-col gap-2 border-t border-white/5 bg-[#071018]/95 backdrop-blur-2xl px-4 py-6 shadow-2xl md:hidden min-h-[calc(100vh-4rem)]"
           >
-            <div className="px-3 py-2">
+            <div className="px-4 py-4 mb-4 border-b border-white/5">
               <LanguageSwitcher />
             </div>
             {navLinks.map((link) => {
@@ -111,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
                   key={link.href}
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block rounded-lg px-3 py-2 text-base font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent ${isActive ? 'bg-[#f2f7fb] text-[#17324d]' : 'text-[#42525b] hover:bg-[#f6f8f6] hover:text-[#17324d]'}`}
+                  className={`block rounded-xl px-5 py-4 text-lg tracking-wide font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a86a] ${isActive ? 'bg-[#c9a86a]/10 text-[#c9a86a]' : 'text-[#8d9ba8] hover:bg-[#122330] hover:text-[#f5f5f5]'}`}
                 >
                   {link.label}
                 </Link>

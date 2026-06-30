@@ -85,7 +85,7 @@ export default function ProductsPage() {
               <button 
                 key={cat.id}
                 onClick={() => updateCategory(cat.id)}
-                className={`relative px-5 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${isActive ? "text-[#071018]" : "text-[#8d9ba8] hover:text-[#f5f5f5]"}`}
+                className={`relative px-4 sm:px-5 md:px-8 py-3 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${isActive ? "text-[#071018]" : "text-[#8d9ba8] hover:text-[#f5f5f5]"}`}
               >
                 {isActive && (
                   <motion.div 
@@ -111,14 +111,14 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="min-h-screen pt-40 pb-20 px-6 flex flex-col relative"
+            className="min-h-screen pt-32 md:pt-40 pb-16 md:pb-20 px-4 md:px-6 flex flex-col relative"
           >
             {/* Ambient Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(201,168,106,0.06) 0%, transparent 60%)" }} />
             
             <div className="relative z-10 flex flex-col items-center max-w-7xl mx-auto w-full">
-              <div className="text-center mb-16 mt-8">
-                <h1 className="text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight mb-6" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+              <div className="text-center mb-12 md:mb-16 mt-6 md:mt-8">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight mb-4 md:mb-6" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                   {displayAnimalCategory.name[language]}
                 </h1>
                 <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-xs font-bold">Premium US Sourcing</p>
