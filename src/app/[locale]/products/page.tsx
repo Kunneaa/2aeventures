@@ -136,7 +136,7 @@ export default function ProductsPage() {
             {/* Strategic Partners Marquee */}
             {displayAnimalCategory.brands && displayAnimalCategory.brands.length > 0 && (
               <div className="mt-auto pt-32 pb-10 relative z-10 overflow-hidden w-full max-w-[100vw]">
-                <p className="text-center text-[#8d9ba8] text-[10px] uppercase tracking-[0.3em] mb-12">
+                <p className="text-center text-[#f5f5f5] text-sm md:text-base font-extrabold uppercase tracking-[0.3em] mb-12">
                   {t("products_strategic_partners")}
                 </p>
                 <motion.div 
@@ -146,7 +146,7 @@ export default function ProductsPage() {
                 >
                   {[...displayAnimalCategory.brands, ...displayAnimalCategory.brands, ...displayAnimalCategory.brands, ...displayAnimalCategory.brands].map((brand, i) => (
                     <div key={`${brand.id}-${i}`} className="w-[250px] md:w-[350px] flex-shrink-0 flex justify-center items-center px-8">
-                       <div className="relative w-full h-[80px] md:h-[120px] opacity-100 grayscale-0 md:opacity-60 md:grayscale md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-700 cursor-pointer">
+                       <div className="relative w-full h-[80px] md:h-[120px] opacity-100 grayscale-0 cursor-pointer">
                          <Image src={brand.logoUrl} alt={brand.name} fill className="object-contain" />
                        </div>
                     </div>
