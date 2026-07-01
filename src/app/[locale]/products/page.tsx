@@ -300,7 +300,7 @@ export default function ProductsPage() {
                            className="flex items-center gap-6 group cursor-pointer"
                          >
                             <div className="w-32 h-20 relative bg-white/5 rounded-sm border border-white/5 group-hover:border-[#c9a86a]/30 transition-colors duration-300">
-                              <Image src={b.logoUrl} alt={b.name} fill className="object-contain p-2 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-300" />
+                              <Image src={b.logoUrl} alt={b.name} fill className="object-contain p-2 grayscale-0 transition-all duration-300" />
                             </div>
                             <span className="text-[#f5f5f5] text-sm group-hover:text-[#c9a86a] transition-colors duration-300 font-medium tracking-wide">{b.name}</span>
                          </motion.div>
