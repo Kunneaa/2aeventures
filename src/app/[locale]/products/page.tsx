@@ -310,7 +310,7 @@ export default function ProductsPage() {
 
                   <div>
                     <h4 className="text-[#8d9ba8] text-xs uppercase tracking-[0.2em] mb-6">Quality Assurance</h4>
-                    <ul className="text-sm text-[#f5f5f5]/80 space-y-3 font-light leading-relaxed">
+                    <ul className="text-sm md:text-base text-[#f5f5f5] space-y-3 font-medium leading-relaxed">
                       <li className="flex items-start gap-3"><span className="text-[#c9a86a]">■</span> USDA Certified / International Grade</li>
                       <li className="flex items-start gap-3"><span className="text-[#c9a86a]">■</span> Strict temperature control at -18°C</li>
                       <li className="flex items-start gap-3"><span className="text-[#c9a86a]">■</span> Traceable origin & halal options available</li>
