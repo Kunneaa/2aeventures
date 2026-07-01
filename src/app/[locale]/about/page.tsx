@@ -45,7 +45,7 @@ export default function AboutPage() {
             <p className="text-[#c9a86a] uppercase tracking-[0.4em] text-xs font-bold mb-8">
               {content.heroKicker}
             </p>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8">
               {content.heroTitle}
             </h1>
             <p className="max-w-3xl text-lg md:text-xl leading-relaxed text-[#8d9ba8] font-light">
@@ -84,7 +84,7 @@ export default function AboutPage() {
               <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-[10px] font-bold mb-8">
                 {content.missionEyebrow}
               </p>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#f5f5f5] leading-[1.1] tracking-tight" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-[#f5f5f5] leading-[1.1] tracking-tight">
                 “{content.missionQuote}”
               </h2>
             </motion.div>

@@ -1,9 +1,5 @@
 # Hướng Dẫn Sử Dụng & Quản Trị Mã Nguồn 2AE VENTURES
 
-Chào bạn! Tài liệu này được biên soạn dành riêng cho người quản trị website của 2AE Ventures. Ngay cả khi bạn chưa có nhiều kinh nghiệm lập trình, bạn vẫn có thể dễ dàng thay đổi hình ảnh, nội dung sản phẩm và chạy thử website trên máy tính của mình bằng cách làm theo từng bước dưới đây.
-
----
-
 ## Phần 1: Hướng dẫn Cài đặt & Chạy Website trên máy tính
 
 Để có thể xem trước các thay đổi trên máy tính cá nhân trước khi đưa lên mạng (Vercel), bạn cần cài đặt một vài phần mềm cơ bản.
@@ -45,8 +41,6 @@ Nếu bạn có một ảnh mới hoàn toàn với tên mới (ví dụ: `sp-mo
 1. Bỏ ảnh đó vào thư mục `public/images/products/`.
 2. Mở file dữ liệu sản phẩm `data/catalog.json` (hướng dẫn ở phần 3).
 3. Tìm đến sản phẩm cần gắn ảnh và sửa đường dẫn `imageKey` hoặc đường dẫn ảnh cho khớp. (VD: `"/images/products/sp-moi.jpg"`).
-
-> 💡 **Mẹo quan trọng:** Để trang web tải nhanh và mượt mà trên điện thoại, hãy đảm bảo dung lượng hình ảnh **không quá lớn** (nên giữ dung lượng mỗi ảnh dưới `300KB` và kích thước vừa phải).
 
 ---
 

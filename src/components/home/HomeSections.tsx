@@ -119,7 +119,7 @@ export function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: stri
           <p className="text-[#c9a86a] uppercase tracking-[0.4em] text-xs font-bold mb-8">
             {copy.kicker}
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8">
             {copy.heroTitle}
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl leading-relaxed text-[#8d9ba8] mb-12 font-light">
