@@ -32,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className={`${beVietnamPro.variable} ${playfairDisplay.variable} font-sans min-h-screen app-shell`}>
+      <body className={`${beVietnamPro.variable} ${playfairDisplay.variable} min-h-screen app-shell`}>
         {children}
       </body>
     </html>

@@ -1,7 +1,7 @@
 :root {
   --font-size: 16px;
-  --font-family-base: var(--font-be-vietnam-pro), "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-  --font-family-heading: var(--font-playfair-display), "Cormorant Garamond", Georgia, serif;
+  --font-family-base: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
   --background: #f6f8f6;
   --foreground: #17242d;
   --primary: #336699;
