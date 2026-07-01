@@ -118,7 +118,7 @@ export default function ProductsPage() {
             
             <div className="relative z-10 flex flex-col items-center max-w-7xl mx-auto w-full">
               <div className="text-center mb-12 md:mb-16 mt-6 md:mt-8">
-                <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight mb-4 md:mb-6" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight mb-4 md:mb-6">
                   {displayAnimalCategory.name[language]}
                 </h1>
                 <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-xs font-bold">Premium US Sourcing</p>
@@ -166,7 +166,7 @@ export default function ProductsPage() {
             className="min-h-screen pt-40 pb-32 px-6 max-w-[1600px] mx-auto relative z-10"
           >
             <div className="text-center mb-24 mt-8">
-               <h1 className="text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight mb-6" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+               <h1 className="text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight mb-6">
                  {activeCategoryObj?.name[language]}
                </h1>
                <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-xs font-bold">Global Export Sourcing</p>
@@ -199,7 +199,7 @@ export default function ProductsPage() {
                       </div>
                     </div>
                     <div className="pr-4 border-l border-[#c9a86a]/0 group-hover:border-[#c9a86a]/30 pl-4 transition-all duration-500 relative z-10">
-                      <h3 className="font-serif text-3xl text-[#f5f5f5] mb-3" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+                      <h3 className="font-serif text-3xl text-[#f5f5f5] mb-3">
                         {product.name[language]}
                       </h3>
                       <div className="text-[#8d9ba8] text-xs uppercase tracking-widest leading-relaxed flex flex-col gap-1 mt-1">
@@ -261,7 +261,7 @@ export default function ProductsPage() {
                 </button>
                 
                 <p className="text-[#c9a86a] uppercase tracking-[0.2em] text-[10px] font-bold mb-4">Cut Specification</p>
-                <h2 className="font-serif text-4xl md:text-5xl text-[#f5f5f5] mb-8 tracking-tight" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
+                <h2 className="font-serif text-4xl md:text-5xl text-[#f5f5f5] mb-8 tracking-tight">
                   {getCutName(selectedCutId)}
                 </h2>
                 
