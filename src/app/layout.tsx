@@ -6,7 +6,7 @@ import "../styles/index.css";
 
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ["vietnamese", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-be-vietnam-pro",
   display: "swap",
 });
@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className={`${beVietnamPro.variable} min-h-screen app-shell`}>
+      <body className={`${beVietnamPro.variable} font-sans min-h-screen app-shell`}>
         {children}
       </body>
     </html>
