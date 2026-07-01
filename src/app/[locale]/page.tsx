@@ -32,7 +32,7 @@ export default function HomePage() {
             </motion.p>
             <motion.h2 
               {...fadeUp}
-              className="font-serif text-4xl md:text-5xl text-[#f5f5f5] tracking-wide leading-tight"
+              className="font-serif text-4xl md:text-5xl text-[#f5f5f5] tracking-wide leading-tight" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}
             >
               {copy.featuredEyebrow}
             </motion.h2>

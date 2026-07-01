@@ -158,7 +158,7 @@ export function HeroSection({ copy, basePath }: { copy: HomeCopy; basePath: stri
               key={item}
               className="text-center sm:border-r border-white/10 last:border-r-0 px-4 sm:px-6 relative after:content-[''] after:absolute after:bottom-[-24px] after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-px after:bg-white/10 sm:after:hidden last:after:hidden"
             >
-              <p className="text-[#c9a86a] font-serif text-3xl italic mb-3">0{index + 1}</p>
+              <p className="text-[#c9a86a] font-serif text-3xl italic mb-3" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>0{index + 1}</p>
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#8d9ba8] leading-relaxed">
                 {item}
               </p>
@@ -197,7 +197,7 @@ export function CoreValuesSection({ copy }: { copy: HomeCopy }) {
               <p className="text-[10px] font-bold uppercase tracking-widest text-[#8d9ba8] mb-3">
                 {item.text}
               </p>
-              <h3 className="text-2xl md:text-3xl font-serif text-[#f5f5f5] leading-tight group-hover:text-[#c9a86a] transition-colors duration-500">
+              <h3 className="text-2xl md:text-3xl font-serif text-[#f5f5f5] leading-tight group-hover:text-[#c9a86a] transition-colors duration-500" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                 {item.title}
               </h3>
             </motion.div>
@@ -254,7 +254,7 @@ function FocusSectionBlock({
       </div>
 
       <div className="flex flex-col justify-center p-10 md:p-14 order-1 lg:order-2 bg-[#0d1821] z-10">
-        <h4 className="font-serif text-3xl text-[#f5f5f5] mb-4 group-hover:text-[#c9a86a] transition-colors duration-500">
+        <h4 className="font-serif text-3xl text-[#f5f5f5] mb-4 group-hover:text-[#c9a86a] transition-colors duration-500" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
           {section.title[language]}
         </h4>
         
@@ -293,8 +293,8 @@ export function FocusGroup({
     <div id={group.type} className="pt-8 border-t border-[#c9a86a]/20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
         <div>
-          <p className="text-[#c9a86a] font-serif text-2xl italic mb-2">0{index + 1}</p>
-          <h3 className="text-4xl md:text-5xl font-serif text-[#f5f5f5] tracking-tight">
+          <p className="text-[#c9a86a] font-serif text-2xl italic mb-2" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>0{index + 1}</p>
+          <h3 className="text-4xl md:text-5xl font-serif text-[#f5f5f5] tracking-tight" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
             {direction.title}
           </h3>
         </div>

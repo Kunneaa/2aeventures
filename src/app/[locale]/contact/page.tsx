@@ -89,7 +89,7 @@ export default function ContactPage() {
                       className="group block p-5 border border-white/5 bg-[#0d1821] rounded-xl hover:border-[#c9a86a]/30 transition-all duration-500"
                     >
                       <p className="text-[#c9a86a] text-[10px] uppercase tracking-widest font-bold mb-3">0{index + 1}</p>
-                      <h3 className="text-[#f5f5f5] text-base font-serif mb-1 group-hover:text-[#c9a86a] transition-colors">{channel.label}</h3>
+                      <h3 className="text-[#f5f5f5] text-base font-serif mb-1 group-hover:text-[#c9a86a] transition-colors" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>{channel.label}</h3>
                       <p className="text-[#8d9ba8] text-xs font-medium mb-2">{channel.value}</p>
                       <p className="text-[#8d9ba8]/60 text-[10px] font-light leading-relaxed">{channel.note}</p>
                     </a>
@@ -116,7 +116,7 @@ export default function ContactPage() {
         <div className="section-shell">
           <div className="text-center mb-16">
             <p className="text-[#c9a86a] text-[10px] uppercase tracking-[0.3em] font-bold mb-4">2AE VENTURES</p>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#f5f5f5]">{copy.helpTitle}</h2>
+            <h2 className="text-3xl md:text-5xl font-serif text-[#f5f5f5]" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>{copy.helpTitle}</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -132,7 +132,7 @@ export default function ContactPage() {
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#c9a86a] mb-6 block">
                   Help 0{index + 1}
                 </span>
-                <h3 className="text-xl font-serif text-[#f5f5f5] mb-4 group-hover:text-[#c9a86a] transition-colors">
+                <h3 className="text-xl font-serif text-[#f5f5f5] mb-4 group-hover:text-[#c9a86a] transition-colors" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                   {card.title}
                 </h3>
                 <p className="text-[#8d9ba8] text-sm leading-relaxed font-light">
@@ -158,7 +158,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
             >
               <p className="text-[#c9a86a] text-[10px] uppercase tracking-[0.3em] font-bold mb-4">2AE VENTURES</p>
-              <h2 className="text-3xl md:text-5xl font-serif text-[#f5f5f5] mb-6">{copy.mapTitle}</h2>
+              <h2 className="text-3xl md:text-5xl font-serif text-[#f5f5f5] mb-6" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>{copy.mapTitle}</h2>
               <p className="text-[#8d9ba8] text-lg leading-relaxed font-light mb-10">
                 {copy.mapIntro}
               </p>

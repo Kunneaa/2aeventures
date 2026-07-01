@@ -61,7 +61,7 @@ export default function AboutPage() {
           >
             {content.heroMarks.map((item, index) => (
               <div key={item} className="flex flex-col gap-2">
-                <span className="text-[#c9a86a] font-serif text-2xl italic">0{index + 1}</span>
+                <span className="text-[#c9a86a] font-serif text-2xl italic" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>0{index + 1}</span>
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#8d9ba8]">{item}</span>
               </div>
             ))}
@@ -120,7 +120,7 @@ export default function AboutPage() {
                 <p className="text-[#c9a86a] text-xs font-bold uppercase tracking-[0.2em] mb-4">
                   Vision 0{index + 1}
                 </p>
-                <h3 className="text-2xl font-serif text-[#f5f5f5] mb-4 group-hover:text-[#c9a86a] transition-colors duration-300">
+                <h3 className="text-2xl font-serif text-[#f5f5f5] mb-4 group-hover:text-[#c9a86a] transition-colors duration-300" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                   {item.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-[#8d9ba8] font-light">
@@ -147,7 +147,7 @@ export default function AboutPage() {
             <p className="text-xs font-extrabold uppercase tracking-[0.4em] text-[#c9a86a] mb-6">
               {t("about_cold_chain")}
             </p>
-            <h2 className="text-4xl md:text-7xl font-serif text-[#f5f5f5] leading-tight max-w-4xl mx-auto tracking-tight opacity-90">
+            <h2 className="text-4xl md:text-7xl font-serif text-[#f5f5f5] leading-tight max-w-4xl mx-auto tracking-tight opacity-90" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
               {t("about_cold_chain_title")}
             </h2>
           </div>
@@ -165,7 +165,7 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
             >
               <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-[10px] font-bold mb-6">{content.modelEyebrow}</p>
-              <h2 className="text-4xl md:text-5xl font-serif text-[#f5f5f5] leading-tight mb-8">
+              <h2 className="text-4xl md:text-5xl font-serif text-[#f5f5f5] leading-tight mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                 {content.modelTitle}
               </h2>
               <p className="text-lg leading-relaxed text-[#8d9ba8] font-light">
@@ -216,7 +216,7 @@ export default function AboutPage() {
               className="max-w-2xl"
             >
               <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-[10px] font-bold mb-6">{content.supplyEyebrow}</p>
-              <h2 className="text-3xl md:text-5xl font-serif text-[#f5f5f5] leading-tight mb-8">
+              <h2 className="text-3xl md:text-5xl font-serif text-[#f5f5f5] leading-tight mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                 {content.supplyTitle}
               </h2>
               <p className="text-lg leading-relaxed text-[#8d9ba8] font-light">
@@ -238,7 +238,7 @@ export default function AboutPage() {
                 <p className="text-[#c9a86a] uppercase tracking-[0.3em] text-[10px] font-bold mb-6">
                   Step 0{index + 1}
                 </p>
-                <h3 className="text-2xl font-serif text-[#f5f5f5] mb-6 group-hover:text-[#c9a86a] transition-colors">{step.title}</h3>
+                <h3 className="text-2xl font-serif text-[#f5f5f5] mb-6 group-hover:text-[#c9a86a] transition-colors" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>{step.title}</h3>
                 <p className="text-sm text-[#8d9ba8] leading-relaxed font-light">
                   {step.text}
                 </p>

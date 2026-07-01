@@ -225,7 +225,7 @@ export default function ProductsPage() {
             
             {!visibleProducts.length && (
               <div className="py-32 text-center border-t border-white/5 mt-12">
-                 <p className="text-[#8d9ba8] font-serif text-2xl italic tracking-wide">
+                 <p className="text-[#8d9ba8] font-serif text-2xl italic tracking-wide" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                    {t("products_no_collections")}
                  </p>
               </div>

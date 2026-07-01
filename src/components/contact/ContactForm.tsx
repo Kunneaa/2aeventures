@@ -73,7 +73,7 @@ export function ContactForm() {
           <div className="w-16 h-16 rounded-full border-2 border-[#c9a86a] flex items-center justify-center mx-auto mb-6 text-[#c9a86a]">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
-          <h3 className="text-2xl font-serif text-[#f5f5f5] mb-4">
+          <h3 className="text-2xl font-serif text-[#f5f5f5] mb-4" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
             {t("contact_success_title")}
           </h3>
           <p className="text-[#8d9ba8] text-sm leading-relaxed font-light">

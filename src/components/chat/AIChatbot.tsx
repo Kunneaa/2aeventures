@@ -29,7 +29,7 @@ export function AIChatbot({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             <Bot size={18} />
           </div>
           <div>
-            <h3 className="text-[#f5f5f5] font-serif font-medium tracking-wide">2AE Virtual Assistant</h3>
+            <h3 className="text-[#f5f5f5] font-serif font-medium tracking-wide" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>2AE Virtual Assistant</h3>
             <div className="flex items-center gap-1.5 mt-0.5">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-[#8d9ba8] text-[10px] uppercase tracking-widest font-bold">Online</span>
