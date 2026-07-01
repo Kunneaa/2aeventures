@@ -1,7 +1,7 @@
 :root {
   --font-size: 16px;
-  --font-family-base: var(--font-be-vietnam-pro), "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-  --font-family-heading: var(--font-be-vietnam-pro), "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-family-base: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
   --background: #f6f8f6;
   --foreground: #17242d;
   --primary: #336699;
@@ -78,7 +78,7 @@
   h1 {
     font-family: var(--font-family-heading);
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.2;
     letter-spacing: 0;
   }
@@ -86,7 +86,7 @@
   h2 {
     font-family: var(--font-family-heading);
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 750;
     line-height: 1.28;
     letter-spacing: 0;
   }
@@ -102,7 +102,7 @@
   h4 {
     font-family: var(--font-family-heading);
     font-size: 1.15rem;
-    font-weight: 600;
+    font-weight: 650;
     line-height: 1.4;
     letter-spacing: 0;
   }
@@ -118,7 +118,7 @@
   }
 
   button {
-    font-weight: 600;
+    font-weight: 650;
     line-height: 1.35;
   }
 
@@ -174,7 +174,7 @@
   .eyebrow {
     color: #2f6f63;
     font-size: 0.875rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0;
     line-height: 1.35;
     text-transform: uppercase;
@@ -183,7 +183,7 @@
   .eyebrow-on-dark {
     color: #d9a85c;
     font-size: 0.875rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0;
     line-height: 1.35;
     text-transform: uppercase;
@@ -192,7 +192,7 @@
   .heading-lg {
     color: #17324d;
     font-size: 1.875rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0;
     line-height: 1.2;
   }
@@ -233,7 +233,7 @@
     justify-content: center;
     gap: 0.5rem;
     border-radius: 0.5rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.35;
     transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
   }
@@ -277,7 +277,7 @@
     background-color: #ffffff;
     color: #42525b;
     font-size: 0.875rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.35;
     padding: 0.625rem 1rem;
     transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;

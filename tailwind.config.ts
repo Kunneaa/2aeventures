@@ -16,7 +16,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-be-vietnam-pro)", "sans-serif"],
-        serif: ["Georgia", '"Times New Roman"', "Times", "serif"],
+        serif: ["var(--font-playfair-display)", "serif"],
       },
     },
   },

@@ -59,7 +59,7 @@ export function ContactForm() {
         <p className="text-[#c9a86a] text-[10px] uppercase tracking-[0.3em] font-bold mb-3">
           {copy.formEyebrow}
         </p>
-        <h2 className="text-3xl font-serif text-[#f5f5f5]">
+        <h2 className="text-3xl font-serif text-[#f5f5f5]" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
           {t("contact_form_title")}
         </h2>
       </div>
