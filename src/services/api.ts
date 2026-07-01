@@ -1,5 +1,5 @@
 import { categories as fallbackCategories, products as fallbackProducts } from '../lib/catalogData';
-import type { ApiResponse, Category, ContactRequestPayload, ContactResponse, Product, QuoteRequestPayload, QuoteResponse } from '../types';
+import type { ApiResponse, Category, ContactRequestPayload, ContactResponse, Product } from '../types';
 
 type HttpMethod = 'GET' | 'POST';
 
@@ -112,9 +112,4 @@ export const productService = {
   },
 };
 
-// --- Quotes Service ---
-export const quoteService = {
-  createQuote(payload: QuoteRequestPayload) {
-    return apiClient.post<QuoteResponse>('/quotes', payload);
-  },
-};
+

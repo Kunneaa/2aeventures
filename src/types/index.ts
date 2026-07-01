@@ -35,35 +35,6 @@ export interface Product {
 }
 
 
-
-export interface QuoteCustomerInfo {
-  name: string;
-  email: string;
-  company: string;
-  phone: string;
-}
-
-export interface QuoteItemPayload {
-  productId: string;
-}
-
-export interface QuoteRequestPayload {
-  items: QuoteItemPayload[];
-  customerInfo: QuoteCustomerInfo;
-  notes?: string;
-  locale?: LocaleCode;
-}
-
-export interface QuoteResponse {
-  id: string;
-  status: 'pending';
-  items: QuoteItemPayload[];
-  customerInfo: QuoteCustomerInfo;
-  notes?: string;
-  locale?: LocaleCode;
-  createdAt: string;
-}
-
 export interface ContactRequestPayload {
   name: string;
   email: string;

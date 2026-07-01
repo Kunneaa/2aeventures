@@ -18,16 +18,6 @@ export interface ContactMailData {
   message: string;
 }
 
-export interface QuoteMailData {
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  products: string;
-  quantity: string;
-  message: string;
-}
-
 const generateHtmlTable = (data: Record<string, any>) => {
   const rows = Object.entries(data)
     .map(
@@ -65,7 +55,7 @@ const generateHtmlTable = (data: Record<string, any>) => {
 
 export const sendNotificationEmail = async (
   subject: string,
-  data: ContactMailData | QuoteMailData
+  data: ContactMailData
 ) => {
   // If SMTP is not configured, we gracefully skip sending to prevent breaking the API.
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {

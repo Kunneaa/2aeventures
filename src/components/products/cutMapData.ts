@@ -485,7 +485,7 @@ export const ANIMAL_CUTS: Record<string, CutDefinition[]> = {
     },
     { 
       id: "drumstick_svg", 
-      highlights: ["whole_leg_rect", "leg_quarter_rect", "drumstick_rect"],
+      highlights: ["leg_quarter_rect", "drumstick_rect"],
       labelEn: "Leg", 
       labelVi: "Đùi", 
       top: "47.88%", left: "38.85%", width: "20.58%", height: "23.57%", 
