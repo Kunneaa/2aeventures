@@ -34,7 +34,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
           className="h-full w-full object-contain"
         />
       </span>
-      <span className={labelClassName}>2AE VENTURES</span>
+      <span className={labelClassName} style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>2AE VENTURES</span>
     </>
   );
 };
