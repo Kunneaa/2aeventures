@@ -16,7 +16,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-be-vietnam-pro)", "sans-serif"],
-        serif: ["var(--font-playfair-display)", "serif"],
+        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'serif'],
       },
     },
   },
