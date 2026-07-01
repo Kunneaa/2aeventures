@@ -68,7 +68,7 @@ export default function ContactPage() {
               <p className="text-[#c9a86a] uppercase tracking-[0.4em] text-xs font-bold mb-6">
                 {copy.kicker}
               </p>
-              <h1 className="text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8">
+              <h1 className="text-5xl md:text-7xl font-serif text-[#f5f5f5] tracking-tight leading-[1.1] mb-8" style={{ fontFamily: '"Playfair Display", "Cormorant Garamond", serif' }}>
                 {copy.title}
               </h1>
               <p className="max-w-xl text-lg text-[#8d9ba8] font-light leading-relaxed mb-16">
