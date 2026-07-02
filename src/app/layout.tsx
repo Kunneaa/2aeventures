@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import type { ReactNode } from "react";
 import { Be_Vietnam_Pro } from "next/font/google";
 import { brandCopy } from "../config/brand";
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="vi" suppressHydrationWarning>
       <body className={`${beVietnamPro.variable} font-sans min-h-screen app-shell`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
