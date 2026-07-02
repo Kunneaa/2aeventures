@@ -9,7 +9,7 @@
   - `15/06 - 21/06`: Chạy Demo và Kiểm thử (Testing)
   - `22/06 - 30/06`: Chỉnh sửa lỗi (Fix Bug)
   - `01/07`: Triển khai thực tế (Go-Live)
-- **Mục tiêu dự án:** Xây dựng website giới thiệu doanh nghiệp B2B chuyên nghiệp cho 2AE VENTURES, hỗ trợ đa ngôn ngữ.
+- **Mục tiêu dự án:** Xây dựng website cho 2AE VENTURES.
 - **Trạng thái:** Hoàn thành (Completed)
 - **Kết quả nổi bật:** Website hoạt động cực kỳ mượt mà, ổn định trên môi trường Vercel. Giao diện sang trọng chuẩn quốc tế, tích hợp thành công bản đồ sản phẩm tương tác (Interactive Cut Map) và hệ thống hỗ trợ tự động.
 - **Ngày Go-live:** 01/07/2026
@@ -23,12 +23,11 @@
 - **Business Need (Nhu cầu kinh doanh):** Doanh nghiệp cần giải quyết bài toán thiếu kênh thông tin chính thức để phô diễn năng lực cốt lõi (nhập khẩu thịt bò, thịt gà Mỹ và xuất khẩu thủy hải sản, nông sản), đồng thời tạo kênh tương tác nhanh chóng, uy tín với khách hàng sỉ.
 - **Project Scope (Phạm vi dự án):** 
   - Thiết kế và lập trình giao diện người dùng (UI/UX) bằng Next.js, Tailwind CSS.
-  - Tích hợp tính năng đa ngôn ngữ (i18n).
   - Phát triển bản đồ mô phỏng cắt thịt tương tác trực quan.
   - Cấu hình luồng gửi form liên hệ qua Email tự động.
 - **Team Structure (Đội ngũ tham gia):**
-  - **IT Manager:** Khoa Nguyen (Định hướng kiến trúc, quản lý).
-  - **IT Intern:** Bao Nguyen (Thực thi kỹ thuật cốt lõi).
+  - **IT Manager:** Khoa Nguyen
+  - **IT Intern:** Bao Nguyen
 
 ## 3. Objectives & Scope
 ### 3.1 Project Objectives
@@ -41,12 +40,13 @@
 ### 3.2 Scope Delivered
 - **In Scope (Đã hoàn thành):** 
   - Hoàn thiện toàn bộ luồng trang: Trang chủ, Về chúng tôi, Sản phẩm, Liên hệ.
-  - Interactive Cut Map (Bản đồ bò/gà tương tác).
+  - Interactive Cut Map (Bản đồ bò/gà tương tác trực quan).
+  - Trợ lý ảo AI Chatbot (Tích hợp Vercel AI SDK và Google Generative AI).
   - Form liên hệ tích hợp hệ thống Mail serverless.
   - Tích hợp Vercel Analytics.
 - **Out Scope (Chưa nằm trong Phase này):** 
   - Hệ thống quản trị nội dung (CMS/Admin Panel).
-  - Cổng thanh toán (Do mô hình B2B chưa cần thiết).
+  - Cổng thanh toán trực tuyến (Mô hình B2B chưa cần thiết).
 
 ## 4. Timeline & Milestones
 | Phase | Planned | Actual | Status |
