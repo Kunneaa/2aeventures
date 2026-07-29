@@ -65,13 +65,6 @@ export const Header: React.FC<HeaderProps> = ({ locale }) => {
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
-          <a
-            href={siteConfig.hotline.href}
-            className="hidden items-center rounded-full border border-[#c9a86a]/20 bg-[#c9a86a]/5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#c9a86a] transition-colors hover:border-[#c9a86a]/40 hover:bg-[#c9a86a]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a86a] lg:inline-flex"
-          >
-            Hotline: {siteConfig.hotline.label}
-          </a>
-
           <div className="hidden sm:block">
             <LanguageSwitcher />
           </div>

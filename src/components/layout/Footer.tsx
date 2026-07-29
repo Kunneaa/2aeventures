@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { ArrowRight, Mail, Phone } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 import { brandCopy } from '../../config/brand';
 import { siteConfig } from '../../config/site';
 import { useLanguage } from '../../store';
@@ -37,12 +37,6 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
       label: 'Email',
       value: siteConfig.email.label,
       icon: Mail,
-    },
-    {
-      href: siteConfig.hotline.href,
-      label: 'Hotline',
-      value: siteConfig.hotline.label,
-      icon: Phone,
     },
   ];
 
