@@ -19,7 +19,7 @@ export default function InteractiveCutMap({ category, selectedCutId, onSelectCut
   const cuts = ANIMAL_CUTS[category] || [];
   const imageSrc = `/images/maps/${category}-cut-${language}.jpg`;
 
-  const aspectRatio = category === "beef" ? "2290 / 1856" : "1448 / 1086";
+  const aspectRatio = category === "beef" ? "1448 / 1086" : "1448 / 1086";
 
   return (
     <div className="relative w-full rounded-2xl overflow-hidden" style={{ aspectRatio, transform: "translateZ(0)" }}>

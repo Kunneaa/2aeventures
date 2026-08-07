@@ -13,363 +13,43 @@ export interface CutDefinition {
 
 export const ANIMAL_CUTS: Record<string, CutDefinition[]> = {
   beef: [
-
-    { 
-      id: "top_sirloin_steak_boneless_rect", 
-      highlights: ["sirloin_svg"],
-      labelEn: "Top Sirloin Steak Boneless", 
-      labelVi: "Bít tết thăn ngoại trên không xương", 
-      top: "11.26%", left: "3.16%", width: "7.32%", height: "13.39%"
-    },
-    { 
-      id: "tri_tip_steak_rect", 
-      highlights: ["sirloin_svg"],
-      labelEn: "Tri-Tip Steak", 
-      labelVi: "Bít tết thăn tam giác", 
-      top: "11.26%", left: "10.83%", width: "7.10%", height: "13.39%"
-    },
-    { 
-      id: "tri_tip_roast_rect", 
-      highlights: ["sirloin_svg"],
-      labelEn: "Tri-Tip Roast", 
-      labelVi: "Thịt thăn tam giác nướng tảng", 
-      top: "11.26%", left: "18.44%", width: "7.17%", height: "13.39%"
-    },
-    { 
-      id: "sirloin_svg", 
-      highlights: ["top_sirloin_steak_boneless_rect", "tri_tip_steak_rect", "tri_tip_roast_rect"],
-      labelEn: "Sirloin", 
-      labelVi: "THĂN NGOẠI", 
-      top: "39.05%", left: "41.14%", width: "5.88%", height: "11.17%", 
-      viewBox: "0 0 82 126",
-      path: "M5.55292 97.5357C5.52577 57.4061 7.02444 35.5495 19.0529 0.535675C42.3709 2.79212 55.9337 3.16166 80.5529 3.03568C78.8319 8.00365 77.9707 12.2791 76.5529 22.5357C75.701 53.6395 75.2694 75.2465 74.5529 118.536C43.0091 123.46 27.0482 124.666 0.552917 125.036C1.59262 114.567 2.81852 108.507 5.55292 97.5357Z"
-    },
-    { 
-      id: "eye_round_steak_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Eye Round Steak", 
-      labelVi: "Bít tết thăn đùi", 
-      top: "43.09%", left: "3.66%", width: "6.96%", height: "12.41%"
-    },
-    { 
-      id: "eye_round_roast_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Eye Round Roast", 
-      labelVi: "Thịt thăn đùi nướng tảng", 
-      top: "43.09%", left: "11.33%", width: "6.89%", height: "12.41%"
-    },
-    { 
-      id: "round_tip_roast_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Round Tip Roast", 
-      labelVi: "Thịt chóp mông nướng tảng", 
-      top: "43.09%", left: "18.79%", width: "7.17%", height: "12.41%"
-    },
-    { 
-      id: "bottom_round_roast_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Bottom Round Roast", 
-      labelVi: "Thịt mông dưới nướng tảng", 
-      top: "56.21%", left: "3.66%", width: "6.96%", height: "12.06%"
-    },
-    { 
-      id: "top_round_steak_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Top Round Steak", 
-      labelVi: "Bít tết mông trên", 
-      top: "56.21%", left: "11.33%", width: "6.89%", height: "12.06%"
-    },
-    { 
-      id: "bottom_round_steak_western_griller_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Bottom Round Steak (Western Griller)", 
-      labelVi: "Bít tết mông dưới nướng kiểu Tây", 
-      top: "56.21%", left: "18.79%", width: "7.17%", height: "12.06%"
-    },
-    { 
-      id: "round_tip_steak_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Round Tip Steak", 
-      labelVi: "Bít tết chóp mông", 
-      top: "68.97%", left: "3.66%", width: "6.96%", height: "12.15%"
-    },
-    { 
-      id: "sirloin_tip_center_roast_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Sirloin Tip Center Roast", 
-      labelVi: "Thịt chóp thăn hông giữa nướng tảng", 
-      top: "68.97%", left: "11.33%", width: "6.89%", height: "12.15%"
-    },
-    { 
-      id: "sirloin_tip_center_steak_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Sirloin Tip Center Steak", 
-      labelVi: "Bít tết chóp thăn hông giữa", 
-      top: "68.97%", left: "18.79%", width: "7.17%", height: "12.15%"
-    },
-    { 
-      id: "sirloin_tip_side_steak_rect", 
-      highlights: ["round_svg"],
-      labelEn: "Sirloin Tip Side Steak", 
-      labelVi: "Bít tết chóp thăn hông rìa", 
-      top: "81.83%", left: "11.33%", width: "6.89%", height: "12.59%"
-    },
-    { 
-      id: "round_svg", 
-      highlights: [
-        "eye_round_steak_rect", "eye_round_roast_rect", "round_tip_roast_rect", 
-        "bottom_round_roast_rect", "top_round_steak_rect", "bottom_round_steak_western_griller_rect", 
-        "round_tip_steak_rect", "sirloin_tip_center_roast_rect", "sirloin_tip_center_steak_rect", 
-        "sirloin_tip_side_steak_rect"
-      ],
-      labelEn: "Round", 
-      labelVi: "MÔNG", 
-      top: "38.44%", left: "32.17%", width: "10.40%", height: "17.91%", 
-      viewBox: "0 0 145 202",
-      path: "M40.5057 200.441C27.0176 182.904 18.3737 175.136 0.505707 165.941L2.00571 85.3118C5.82897 49.8395 12.4388 37.8194 30.5057 27.4408C41.6321 21.2315 48.1821 14.8975 60.0057 2.3118C93.9014 -0.629084 110.567 -0.370986 143.506 5.94079C130.543 40.9104 129.961 64.6002 131.506 104.441C126.817 120.993 125.532 131.306 125.506 151.441C114.342 157.298 108.935 161.296 100.506 169.441C94.295 179.519 89.4882 182.49 79.5057 184.941C61.6882 187.647 52.8172 190.611 40.5057 200.441Z"
-    },
-    { 
-      id: "top_loin_steak_boneless_rect", 
-      highlights: ["short_loin_svg"],
-      labelEn: "Top Loin Steak Boneless", 
-      labelVi: "Bít tết thăn ngoại không xương", 
-      top: "3.10%", left: "35.30%", width: "8.25%", height: "12.59%"
-    },
-    { 
-      id: "tenderloin_roast_rect", 
-      highlights: ["short_loin_svg"],
-      labelEn: "Tenderloin Roast", 
-      labelVi: "Thăn nội nướng tảng", 
-      top: "3.10%", left: "44.05%", width: "9.47%", height: "12.59%"
-    },
-    { 
-      id: "tenderloin_steak_rect", 
-      highlights: ["short_loin_svg"],
-      labelEn: "Tenderloin Steak", 
-      labelVi: "Bít tết thăn nội", 
-      top: "3.10%", left: "53.95%", width: "9.33%", height: "12.59%"
-    },
-    { 
-      id: "top_loin_steak_bone_in_rect", 
-      highlights: ["short_loin_svg"],
-      labelEn: "Top Loin Steak Bone-in", 
-      labelVi: "Bít tết thăn ngoại có xương", 
-      top: "16.13%", left: "35.30%", width: "8.25%", height: "13.21%"
-    },
-    { 
-      id: "t_bone_steak_rect", 
-      highlights: ["short_loin_svg"],
-      labelEn: "T-Bone Steak", 
-      labelVi: "Bít tết xương chữ T", 
-      top: "16.13%", left: "44.05%", width: "9.33%", height: "13.21%"
-    },
-    { 
-      id: "porterhouse_steak_rect", 
-      highlights: ["short_loin_svg"],
-      labelEn: "Porterhouse Steak", 
-      labelVi: "Bít tết sườn chữ T cỡ lớn", 
-      top: "16.13%", left: "53.95%", width: "9.33%", height: "13.21%"
-    },
-    { 
-      id: "short_loin_svg", 
-      highlights: [
-        "top_loin_steak_boneless_rect", "tenderloin_roast_rect", "tenderloin_steak_rect", 
-        "top_loin_steak_bone_in_rect", "t_bone_steak_rect", "porterhouse_steak_rect"
-      ],
-      labelEn: "Short Loin", 
-      labelVi: "THĂN NGOẠI NGẮN", 
-      top: "39.32%", left: "46.41%", width: "4.59%", height: "10.37%", 
-      viewBox: "0 0 64 117",
-      path: "M0.513611 116.005C1.76698 62.6716 2.19104 30.1473 6.01361 1.00491L61.0136 0.504913L58.0136 42.0049C55.3235 67.3464 56.5968 81.4586 62.5136 106.505C39.3096 110.435 26.0243 112.578 0.513611 116.005Z"
-    },
-    { 
-      id: "ribeye_steak_boneless_1_rect", 
-      highlights: ["rib_svg"],
-      labelEn: "Ribeye Steak Boneless", 
-      labelVi: "Bít tết đầu thăn ngoại không xương", 
-      top: "4.34%", left: "78.34%", width: "7.75%", height: "12.94%"
-    },
-    { 
-      id: "back_rib_rect", 
-      highlights: ["rib_svg"],
-      labelEn: "Back Rib", 
-      labelVi: "Dẻ sườn lưng", 
-      top: "4.34%", left: "86.66%", width: "7.68%", height: "12.94%"
-    },
-    { 
-      id: "ribeye_steak_boneless_2_rect", 
-      highlights: ["rib_svg"],
-      labelEn: "Ribeye Roast Boneless", 
-      labelVi: "Đầu thăn ngoại nướng tảng không xương", 
-      top: "17.73%", left: "74.32%", width: "7.68%", height: "13.03%"
-    },
-    { 
-      id: "rib_steak_rect", 
-      highlights: ["rib_svg"],
-      labelEn: "Rib Steak", 
-      labelVi: "Bít tết sườn", 
-      top: "17.73%", left: "82.50%", width: "7.39%", height: "13.03%"
-    },
-    { 
-      id: "rib_roast_rect", 
-      highlights: ["rib_svg"],
-      labelEn: "Rib Roast", 
-      labelVi: "Thịt sườn nướng tảng", 
-      top: "17.73%", left: "90.46%", width: "7.46%", height: "13.03%"
-    },
-    { 
-      id: "rib_svg", 
-      highlights: [
-        "ribeye_steak_boneless_1_rect", "back_rib_rect", "ribeye_steak_boneless_2_rect", 
-        "rib_steak_rect", "rib_roast_rect"
-      ],
-      labelEn: "Rib", 
-      labelVi: "SƯỜN", 
-      top: "37.94%", left: "50.37%", width: "6.96%", height: "10.90%", 
-      viewBox: "0 0 97 123",
-      path: "M2.90525 55.7653C3.37043 39.836 4.0153 31.1787 5.90525 16.2653C38.9201 15.8381 58.922 11.2659 95.4052 0.76532C92.1985 8.645 90.7177 16.5554 88.4052 34.2653C87.457 65.8775 86.7926 83.2246 84.4052 110.765L7.90525 122.265C1.40781 97.6754 -2.17403 83.157 2.90525 55.7653Z"
-    },
-    { 
-      id: "boneless_short_ribs_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Boneless Short Ribs", 
-      labelVi: "Sườn non không xương", 
-      top: "42.82%", left: "74.39%", width: "7.39%", height: "12.59%"
-    },
-    { 
-      id: "shoulder_petite_tender_medallions_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Petite Tender Medallions", 
-      labelVi: "Phi lê lõi vai thái khoanh", 
-      top: "42.82%", left: "82.07%", width: "7.46%", height: "12.59%"
-    },
-    { 
-      id: "shoulder_petite_tender_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Petite Tender", 
-      labelVi: "Lõi vai nhỏ", 
-      top: "42.82%", left: "89.89%", width: "7.10%", height: "12.59%"
-    },
-    { 
-      id: "shoulder_pot_roast_boneless_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Pot Roast Boneless", 
-      labelVi: "Thịt vai hầm không xương", 
-      top: "56.03%", left: "74.53%", width: "7.17%", height: "12.32%"
-    },
-    { 
-      id: "shoulder_steak_boneless_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Steak Boneless", 
-      labelVi: "Bít tết vai không xương", 
-      top: "56.12%", left: "82.14%", width: "7.25%", height: "12.32%"
-    },
-    { 
-      id: "shoulder_center_ranch_steak_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Center Ranch Steak", 
-      labelVi: "Bít tết giữa vai", 
-      top: "56.03%", left: "89.89%", width: "7.10%", height: "12.32%"
-    },
-    { 
-      id: "chuck_eye_steak_boneless_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Chuck Eye Steak Boneless", 
-      labelVi: "Bít tết lõi nạc vai không xương", 
-      top: "68.97%", left: "74.53%", width: "7.17%", height: "12.68%"
-    },
-    { 
-      id: "shoulder_top_blade_steak_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Top Blade Steak", 
-      labelVi: "Bít tết lõi thăn vai", 
-      top: "68.97%", left: "82.14%", width: "7.25%", height: "12.68%"
-    },
-    { 
-      id: "shoulder_top_blade_steak_flat_iron_rect", 
-      highlights: ["chuck_svg"],
-      labelEn: "Shoulder Top Blade Steak Flat Iron", 
-      labelVi: "Bít tết lõi nạc vai cắt lát phẳng", 
-      top: "68.97%", left: "89.89%", width: "7.10%", height: "12.68%"
-    },
-    { 
-      id: "chuck_svg", 
-      highlights: [
-        "boneless_short_ribs_rect", "shoulder_petite_tender_medallions_rect", "shoulder_petite_tender_rect", 
-        "shoulder_pot_roast_boneless_rect", "shoulder_steak_boneless_rect", "shoulder_center_ranch_steak_rect", 
-        "chuck_eye_steak_boneless_rect", "shoulder_top_blade_steak_rect", "shoulder_top_blade_steak_flat_iron_rect"
-      ],
-      labelEn: "Chuck", 
-      labelVi: "VAI", 
-      top: "37.83%", left: "56.46%", width: "10.33%", height: "14.10%", 
-      viewBox: "0 0 144 159",
-      path: "M4.50885 37.8101C4.50511 23.1614 5.2379 15.1189 11.0089 1.8101C42.2259 -1.30443 56.5869 0.546187 73.5089 13.8101C90.3489 27.6575 101.428 32.9842 126.009 35.3101L123.509 61.8101C120.97 77.22 121.139 85.7477 123.509 100.81C125.744 119.159 130.322 127.4 143.009 139.31L124.509 158.31L68.0089 133.81C42.2047 122.561 27.6271 116.703 0.50885 110.81C1.08831 84.1848 1.34513 69.3872 4.50885 37.8101Z"
-    },
-    { 
-      id: "flank_rect", 
-      highlights: ["flank_svg"],
-      labelEn: "Flank", 
-      labelVi: "Nạc bụng", 
-      top: "73.85%", left: "39.24%", width: "6.96%", height: "9.84%"
-    },
-    { 
-      id: "flank_svg", 
-      highlights: ["flank_rect"],
-      labelEn: "Flank", 
-      labelVi: "BỤNG", 
-      top: "49.56%", left: "41.09%", width: "5.60%", height: "7.89%", 
-      viewBox: "0 0 78 89",
-      path: "M1.2514 26.0844C0.221305 17.889 0.278163 13.8921 1.2514 7.58441C28.6152 6.7264 44.5914 5.47116 75.2514 0.584412L76.7514 88.0844C63.2836 88.6909 55.9991 86.856 43.2514 81.5844C33.9295 77.7962 28.5485 76.3553 17.7514 79.0844L1.2514 26.0844Z"
-    },
-    { 
-      id: "skirt_rect", 
-      highlights: ["short_plate_svg"],
-      labelEn: "Skirt", 
-      labelVi: "Diềm thăn", 
-      top: "73.85%", left: "46.84%", width: "6.74%", height: "9.84%"
-    },
-    { 
-      id: "short_plate_svg", 
-      highlights: ["skirt_rect"],
-      labelEn: "Short Plate", 
-      labelVi: "SƯỜN NON", 
-      top: "47.78%", left: "46.45%", width: "9.97%", height: "10.73%", 
-      viewBox: "0 0 139 121",
-      path: "M3.01239 109.135L0.51239 20.6355L138.012 0.635498C132.967 10.3093 129.94 15.6058 127.012 26.6355C120.893 37.5953 119.96 58.6899 117.012 88.6355C119.216 98.2037 119.081 103.689 117.012 113.635C88.9128 121.083 74.7741 122.28 53.5124 117.135C33.0357 118.063 21.7317 117.636 3.01239 109.135Z"
-    },
-    { 
-      id: "shank_rect", 
-      highlights: ["fore_shank_svg"],
-      labelEn: "Shank", 
-      labelVi: "Bắp bò", 
-      top: "73.85%", left: "54.16%", width: "6.89%", height: "9.84%"
-    },
-    { 
-      id: "fore_shank_svg", 
-      highlights: ["shank_rect"],
-      labelEn: "Fore Shank", 
-      labelVi: "BẮP BÒ", 
-      top: "47.70%", left: "54.70%", width: "6.67%", height: "11.35%", 
-      viewBox: "0 0 93 128",
-      path: "M92.0006 22.0538C67.5272 11.2336 53.3553 5.69092 24.0006 0.553833L6.50065 32.0538C2.24896 57.0416 0.460888 70.3833 0.500649 90.5538C4.504 103.427 4.14509 110.984 3.51019 124.353L3.50065 124.554C23.4777 121.395 33.4746 121.539 48.0007 127.054C56.8638 108.416 61.5431 97.7021 66.0006 75.0538C79.0913 57.3171 86.027 47.4816 85.0006 33.5538C89.8554 31.7941 91.1956 29.0286 92.0006 22.0538Z"
-    },
-    { 
-      id: "brisket_rect", 
-      highlights: ["brisket_svg"],
-      labelEn: "Brisket", 
-      labelVi: "Ức bò", 
-      top: "73.85%", left: "61.62%", width: "6.89%", height: "9.84%"
-    },
-    { 
-      id: "brisket_svg", 
-      highlights: ["brisket_rect"],
-      labelEn: "Brisket", 
-      labelVi: "ỨC BÒ", 
-      top: "49.56%", left: "58.07%", width: "7.46%", height: "9.66%", 
-      viewBox: "0 0 104 109",
-      path: "M86.774 50.7369C91.182 37.7199 94.0532 31.1718 102.774 26.2369C79.8478 17.969 67.285 12.5917 45.774 0.736877C43.729 7.56235 41.9757 10.465 37.274 13.2369C39.5067 25.0022 32.2344 35.4069 19.774 53.7369C16.4568 72.082 12.5016 82.9958 1.27399 106.737C13.0929 98.2954 21.5604 96.5776 40.774 100.237C45.3988 101.902 49.6898 100.52 59.774 94.7369C76.252 80.2277 82.6316 70.8051 86.774 50.7369Z"
-    },
-
+    { id: "eye_round_rect", highlights: ["round_svg"], labelEn: "EYE ROUND", labelVi: "Thăn đùi", top: "10.77%", left: "3.31%", width: "7.53%", height: "12.52%" },
+    { id: "inside_round_rect", highlights: ["round_svg"], labelEn: "INSIDE ROUND", labelVi: "Thịt đùi trong", top: "10.77%", left: "12.36%", width: "7.53%", height: "12.52%" },
+    { id: "round_svg", highlights: ["eye_round_rect", "inside_round_rect"], labelEn: "Round", labelVi: "MÔNG", top: "28.50%", left: "29.28%", width: "11.46%", height: "21.04%", viewBox: "0 0 168 230", path: "M109 205.5C100.097 219.664 70.8105 225.556 56.5 229L27.5 205.5L3 195L0.5 137.5C0.5 91.5 6.09994 51.0864 32 36.5C47.9505 27.7734 60.5501 18.1881 77.5 0.5C125.5 0.500035 120.5 0.499995 166.5 7.64661C152.5 59.5 150.285 63.2033 152.5 119.196C145.778 142.459 142.5 151.5 136.5 175.5C120.496 183.732 121.084 194.053 109 205.5Z" },
+    
+    { id: "top_sirloin_rect", highlights: ["sirloin_svg"], labelEn: "TOP SIRLOIN", labelVi: "Thăn mông", top: "10.77%", left: "22.58%", width: "6.84%", height: "12.52%" },
+    { id: "tri_tip_sirloin_rect", highlights: ["sirloin_svg"], labelEn: "TRI-TIP SIRLOIN", labelVi: "Lõi thăn mông", top: "10.77%", left: "30.73%", width: "6.22%", height: "12.52%" },
+    { id: "sirloin_svg", highlights: ["top_sirloin_rect", "tri_tip_sirloin_rect"], labelEn: "Sirloin", labelVi: "THĂN NGOẠI", top: "39.05%", left: "41.14%", width: "5.88%", height: "11.17%", viewBox: "0 0 82 126", path: "M5.55292 97.5357C5.52577 57.4061 7.02444 35.5495 19.0529 0.535675C42.3709 2.79212 55.9337 3.16166 80.5529 3.03568C78.8319 8.00365 77.9707 12.2791 76.5529 22.5357C75.701 53.6395 75.2694 75.2465 74.5529 118.536C43.0091 123.46 27.0482 124.666 0.552917 125.036C1.59262 114.567 2.81852 108.507 5.55292 97.5357Z" },
+    
+    { id: "short_loin_rect", highlights: ["short_loin_svg"], labelEn: "SHORT LOIN", labelVi: "Thăn lưng ngắn", top: "10.22%", left: "39.57%", width: "5.52%", height: "13.54%" },
+    { id: "striploin_rect", highlights: ["short_loin_svg"], labelEn: "STRIPLOIN", labelVi: "Thăn ngoại", top: "10.77%", left: "46.41%", width: "5.94%", height: "12.98%" },
+    { id: "sirloin_cubes_rect", highlights: ["short_loin_svg"], labelEn: "SIRLOIN CUBES", labelVi: "Thăn bò cắt lúc lắc", top: "10.77%", left: "53.52%", width: "5.32%", height: "12.52%" },
+    { id: "tenderloin_rect", highlights: ["short_loin_svg"], labelEn: "TENDERLOIN", labelVi: "Thăn nội", top: "10.59%", left: "60.22%", width: "5.46%", height: "13.08%" },
+    { id: "short_loin_svg", highlights: ["short_loin_rect", "striploin_rect", "sirloin_cubes_rect", "tenderloin_rect"], labelEn: "Loin", labelVi: "THĂN", top: "39.32%", left: "46.41%", width: "4.59%", height: "10.37%", viewBox: "0 0 64 117", path: "M0.513611 116.005C1.76698 62.6716 2.19104 30.1473 6.01361 1.00491L61.0136 0.504913L58.0136 42.0049C55.3235 67.3464 56.5968 81.4586 62.5136 106.505C39.3096 110.435 26.0243 112.578 0.513611 116.005Z" },
+    
+    { id: "back_rib_rect", highlights: ["rib_svg"], labelEn: "BACK RIB", labelVi: "Sườn bẹ bò", top: "10.13%", left: "68.30%", width: "6.42%", height: "13.54%" },
+    { id: "rib_rect", highlights: ["rib_svg"], labelEn: "RIB", labelVi: "Sườn bò", top: "10.59%", left: "76.17%", width: "6.28%", height: "13.17%" },
+    { id: "ribeye_rect", highlights: ["rib_svg"], labelEn: "RIBEYE", labelVi: "Đầu thăn ngoại", top: "10.77%", left: "83.77%", width: "5.73%", height: "12.98%" },
+    { id: "short_rib_rect", highlights: ["rib_svg"], labelEn: "SHORT RIB", labelVi: "Sườn non bò", top: "10.77%", left: "90.88%", width: "6.22%", height: "12.89%" },
+    { id: "rib_svg", highlights: ["back_rib_rect", "rib_rect", "ribeye_rect", "short_rib_rect"], labelEn: "Rib", labelVi: "SƯỜN", top: "37.94%", left: "50.37%", width: "6.96%", height: "10.90%", viewBox: "0 0 97 123", path: "M2.90525 55.7653C3.37043 39.836 4.0153 31.1787 5.90525 16.2653C38.9201 15.8381 58.922 11.2659 95.4052 0.76532C92.1985 8.645 90.7177 16.5554 88.4052 34.2653C87.457 65.8775 86.7926 83.2246 84.4052 110.765L7.90525 122.265C1.40781 97.6754 -2.17403 83.157 2.90525 55.7653Z" },
+    
+    { id: "petite_tender_rect", highlights: ["chuck_svg"], labelEn: "PETITE TENDER", labelVi: "Lõi vai nhỏ", top: "41.07%", left: "78.38%", width: "5.52%", height: "12.89%" },
+    { id: "chuck_eye_rect", highlights: ["chuck_svg"], labelEn: "CHUCK EYE", labelVi: "Lõi vai bò", top: "41.07%", left: "85.22%", width: "5.66%", height: "12.89%" },
+    { id: "shoulder_clod_rect", highlights: ["chuck_svg"], labelEn: "SHOULDER CLOD", labelVi: "Nạc vai bò", top: "41.07%", left: "92.13%", width: "5.66%", height: "12.89%" },
+    { id: "chuck_svg", highlights: ["petite_tender_rect", "chuck_eye_rect", "shoulder_clod_rect"], labelEn: "Chuck-Shoulder", labelVi: "VAI", top: "37.83%", left: "56.46%", width: "10.33%", height: "14.10%", viewBox: "0 0 144 159", path: "M4.50885 37.8101C4.50511 23.1614 5.2379 15.1189 11.0089 1.8101C42.2259 -1.30443 56.5869 0.546187 73.5089 13.8101C90.3489 27.6575 101.428 32.9842 126.009 35.3101L123.509 61.8101C120.97 77.22 121.139 85.7477 123.509 100.81C125.744 119.159 130.322 127.4 143.009 139.31L124.509 158.31L68.0089 133.81C42.2047 122.561 27.6271 116.703 0.50885 110.81C1.08831 84.1848 1.34513 69.3872 4.50885 37.8101Z" },
+    
+    { id: "brisket_rect", highlights: ["brisket_svg"], labelEn: "BRISKET", labelVi: "Gầu (Ức) bò", top: "69.61%", left: "67.13%", width: "10.77%", height: "10.41%" },
+    { id: "brisket_svg", highlights: ["brisket_rect"], labelEn: "Brisket", labelVi: "ỨC BÒ", top: "49.56%", left: "58.07%", width: "7.46%", height: "9.66%", viewBox: "0 0 104 109", path: "M86.774 50.7369C91.182 37.7199 94.0532 31.1718 102.774 26.2369C79.8478 17.969 67.285 12.5917 45.774 0.736877C43.729 7.56235 41.9757 10.465 37.274 13.2369C39.5067 25.0022 32.2344 35.4069 19.774 53.7369C16.4568 72.082 12.5016 82.9958 1.27399 106.737C13.0929 98.2954 21.5604 96.5776 40.774 100.237C45.3988 101.902 49.6898 100.52 59.774 94.7369C76.252 80.2277 82.6316 70.8051 86.774 50.7369Z" },
+    
+    { id: "fore_shank_rect", highlights: ["fore_shank_svg"], labelEn: "FORE SHANK", labelVi: "Bắp bò", top: "69.52%", left: "53.45%", width: "10.57%", height: "10.41%" },
+    { id: "fore_shank_svg", highlights: ["fore_shank_rect"], labelEn: "Shank", labelVi: "BẮP BÒ", top: "47.70%", left: "54.70%", width: "6.67%", height: "11.35%", viewBox: "0 0 93 128", path: "M92.0006 22.0538C67.5272 11.2336 53.3553 5.69092 24.0006 0.553833L6.50065 32.0538C2.24896 57.0416 0.460888 70.3833 0.500649 90.5538C4.504 103.427 4.14509 110.984 3.51019 124.353L3.50065 124.554C23.4777 121.395 33.4746 121.539 48.0007 127.054C56.8638 108.416 61.5431 97.7021 66.0006 75.0538C79.0913 57.3171 86.027 47.4816 85.0006 33.5538C89.8554 31.7941 91.1956 29.0286 92.0006 22.0538Z" },
+    
+    { id: "short_plate_rect", highlights: ["short_plate_svg"], labelEn: "SHORT PLATE", labelVi: "Ba chỉ bò", top: "69.52%", left: "37.98%", width: "12.43%", height: "10.41%" },
+    { id: "short_plate_svg", highlights: ["short_plate_rect"], labelEn: "Short Plate", labelVi: "SƯỜN NON", top: "47.78%", left: "46.45%", width: "9.97%", height: "10.73%", viewBox: "0 0 139 121", path: "M3.01239 109.135L0.51239 20.6355L138.012 0.635498C132.967 10.3093 129.94 15.6058 127.012 26.6355C120.893 37.5953 119.96 58.6899 117.012 88.6355C119.216 98.2037 119.081 103.689 117.012 113.635C88.9128 121.083 74.7741 122.28 53.5124 117.135C33.0357 118.063 21.7317 117.636 3.01239 109.135Z" },
+    
+    { id: "flank_steak_rect", highlights: ["flank_svg"], labelEn: "FLANK STEAK", labelVi: "Diềm thăn", top: "69.52%", left: "17.96%", width: "8.15%", height: "10.41%" },
+    { id: "rough_flank_rect", highlights: ["flank_svg"], labelEn: "ROUGH FLANK", labelVi: "Nạm bò", top: "69.52%", left: "27.35%", width: "7.73%", height: "10.41%" },
+    { id: "flank_svg", highlights: ["flank_steak_rect", "rough_flank_rect"], labelEn: "Flank", labelVi: "BỤNG", top: "49.56%", left: "41.09%", width: "5.60%", height: "7.89%", viewBox: "0 0 78 89", path: "M1.2514 26.0844C0.221305 17.889 0.278163 13.8921 1.2514 7.58441C28.6152 6.7264 44.5914 5.47116 75.2514 0.584412L76.7514 88.0844C63.2836 88.6909 55.9991 86.856 43.2514 81.5844C33.9295 77.7962 28.5485 76.3553 17.7514 79.0844L1.2514 26.0844Z" }
   ],
   chicken: [
     { 
