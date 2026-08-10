@@ -167,411 +167,363 @@
   ],
   "products": [
     {
-      "id": "p-beef-chuck-7-bone-pot-roast",
+      "id": "p-eye_round",
       "categoryId": "beef",
+      "cutId": "eye_round_rect",
       "name": {
-        "en": "7 Bone Pot Roast",
-        "vi": "Cổ bò xương số 7"
+        "en": "EYE ROUND",
+        "vi": "Thăn đùi"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
       "description": {
-        "en": "Chuck section. Bone-in shoulder cut for braising, roasting, and food service.",
-        "vi": "Phần vai (Chuck - Nạc vai). Lát cắt có xương phù hợp cho hầm, nướng chậm và bếp dịch vụ."
-      },
-      "cutId": "chuck",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-chuck-blade",
+      "id": "p-inside_round",
       "categoryId": "beef",
+      "cutId": "inside_round_rect",
       "name": {
-        "en": "Blade",
-        "vi": "Sườn vai"
+        "en": "INSIDE ROUND",
+        "vi": "Thịt đùi trong"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
       "description": {
-        "en": "Chuck section. Shoulder blade cut with balanced lean meat and connective texture.",
-        "vi": "Phần vai (Chuck - Nạc vai). Sườn vai có phần nạc cân bằng, phù hợp cho chế biến chậm."
-      },
-      "cutId": "chuck",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-chuck-boneless-shoulder",
+      "id": "p-top_sirloin",
       "categoryId": "beef",
+      "cutId": "top_sirloin_rect",
       "name": {
-        "en": "Boneless Shoulder",
-        "vi": "Bã vai rút xương"
+        "en": "TOP SIRLOIN",
+        "vi": "Thăn mông"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
       "description": {
-        "en": "Chuck section. Boneless shoulder cut for slicing, roasting, and processed menus.",
-        "vi": "Phần vai (Chuck - Nạc vai). Bã vai rút xương phù hợp cho cắt lát, nướng và thực đơn chế biến."
-      },
-      "cutId": "chuck",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-brisket",
+      "id": "p-tri_tip_sirloin",
       "categoryId": "beef",
+      "cutId": "tri_tip_sirloin_rect",
       "name": {
-        "en": "Brisket",
-        "vi": "Nạm bò ức"
+        "en": "TRI-TIP SIRLOIN",
+        "vi": "Lõi thăn mông"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
       "description": {
-        "en": "Brisket and shank section. Beef breast cut for slow cooking and smoking.",
-        "vi": "Phần ức và bắp (Brisket & Shank). Nạm bò ức phù hợp cho hầm, nấu chậm và xông khói."
-      },
-      "cutId": "brisket",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-shank",
+      "id": "p-short_loin",
       "categoryId": "beef",
+      "cutId": "short_loin_rect",
       "name": {
-        "en": "Shank",
+        "en": "SHORT LOIN",
+        "vi": "Thăn lưng ngắn"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-striploin",
+      "categoryId": "beef",
+      "cutId": "striploin_rect",
+      "name": {
+        "en": "STRIPLOIN",
+        "vi": "Thăn ngoại"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-sirloin_cubes",
+      "categoryId": "beef",
+      "cutId": "sirloin_cubes_rect",
+      "name": {
+        "en": "SIRLOIN CUBES",
+        "vi": "Thăn bò cắt lúc lắc"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-tenderloin",
+      "categoryId": "beef",
+      "cutId": "tenderloin_rect",
+      "name": {
+        "en": "TENDERLOIN",
+        "vi": "Thăn nội"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-back_rib",
+      "categoryId": "beef",
+      "cutId": "back_rib_rect",
+      "name": {
+        "en": "BACK RIB",
+        "vi": "Sườn bẹ bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-rib",
+      "categoryId": "beef",
+      "cutId": "rib_rect",
+      "name": {
+        "en": "RIB",
+        "vi": "Sườn bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-ribeye",
+      "categoryId": "beef",
+      "cutId": "ribeye_rect",
+      "name": {
+        "en": "RIBEYE",
+        "vi": "Đầu thăn ngoại"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-short_rib",
+      "categoryId": "beef",
+      "cutId": "short_rib_rect",
+      "name": {
+        "en": "SHORT RIB",
+        "vi": "Sườn non bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-petite_tender",
+      "categoryId": "beef",
+      "cutId": "petite_tender_rect",
+      "name": {
+        "en": "PETITE TENDER",
+        "vi": "Lõi vai nhỏ"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-chuck_eye",
+      "categoryId": "beef",
+      "cutId": "chuck_eye_rect",
+      "name": {
+        "en": "CHUCK EYE",
+        "vi": "Lõi vai bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-shoulder_clod",
+      "categoryId": "beef",
+      "cutId": "shoulder_clod_rect",
+      "name": {
+        "en": "SHOULDER CLOD",
+        "vi": "Nạc vai bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-brisket",
+      "categoryId": "beef",
+      "cutId": "brisket_rect",
+      "name": {
+        "en": "BRISKET",
+        "vi": "Gầu (Ức) bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
+      },
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
+      }
+    },
+    {
+      "id": "p-fore_shank",
+      "categoryId": "beef",
+      "cutId": "fore_shank_rect",
+      "name": {
+        "en": "FORE SHANK",
         "vi": "Bắp bò"
       },
-      "description": {
-        "en": "Brisket and shank section. Front or hind leg cut for soups, stews, and braised dishes.",
-        "vi": "Phần ức và bắp (Brisket & Shank). Bắp nằm ở chân trước và chân sau, phù hợp cho súp, hầm và kho."
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
-      "cutId": "shank",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-rib-steak",
+      "id": "p-short_plate",
       "categoryId": "beef",
+      "cutId": "short_plate_rect",
       "name": {
-        "en": "Rib Steak",
-        "vi": "Sườn để nướng"
-      },
-      "description": {
-        "en": "Rib section. Bone-in rib cut for grilling and steak menus.",
-        "vi": "Phần sườn (Rib - Sườn). Lát sườn có xương phù hợp cho nướng và steak."
-      },
-      "cutId": "rib",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-1",
-      "categoryId": "beef",
-      "name": {
-        "en": "Rib Eye",
-        "vi": "Thăn vai"
-      },
-      "description": {
-        "en": "Rib section. US beef cut for grilling, steak, and distribution.",
-        "vi": "Phần sườn (Rib - Sườn). Lát cắt thịt bò Mỹ phù hợp cho nướng, steak và kênh phân phối."
-      },
-      "cutId": "rib",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-back-ribs",
-      "categoryId": "beef",
-      "name": {
-        "en": "Back Ribs",
-        "vi": "Xương sườn"
-      },
-      "description": {
-        "en": "Rib section. Beef back ribs for grilling, barbecue, and soup bases.",
-        "vi": "Phần sườn (Rib - Sườn). Xương sườn bò phù hợp cho nướng, barbecue và nấu nước dùng."
-      },
-      "cutId": "rib",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-plate",
-      "categoryId": "beef",
-      "name": {
-        "en": "Plate",
-        "vi": "Ba chỉ"
-      },
-      "description": {
-        "en": "Plate and flank section. Belly plate cut with rich fat and beef flavor.",
-        "vi": "Phần ba chỉ và bụng (Plate & Flank). Ba chỉ bò có độ béo và hương vị đậm."
-      },
-      "cutId": "plate",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-flank",
-      "categoryId": "beef",
-      "name": {
-        "en": "Flank",
-        "vi": "Bụng"
-      },
-      "description": {
-        "en": "Plate and flank section. Lean belly cut for slicing and quick-cook menus.",
-        "vi": "Phần ba chỉ và bụng (Plate & Flank). Phần bụng có thớ rõ, phù hợp cắt lát và chế biến nhanh."
-      },
-      "cutId": "flank",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-short-ribs",
-      "categoryId": "beef",
-      "name": {
-        "en": "Short Ribs",
+        "en": "SHORT PLATE",
         "vi": "Ba chỉ bò"
       },
-      "description": {
-        "en": "Plate and flank detail cut. Short ribs for barbecue, grilling, and braised dishes.",
-        "vi": "Chi tiết phần ba chỉ và bụng. Ba chỉ bò phù hợp cho barbecue, nướng và món hầm."
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
-      "cutId": "plate",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+      "description": {
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-skirt-steak",
+      "id": "p-flank_steak",
       "categoryId": "beef",
+      "cutId": "flank_steak_rect",
       "name": {
-        "en": "Skirt Steak",
-        "vi": "Các miếng bít tết nhỏ"
+        "en": "FLANK STEAK",
+        "vi": "Diềm thăn"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
       "description": {
-        "en": "Plate and flank detail cut. Thin steak cut for grilling and quick searing.",
-        "vi": "Chi tiết phần ba chỉ và bụng. Lát steak mỏng phù hợp cho nướng và áp chảo nhanh."
-      },
-      "cutId": "flank",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {
-      "id": "p-beef-t-bone",
+      "id": "p-rough_flank",
       "categoryId": "beef",
+      "cutId": "rough_flank_rect",
       "name": {
-        "en": "T-Bone",
-        "vi": "Thịt hình chữ T"
+        "en": "ROUGH FLANK",
+        "vi": "Nạm bò"
+      },
+      "imageKey": "beef",
+      "unit": {
+        "en": "kg",
+        "vi": "kg"
       },
       "description": {
-        "en": "Short loin section. T-shaped bone cut combining striploin and tenderloin.",
-        "vi": "Phần thăn lưng (Short Loin - Thăn chuột). Lát cắt xương chữ T kết hợp thăn viền mỡ và thăn nội."
-      },
-      "cutId": "short_loin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-porterhouse",
-      "categoryId": "beef",
-      "name": {
-        "en": "Porterhouse",
-        "vi": "Porterhouse"
-      },
-      "description": {
-        "en": "Short loin section. Large steak cut with striploin and a larger tenderloin portion.",
-        "vi": "Phần thăn lưng (Short Loin - Thăn chuột). Lát steak lớn gồm thăn viền mỡ và phần thăn nội lớn hơn."
-      },
-      "cutId": "short_loin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-striploin",
-      "categoryId": "beef",
-      "name": {
-        "en": "Striploin",
-        "vi": "Thịt thăn viền mỡ"
-      },
-      "description": {
-        "en": "Short loin section. Striploin cut with a fat edge for steak and grilling.",
-        "vi": "Phần thăn lưng (Short Loin - Thăn chuột). Thịt thăn viền mỡ phù hợp cho steak và nướng."
-      },
-      "cutId": "short_loin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-sirloin-tip",
-      "categoryId": "beef",
-      "name": {
-        "en": "Sirloin Tip",
-        "vi": "Ba chỉ"
-      },
-      "description": {
-        "en": "Sirloin section. Tip cut listed from the sirloin area for slicing and cooking.",
-        "vi": "Phần thăn ngoại (Sirloin - Thăn ngoại). Lát cắt sirloin tip theo ghi chú sơ đồ, phù hợp cho cắt lát và chế biến."
-      },
-      "cutId": "sirloin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-top-sirloin",
-      "categoryId": "beef",
-      "name": {
-        "en": "Top Sirloin",
-        "vi": "Thịt nạc thăn"
-      },
-      "description": {
-        "en": "Sirloin section. Top sirloin cut with lean texture for steak and grilling.",
-        "vi": "Phần thăn ngoại (Sirloin - Thăn ngoại). Thịt nạc thăn phù hợp cho steak, nướng và cắt khẩu phần."
-      },
-      "cutId": "sirloin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-bottom-sirloin",
-      "categoryId": "beef",
-      "name": {
-        "en": "Bottom Sirloin",
-        "vi": "Thăn ngoại dưới"
-      },
-      "description": {
-        "en": "Sirloin section. Bottom sirloin cut for roasting, slicing, and food service.",
-        "vi": "Phần thăn ngoại (Sirloin - Thăn ngoại). Thăn ngoại dưới phù hợp cho nướng, cắt lát và bếp dịch vụ."
-      },
-      "cutId": "sirloin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-tenderloin",
-      "categoryId": "beef",
-      "name": {
-        "en": "Tenderloin",
-        "vi": "Thịt thăn nội"
-      },
-      "description": {
-        "en": "Tenderloin section. Premium inner loin cut known for tenderness.",
-        "vi": "Phần thăn nội (Tenderloin). Thịt thăn nội cao cấp, nổi bật về độ mềm."
-      },
-      "cutId": "short_loin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-fillet-mignon",
-      "categoryId": "beef",
-      "name": {
-        "en": "Fillet Mignon",
-        "vi": "Thăn phi lê"
-      },
-      "description": {
-        "en": "Tenderloin section. Premium fillet cut for steak and fine dining menus.",
-        "vi": "Phần thăn nội (Tenderloin). Thăn phi lê cao cấp phù hợp cho steak và thực đơn nhà hàng."
-      },
-      "cutId": "short_loin",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-top-round",
-      "categoryId": "beef",
-      "name": {
-        "en": "Top Round",
-        "vi": "Mông trên"
-      },
-      "description": {
-        "en": "Round section. Lean top round cut for slicing, roasting, and processed dishes.",
-        "vi": "Phần mông (Round - Mông). Mông trên nạc, phù hợp cho cắt lát, nướng và món chế biến."
-      },
-      "cutId": "round",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-bottom-round",
-      "categoryId": "beef",
-      "name": {
-        "en": "Bottom Round",
-        "vi": "Mông dưới"
-      },
-      "description": {
-        "en": "Round section. Bottom round cut for roasting, braising, and slicing.",
-        "vi": "Phần mông (Round - Mông). Mông dưới phù hợp cho nướng, kho/hầm và cắt lát."
-      },
-      "cutId": "round",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-rump",
-      "categoryId": "beef",
-      "name": {
-        "en": "Rump",
-        "vi": "Thịt mông bò"
-      },
-      "description": {
-        "en": "Round section. Rump cut for roasting, steak portions, and distribution channels.",
-        "vi": "Phần mông (Round - Mông). Thịt mông bò phù hợp cho nướng, cắt steak và kênh phân phối."
-      },
-      "cutId": "round",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
-      }
-    },
-    {
-      "id": "p-beef-eye-of-round",
-      "categoryId": "beef",
-      "name": {
-        "en": "Eye of Round",
-        "vi": "Lõi mông"
-      },
-      "description": {
-        "en": "Round section. Eye of round cut with lean texture for slicing and roasting.",
-        "vi": "Phần mông (Round - Mông). Lõi mông nạc, phù hợp cho cắt lát và nướng."
-      },
-      "cutId": "round",
-      "specs": {
-        "packing": "kg",
-        "brand": "Washington State Beef"
+        "en": "Premium cut",
+        "vi": "Thịt cắt cao cấp"
       }
     },
     {

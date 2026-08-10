@@ -41,26 +41,33 @@ export default function InteractiveCutMap({ category, selectedCutId, onSelectCut
         const isHovered = hoveredCutId === cut.id || (hoveredCut?.highlights?.includes(cut.id) ?? false);
         const isActive = isSelected || isHovered;
 
+        const cutTop = language === "vi" && cut.topVi ? cut.topVi : cut.top;
+        const cutLeft = language === "vi" && cut.leftVi ? cut.leftVi : cut.left;
+        const cutWidth = language === "vi" && cut.widthVi ? cut.widthVi : cut.width;
+        const cutHeight = language === "vi" && cut.heightVi ? cut.heightVi : cut.height;
+        const cutPath = language === "vi" && cut.pathVi ? cut.pathVi : cut.path;
+        const cutViewBox = language === "vi" && cut.viewBoxVi ? cut.viewBoxVi : cut.viewBox;
+
         return (
           <div
             key={`${cut.id}-${index}`}
             className={`absolute pointer-events-none transition-transform duration-300 ${isSelected ? "z-20 scale-[1.02]" : "z-10 scale-100"}`}
             style={{
-              top: cut.top,
-              left: cut.left,
-              width: cut.width,
-              height: cut.height,
+              top: cutTop,
+              left: cutLeft,
+              width: cutWidth,
+              height: cutHeight,
             }}
             title={language === "vi" ? cut.labelVi : cut.labelEn}
           >
-            {cut.path ? (
+            {cutPath ? (
               <svg 
-                viewBox={cut.viewBox || "0 0 100 100"} 
+                viewBox={cutViewBox || "0 0 100 100"} 
                 className={`w-full h-full overflow-visible transition-all duration-300 ${isSelected ? "drop-shadow-[0_0_15px_rgba(217,168,92,0.5)]" : ""}`}
                 preserveAspectRatio="none"
               >
                 <path 
-                  d={cut.path} 
+                  d={cutPath} 
                   onClick={() => onSelectCut(isSelected ? null : cut.id)}
                   onMouseEnter={() => setHoveredCutId(cut.id)}
                   onMouseLeave={() => setHoveredCutId(null)}
